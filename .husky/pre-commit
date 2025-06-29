@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-npm test
+if [ -e .git/MERGE_MSG ]; then
+  echo "Skipping pre-commit hook during merge."
+else
+  npx lint-staged
+fi

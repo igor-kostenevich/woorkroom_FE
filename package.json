@@ -18,11 +18,11 @@
   "lint-staged": {
     "**/*.{js,ts,vue,mjs}": [
       "vitest run --changed",
-      "eslint --fix --",
-      "prettier --write --"
+      "eslint --fix",
+      "prettier --write"
     ],
     "**/*.{vue,css,scss}": [
-      "stylelint --fix --"
+      "stylelint --fix"
     ],
     "**/*.{jpeg,jpg,png,webp,avif}": "node ./.husky/compress-image.mjs",
     "**/*.svg": "node ./.husky/compress-svg.mjs"
