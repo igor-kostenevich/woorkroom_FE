@@ -1,4 +1,4 @@
 html,
 body {
-  @apply m-0 h-full w-full touch-manipulation text-base;
+  @apply m-0 h-full w-full touch-manipulation font-nunito-sans text-base font-normal;
 }

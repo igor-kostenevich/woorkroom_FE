@@ -7,7 +7,19 @@ export default defineNuxtConfig({
       title: 'Woorkroom CRM - Your Ultimate CRM Solution',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossorigin: 'anonymous',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap',
+        },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
 
       meta: [
         { charset: 'utf-8' },

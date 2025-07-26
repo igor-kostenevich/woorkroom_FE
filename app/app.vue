@@ -1,7 +1,9 @@
 <template>
-  <NuxtLayout>
-    <div
-      class="mx-auto flex min-h-screen items-center justify-center bg-green-500 p-2 text-sm text-red-500"
-    />
-  </NuxtLayout>
+  <div class="flex min-h-screen flex-col bg-light px-5 pb-6 pt-5">
+    <div class="flex flex-1 flex-col">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
+  </div>
 </template>
