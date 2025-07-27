@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "node scripts/generate-icon-list.mjs && nuxt dev",
     "build": "nuxt build",
     "start": "nuxt preview",
     "postinstall": "nuxi prepare",

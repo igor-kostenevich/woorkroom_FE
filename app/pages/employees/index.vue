@@ -1,3 +1,3 @@
 <template>
-  <h1>Employees</h1>
+  <h1 class="text-dark text-4xl font-bold">Employees</h1>
 </template>

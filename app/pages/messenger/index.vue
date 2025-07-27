@@ -1,3 +1,3 @@
 <template>
-  <h1>Messenger</h1>
+  <h1 class="text-dark text-4xl font-bold">Messenger</h1>
 </template>

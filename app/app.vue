@@ -1,4 +1,6 @@
 <template>
+  <IconSymbols />
+
   <div class="flex min-h-screen flex-col bg-light px-5 pb-6 pt-5">
     <div class="flex flex-1 flex-col">
       <NuxtLayout>
@@ -7,3 +9,9 @@
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+const IconSymbols = defineAsyncComponent(
+  () => import('@/UIKit/IconSymbols.vue')
+);
+</script>

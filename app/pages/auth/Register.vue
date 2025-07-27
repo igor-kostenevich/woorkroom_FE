@@ -1,8 +1,8 @@
 <template>
-  <h1>Register</h1>
+  <h1 class="text-dark text-4xl font-bold">Register</h1>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 definePageMeta({
   layout: 'auth',
 });

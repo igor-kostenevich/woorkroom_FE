@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-1">
-    <Sidebar />
+    <Sidebar hydrate-on-idle />
     <main class="flex flex-1 flex-col">
-      <Header />
+      <Header hydrate-on-idle />
       <div class="h-full px-10 py-12">
         <slot />
       </div>

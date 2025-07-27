@@ -4,6 +4,8 @@ export const colors = {
     light: '#A7CAFF',
     DEFAULT: '#3F8CFF',
     opacity: '#3F8CFF1F',
+    hover: '#3A81EB',
+    pressed: '#1F6DE0',
   },
   gray: {
     opacity: '#7D859224',
@@ -17,6 +19,7 @@ export const colors = {
   },
   light: {
     DEFAULT: '#F4F9FD',
+    secondary: '#F0F6FB',
   },
   pink: '#DE92EB',
   yellow: '#FDC748',

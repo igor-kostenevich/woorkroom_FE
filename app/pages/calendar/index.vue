@@ -1,3 +1,3 @@
 <template>
-  <h1>Calendar</h1>
+  <h1 class="text-dark text-4xl font-bold">Calendar</h1>
 </template>
