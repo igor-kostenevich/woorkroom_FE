@@ -4,7 +4,19 @@ import iconList from '../../config/icon-list.json';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
+const TaskStatus = defineAsyncComponent(
+  () => import('@/pages/projects/TaskStatus.vue')
+);
+const VacationStatus = defineAsyncComponent(
+  () => import('~/pages/vacations/VacationStatus.vue')
+);
 
+const VacationIndicator = defineAsyncComponent(
+  () => import('~/pages/vacations/VacationIndicator.vue')
+);
+const EmployeeLvl = defineAsyncComponent(
+  () => import('@/pages/employees/EmployeeLvl.vue')
+);
 definePageMeta({
   layout: 'components',
 });
@@ -64,7 +76,7 @@ function flattenColors(
       </p>
     </div>
   </div>
-  <div class="mb-24 mt-32">
+  <div class="mb-20 mt-20">
     <h3 class="mb-10 text-4xl font-bold text-dark-default">BUTTONS</h3>
 
     <div
@@ -89,15 +101,74 @@ function flattenColors(
           Icon After
         </Button>
 
-        <Button :color="color" :size="size" :loading="true"> Loading </Button>
+        <Button :color="color" :size="size" :loading="true"> Loading</Button>
 
-        <Button :color="color" :size="size" :disabled="true"> Disabled </Button>
+        <Button :color="color" :size="size" :disabled="true"> Disabled</Button>
 
         <Button :color="color" :size="size" :fullwidth="true">
           Fullwidth
         </Button>
 
         <Button :color="color" :size="size" icon-before="plus" />
+      </div>
+    </div>
+  </div>
+  <div class="mb-20 mt-20">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">Task statuses</h3>
+
+    <div class="flex gap-5">
+      <TaskStatus status="To Do"> To Do</TaskStatus>
+      <TaskStatus status="In Progress"> In Progress</TaskStatus>
+      <TaskStatus status="In Review"> In Review</TaskStatus>
+      <TaskStatus status="Done"> Done</TaskStatus>
+    </div>
+  </div>
+  <div class="mb-20 mt-20">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">
+      Vacation statuses
+    </h3>
+
+    <div class="flex gap-5">
+      <VacationStatus status="Approved"> Approved</VacationStatus>
+      <VacationStatus status="Pending">In Progress</VacationStatus>
+      <VacationStatus status="Progress">
+        <Icon name="loading" :size="24" />
+      </VacationStatus>
+    </div>
+  </div>
+
+  <div class="mb-20 mt-20">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">Employees’ level</h3>
+
+    <div class="flex gap-5">
+      <EmployeeLvl> Junior</EmployeeLvl>
+      <EmployeeLvl> Middle</EmployeeLvl>
+      <EmployeeLvl> Senior</EmployeeLvl>
+    </div>
+  </div>
+
+  <div class="mb-20 mt-20">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">
+      Vacation Indicators
+    </h3>
+
+    <div class="flex gap-16">
+      <div class="flex flex-col gap-y-5">
+        <h4 class="text-lg font-medium text-gray">Sick Leave</h4>
+        <VacationIndicator status="Approved" indicator="Sick Leave" />
+        <VacationIndicator status="Pending" indicator="Sick Leave" />
+      </div>
+
+      <div class="flex flex-col gap-y-5">
+        <h4 class="text-lg font-medium text-gray">Vacation</h4>
+        <VacationIndicator status="Approved" indicator="Vacation" />
+        <VacationIndicator status="Pending" indicator="Vacation" />
+      </div>
+
+      <div class="flex flex-col gap-y-5">
+        <h4 class="text-lg font-medium text-gray">Work Remotely</h4>
+        <VacationIndicator status="Approved" indicator="Work Remotely" />
+        <VacationIndicator status="Pending" indicator="Work Remotely" />
       </div>
     </div>
   </div>
