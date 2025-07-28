@@ -4,7 +4,7 @@ import iconList from '../../config/icon-list.json';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
-
+const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
 definePageMeta({
   layout: 'components',
 });
@@ -100,5 +100,11 @@ function flattenColors(
         <Button :color="color" :size="size" icon-before="plus" />
       </div>
     </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">Checkbox</h3>
+
+    <Checkbox />
   </div>
 </template>
