@@ -4,6 +4,7 @@ import iconList from '../../config/icon-list.json';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
+const Switch = defineAsyncComponent(() => import('@/UIKit/Switch.vue'));
 
 definePageMeta({
   layout: 'components',
@@ -89,9 +90,9 @@ function flattenColors(
           Icon After
         </Button>
 
-        <Button :color="color" :size="size" :loading="true"> Loading </Button>
+        <Button :color="color" :size="size" :loading="true"> Loading</Button>
 
-        <Button :color="color" :size="size" :disabled="true"> Disabled </Button>
+        <Button :color="color" :size="size" :disabled="true"> Disabled</Button>
 
         <Button :color="color" :size="size" :fullwidth="true">
           Fullwidth
@@ -100,5 +101,11 @@ function flattenColors(
         <Button :color="color" :size="size" icon-before="plus" />
       </div>
     </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">Switches</h3>
+
+    <Switch />
   </div>
 </template>
