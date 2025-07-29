@@ -1,27 +1,36 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import Icon from './Icon.vue';
 
-const checked = ref(false);
+defineProps<{
+  id: string;
+  modelValue: boolean;
+}>();
+
+const emit = defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  <label for="check" class="relative flex cursor-pointer items-center">
-    <input id="check" v-model="checked" type="checkbox" class="peer sr-only" />
+  <label :for="id" class="relative flex cursor-pointer items-center">
+    <input
+      :id="id"
+      type="checkbox"
+      :checked="modelValue"
+      class="peer sr-only"
+      @change="
+        emit('update:modelValue', ($event.target as HTMLInputElement).checked)
+      "
+    />
     <div
       class="flex h-6 w-6 items-center justify-center rounded border-2 border-dark-default bg-white transition-colors"
     >
       <Icon
         name="checked"
-        class="transition-transform duration-200"
-        :class="checked ? 'scale-100 opacity-100' : 'scale-0 opacity-0'"
+        class="text-primary transition-transform duration-200"
+        :class="modelValue ? 'scale-100 opacity-100' : 'scale-0 opacity-0'"
       />
     </div>
-    <div class="ml-4 h-6 w-6 object-cover">
-      <slot name="photo" />
-    </div>
     <div class="ml-2">
-      <slot name="name" />
+      <slot />
     </div>
   </label>
 </template>
