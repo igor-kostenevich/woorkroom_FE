@@ -14,6 +14,9 @@ const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
 const buttonColorVariants = ['primary', 'neutral'] as const;
 
+const isEnabledSwitch = ref(true);
+const isDisabledSwitch = ref(false);
+
 function flattenColors(
   obj: Record<string, any>,
   prefix = ''
@@ -105,7 +108,13 @@ function flattenColors(
 
   <div class="mb-24 mt-32">
     <h3 class="mb-10 text-4xl font-bold text-dark-default">Switches</h3>
-
-    <Switch />
+    <div class="flex flex-col gap-3">
+      <Switch v-model="isEnabledSwitch">
+        <span class="text-gray"> Switched on </span>
+      </Switch>
+      <Switch v-model="isDisabledSwitch">
+        <span class="text-gray"> Switched off </span>
+      </Switch>
+    </div>
   </div>
 </template>
