@@ -1,6 +1,25 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
+import Radio from '~/UIKit/Radio.vue';
+
+import { reactive, ref } from 'vue';
+const selected = ref('item1');
+
+const inputVariants = reactive([
+  {
+    id: '1',
+    value: 'item1',
+  },
+  {
+    id: '2',
+    value: 'item2',
+  },
+  {
+    id: '3',
+    value: 'item3',
+  },
+]);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -99,6 +118,17 @@ function flattenColors(
 
         <Button :color="color" :size="size" icon-before="plus" />
       </div>
+    </div>
+    <div class="flex flex-col gap-5">
+      <Radio
+        v-for="input in inputVariants"
+        :id="input.id"
+        :key="input.id"
+        v-model="selected"
+        name="radio-example"
+        :value="input.value"
+        >{{ input.value }}</Radio
+      >
     </div>
   </div>
 </template>
