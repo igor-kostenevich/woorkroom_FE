@@ -1,6 +1,25 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
+import Radio from '~/UIKit/Radio.vue';
+
+import { reactive, ref } from 'vue';
+const selected = ref('item1');
+
+const inputVariants = reactive([
+  {
+    id: '1',
+    value: 'item1',
+  },
+  {
+    id: '2',
+    value: 'item2',
+  },
+  {
+    id: '3',
+    value: 'item3',
+  },
+]);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -10,6 +29,12 @@ const TaskStatus = defineAsyncComponent(
 const VacationStatus = defineAsyncComponent(
   () => import('~/pages/vacations/VacationStatus.vue')
 );
+const Switch = defineAsyncComponent(() => import('@/UIKit/Switch.vue'));
+const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
+const isChecked1 = ref(false);
+const isChecked2 = ref(true);
+const isChecked3 = ref(true);
+const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 
 const VacationIndicator = defineAsyncComponent(
   () => import('~/pages/vacations/VacationIndicator.vue')
@@ -24,6 +49,9 @@ definePageMeta({
 const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
 const buttonColorVariants = ['primary', 'neutral'] as const;
+
+const isEnabledSwitch = ref(true);
+const isDisabledSwitch = ref(false);
 
 function flattenColors(
   obj: Record<string, any>,
@@ -43,7 +71,7 @@ function flattenColors(
 
 <template>
   <div class="">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">COLORS</h3>
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">COLORS</h3>
     <div class="grid grid-cols-8 gap-6">
       <div
         v-for="c in colorList"
@@ -59,7 +87,7 @@ function flattenColors(
       </div>
     </div>
   </div>
-  <h3 class="mb-10 mt-32 text-4xl font-bold text-dark-default">Icons</h3>
+  <h3 class="mb-10 mt-32 text-4xl font-bold text-dark">Icons</h3>
   <div class="grid grid-cols-12 gap-6">
     <div
       v-for="(i, index) in iconList"
@@ -76,41 +104,100 @@ function flattenColors(
       </p>
     </div>
   </div>
-  <div class="mb-20 mt-20">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">BUTTONS</h3>
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">BUTTONS</h3>
 
     <div
       v-for="color in buttonColorVariants"
       :key="color"
       class="mb-8 space-y-4 border-b pb-6"
     >
-      <h4 class="text-2xl font-semibold capitalize">Color: {{ color }}</h4>
+      <h4 class="text-2xl font-semibold capitalize">
+        {{ String('Color:') }} {{ color }}
+      </h4>
 
       <div
         v-for="size in buttonSizes"
         :key="size"
         class="flex flex-wrap items-center gap-4"
       >
-        <Button :color="color" :size="size">Default {{ size }}</Button>
+        <Button :color="color" :size="size"
+          >{{ String('Default') }} {{ size }}</Button
+        >
 
         <Button :color="color" :size="size" icon-before="plus">
-          Icon Before
+          {{ String('Icon before') }}
         </Button>
 
         <Button :color="color" :size="size" icon-after="plus">
-          Icon After
+          {{ String('Icon after') }}
         </Button>
 
-        <Button :color="color" :size="size" :loading="true"> Loading</Button>
+        <Button :color="color" :size="size" :loading="true">
+          {{ String('Loading') }}
+        </Button>
 
-        <Button :color="color" :size="size" :disabled="true"> Disabled</Button>
+        <Button :color="color" :size="size" :disabled="true">
+          {{ String('Disabled') }}
+        </Button>
 
         <Button :color="color" :size="size" :fullwidth="true">
-          Fullwidth
+          {{ String('Fullwidth') }}
         </Button>
 
         <Button :color="color" :size="size" icon-before="plus" />
       </div>
+    </div>
+    <div class="flex flex-col gap-5">
+      <h3 class="mb-10 mt-20 text-4xl font-bold text-dark">
+        {{ String('Radio') }}
+      </h3>
+      <Radio
+        v-for="input in inputVariants"
+        :id="input.id"
+        :key="input.id"
+        v-model="selected"
+        name="radio-example"
+        :value="input.value"
+        >{{ input.value }}</Radio
+      >
+    </div>
+  </div>
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('LINKS') }}
+    </h3>
+    <LinkButton icon-after="chevron-right" class="mb-5" to="/">{{
+      String('View all')
+    }}</LinkButton>
+    <br />
+    <LinkButton
+      icon-before="chevron-right"
+      external
+      color="secondary"
+      to="https://google.com"
+      >{{ String('Logout') }}</LinkButton
+    >
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">Checkbox</h3>
+    <div class="flex flex-col gap-5">
+      <Checkbox id="hjde" v-model="isChecked1" />
+      <Checkbox id="aajkd" v-model="isChecked2" />
+      <Checkbox id="sdadadd" v-model="isChecked3">Violet Robbins</Checkbox>
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">Switches</h3>
+    <div class="flex flex-col gap-3">
+      <Switch v-model="isEnabledSwitch" disabled>
+        <span class="text-gray"> Switched on </span>
+      </Switch>
+      <Switch v-model="isDisabledSwitch">
+        <span class="text-gray"> Switched off </span>
+      </Switch>
     </div>
   </div>
   <div class="mb-20 mt-20">
