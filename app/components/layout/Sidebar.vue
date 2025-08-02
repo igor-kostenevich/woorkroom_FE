@@ -19,7 +19,7 @@
         </li>
       </ul>
     </nav>
-    <div class="relative rounded-3xl bg-primary-opacity px-5 py-6 pt-24">
+    <div class="relative mt-20 rounded-3xl bg-primary-opacity px-5 py-6 pt-24">
       <img
         src="/images/common/woman.png"
         class="absolute -top-12 h-32 w-36"
