@@ -23,6 +23,10 @@ const inputVariants = reactive([
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
+const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
+const isChecked1 = ref(false);
+const isChecked2 = ref(true);
+const isChecked3 = ref(true);
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 
 definePageMeta({
@@ -158,5 +162,14 @@ function flattenColors(
       to="https://google.com"
       >{{ String('Logout') }}</LinkButton
     >
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark-default">Checkbox</h3>
+    <div class="flex flex-col gap-5">
+      <Checkbox id="hjde" v-model="isChecked1" />
+      <Checkbox id="aajkd" v-model="isChecked2" />
+      <Checkbox id="sdadadd" v-model="isChecked3">Violet Robbins</Checkbox>
+    </div>
   </div>
 </template>
