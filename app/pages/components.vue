@@ -50,7 +50,7 @@ function flattenColors(
 
 <template>
   <div class="">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">COLORS</h3>
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">COLORS</h3>
     <div class="grid grid-cols-8 gap-6">
       <div
         v-for="c in colorList"
@@ -66,7 +66,7 @@ function flattenColors(
       </div>
     </div>
   </div>
-  <h3 class="mb-10 mt-32 text-4xl font-bold text-dark-default">Icons</h3>
+  <h3 class="text-dark-default mb-10 mt-32 text-4xl font-bold">Icons</h3>
   <div class="grid grid-cols-12 gap-6">
     <div
       v-for="(i, index) in iconList"
@@ -84,7 +84,7 @@ function flattenColors(
     </div>
   </div>
   <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">BUTTONS</h3>
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">BUTTONS</h3>
 
     <div
       v-for="color in buttonColorVariants"
@@ -120,6 +120,9 @@ function flattenColors(
       </div>
     </div>
     <div class="flex flex-col gap-5">
+      <h3 class="text-dark-default mb-10 mt-20 text-4xl font-bold">
+        {{ String('Radio') }}
+      </h3>
       <Radio
         v-for="input in inputVariants"
         :id="input.id"
