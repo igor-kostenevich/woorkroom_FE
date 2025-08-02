@@ -75,7 +75,7 @@ function flattenColors(
       </div>
     </div>
   </div>
-  <h3 class="text-dark mb-10 mt-32 text-4xl font-bold">Icons</h3>
+  <h3 class="mb-10 mt-32 text-4xl font-bold text-dark">Icons</h3>
   <div class="grid grid-cols-12 gap-6">
     <div
       v-for="(i, index) in iconList"
@@ -93,7 +93,7 @@ function flattenColors(
     </div>
   </div>
   <div class="mb-24 mt-32">
-    <h3 class="text-dark mb-10 text-4xl font-bold">BUTTONS</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">BUTTONS</h3>
 
     <div
       v-for="color in buttonColorVariants"
@@ -137,7 +137,7 @@ function flattenColors(
       </div>
     </div>
     <div class="flex flex-col gap-5">
-      <h3 class="text-dark mb-10 mt-20 text-4xl font-bold">
+      <h3 class="mb-10 mt-20 text-4xl font-bold text-dark">
         {{ String('Radio') }}
       </h3>
       <Radio
@@ -180,7 +180,7 @@ function flattenColors(
   <div class="mb-24 mt-32">
     <h3 class="mb-10 text-4xl font-bold text-dark">Switches</h3>
     <div class="flex flex-col gap-3">
-      <Switch v-model="isEnabledSwitch">
+      <Switch v-model="isEnabledSwitch" disabled>
         <span class="text-gray"> Switched on </span>
       </Switch>
       <Switch v-model="isDisabledSwitch">
