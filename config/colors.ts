@@ -13,9 +13,10 @@ export const colors = {
     light: '#91929E',
     dark: '#D8E0F0',
     secondary: '#CED5E0',
+    pressed: '#666D7A',
   },
   dark: {
-    default: '#0A1629',
+    DEFAULT: '#0A1629',
   },
   light: {
     DEFAULT: '#F4F9FD',
