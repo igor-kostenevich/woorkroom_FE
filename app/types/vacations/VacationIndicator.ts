@@ -1,2 +1,14 @@
-export type TVacationIndicator = 'Approved' | 'Pending' | 'Progress';
-export type TLeaveType = 'Sick Leave' | 'Vacation' | 'Work Remotely';
+const _LeaveTypes = {
+  SICK: 'sick',
+  VACATION: 'vacation',
+  REMOTE: 'remote',
+} as const;
+
+const _VacationStatus = {
+  APPROVED: 'approved',
+  PENDING: 'pending',
+} as const;
+
+export type TVacationStatus =
+  (typeof _VacationStatus)[keyof typeof _VacationStatus];
+export type TLeaveType = (typeof _LeaveTypes)[keyof typeof _LeaveTypes];

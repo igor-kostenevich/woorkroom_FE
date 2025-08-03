@@ -24,10 +24,10 @@ const inputVariants = reactive([
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const TaskStatus = defineAsyncComponent(
-  () => import('@/pages/projects/TaskStatus.vue')
+  () => import('~/components/pages/projects/TaskStatus.vue')
 );
 const VacationStatus = defineAsyncComponent(
-  () => import('~/pages/vacations/VacationStatus.vue')
+  () => import('~/components/pages/vacations/VacationStatus.vue')
 );
 const Switch = defineAsyncComponent(() => import('@/UIKit/Switch.vue'));
 const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
@@ -37,10 +37,10 @@ const isChecked3 = ref(true);
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 
 const VacationIndicator = defineAsyncComponent(
-  () => import('~/pages/vacations/VacationIndicator.vue')
+  () => import('~/components/pages/vacations/VacationIndicator.vue')
 );
 const EmployeeLvl = defineAsyncComponent(
-  () => import('@/pages/employees/EmployeeLvl.vue')
+  () => import('~/components/pages/employees/EmployeeLvl.vue')
 );
 definePageMeta({
   layout: 'components',
@@ -71,7 +71,9 @@ function flattenColors(
 
 <template>
   <div class="">
-    <h3 class="text-dark-default mb-10 text-4xl font-bold">COLORS</h3>
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('COLORS') }}
+    </h3>
     <div class="grid grid-cols-8 gap-6">
       <div
         v-for="c in colorList"
@@ -87,7 +89,9 @@ function flattenColors(
       </div>
     </div>
   </div>
-  <h3 class="mb-10 mt-32 text-4xl font-bold text-dark">Icons</h3>
+  <h3 class="mb-10 mt-32 text-4xl font-bold text-dark">
+    {{ String('Icons') }}
+  </h3>
   <div class="grid grid-cols-12 gap-6">
     <div
       v-for="(i, index) in iconList"
@@ -105,7 +109,7 @@ function flattenColors(
     </div>
   </div>
   <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">BUTTONS</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{ String('BUTTONS') }}</h3>
 
     <div
       v-for="color in buttonColorVariants"
@@ -181,81 +185,88 @@ function flattenColors(
   </div>
 
   <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">Checkbox</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{ String('Checkbox') }}</h3>
     <div class="flex flex-col gap-5">
       <Checkbox id="hjde" v-model="isChecked1" />
       <Checkbox id="aajkd" v-model="isChecked2" />
-      <Checkbox id="sdadadd" v-model="isChecked3">Violet Robbins</Checkbox>
+      <Checkbox id="sdadadd" v-model="isChecked3">{{
+        String('Violet Robbins')
+      }}</Checkbox>
     </div>
   </div>
 
   <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">Switches</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{ String('Switches') }}</h3>
     <div class="flex flex-col gap-3">
       <Switch v-model="isEnabledSwitch" disabled>
-        <span class="text-gray"> Switched on </span>
+        <span class="text-gray"> {{ String('Switched on') }} </span>
       </Switch>
       <Switch v-model="isDisabledSwitch">
-        <span class="text-gray"> Switched off </span>
+        <span class="text-gray"> {{ String('Switched off') }} </span>
       </Switch>
     </div>
   </div>
   <div class="mb-20 mt-20">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">Task statuses</h3>
-
-    <div class="flex gap-5">
-      <TaskStatus status="To Do"> To Do</TaskStatus>
-      <TaskStatus status="In Progress"> In Progress</TaskStatus>
-      <TaskStatus status="In Review"> In Review</TaskStatus>
-      <TaskStatus status="Done"> Done</TaskStatus>
-    </div>
-  </div>
-  <div class="mb-20 mt-20">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">
-      Vacation statuses
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Task statuses') }}
     </h3>
 
     <div class="flex gap-5">
-      <VacationStatus status="Approved"> Approved</VacationStatus>
-      <VacationStatus status="Pending">In Progress</VacationStatus>
-      <VacationStatus status="Progress">
-        <Icon name="loading" :size="24" />
-      </VacationStatus>
+      <TaskStatus status="to-do" />
+      <TaskStatus status="in-progress" />
+      <TaskStatus status="in-review" />
+      <TaskStatus status="done" />
     </div>
   </div>
-
   <div class="mb-20 mt-20">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">Employees’ level</h3>
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Vacation statuses') }}
+    </h3>
 
     <div class="flex gap-5">
-      <EmployeeLvl> Junior</EmployeeLvl>
-      <EmployeeLvl> Middle</EmployeeLvl>
-      <EmployeeLvl> Senior</EmployeeLvl>
+      <VacationStatus status="approved" />
+      <VacationStatus status="pending" />
     </div>
   </div>
 
   <div class="mb-20 mt-20">
-    <h3 class="mb-10 text-4xl font-bold text-dark-default">
-      Vacation Indicators
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Employees’ level') }}
+    </h3>
+
+    <div class="flex gap-5">
+      <EmployeeLvl :lvl="1" />
+      <EmployeeLvl :lvl="2" />
+      <EmployeeLvl :lvl="3" />
+    </div>
+  </div>
+
+  <div class="mb-20 mt-20">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Vacation Indicators') }}
     </h3>
 
     <div class="flex gap-16">
       <div class="flex flex-col gap-y-5">
-        <h4 class="text-lg font-medium text-gray">Sick Leave</h4>
-        <VacationIndicator status="Approved" indicator="Sick Leave" />
-        <VacationIndicator status="Pending" indicator="Sick Leave" />
+        <h4 class="text-lg font-medium text-gray">
+          {{ String('Sick Leave') }}
+        </h4>
+        <VacationIndicator status="approved" indicator="sick" />
+        <VacationIndicator status="pending" indicator="sick" />
       </div>
 
       <div class="flex flex-col gap-y-5">
-        <h4 class="text-lg font-medium text-gray">Vacation</h4>
-        <VacationIndicator status="Approved" indicator="Vacation" />
-        <VacationIndicator status="Pending" indicator="Vacation" />
+        <h4 class="text-lg font-medium text-gray">{{ String('Vacation') }}</h4>
+        <VacationIndicator status="approved" indicator="vacation" />
+        <VacationIndicator status="pending" indicator="vacation" />
       </div>
 
       <div class="flex flex-col gap-y-5">
-        <h4 class="text-lg font-medium text-gray">Work Remotely</h4>
-        <VacationIndicator status="Approved" indicator="Work Remotely" />
-        <VacationIndicator status="Pending" indicator="Work Remotely" />
+        <h4 class="text-lg font-medium text-gray">
+          {{ String('Work Remotely') }}
+        </h4>
+        <VacationIndicator status="approved" indicator="remote" />
+        <VacationIndicator status="pending" indicator="remote" />
       </div>
     </div>
   </div>

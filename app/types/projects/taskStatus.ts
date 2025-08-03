@@ -1,1 +1,1 @@
-export type TTaskStatus = 'To Do' | 'In Progress' | 'In Review' | 'Done';
+export type TTaskStatus = 'to-do' | 'in-progress' | 'in-review' | 'done';
