@@ -4,6 +4,7 @@ import iconList from '../../config/icon-list.json';
 import Radio from '~/UIKit/Radio.vue';
 
 import { reactive, ref } from 'vue';
+import Segment from '~/UIKit/Segment.vue';
 const selected = ref('item1');
 
 const inputVariants = reactive([
@@ -55,6 +56,22 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
+const selectedSegment = ref(0);
+
+const segmentsOptions = reactive([
+  {
+    id: 0,
+    label: 'List',
+  },
+  {
+    id: 1,
+    label: 'Board',
+  },
+  {
+    id: 2,
+    label: 'Timeline',
+  },
+]);
 </script>
 
 <template>
@@ -187,5 +204,9 @@ function flattenColors(
         <span class="text-gray"> Switched off </span>
       </Switch>
     </div>
+  </div>
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">Segmented Controls</h3>
+    <Segment v-model="selectedSegment" :tabs="segmentsOptions" />
   </div>
 </template>
