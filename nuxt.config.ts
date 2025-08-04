@@ -72,8 +72,16 @@ export default defineNuxtConfig({
     'nuxt-security',
     '@pinia/nuxt',
     '@nuxtjs/fontaine',
+    '@nuxtjs/i18n',
     ...(IS_DEV_MODE ? ['@nuxt/eslint', '@nuxtjs/stylelint-module'] : []),
   ],
+  i18n: {
+    defaultLocale: 'en',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'uk', name: 'Українська', file: 'ua.json' },
+    ],
+  },
   security: {
     headers: {
       contentSecurityPolicy: {

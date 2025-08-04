@@ -14,7 +14,7 @@
             ]"
           >
             <Icon :name="page.icon" :size="24" />
-            {{ page.name }}
+            {{ $t(page.name) }}
           </NuxtLink>
         </li>
       </ul>
