@@ -1,28 +1,11 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
-import Radio from '~/UIKit/Radio.vue';
-
-import { reactive, ref } from 'vue';
-const selected = ref('item1');
-
-const inputVariants = reactive([
-  {
-    id: '1',
-    value: 'item1',
-  },
-  {
-    id: '2',
-    value: 'item2',
-  },
-  {
-    id: '3',
-    value: 'item3',
-  },
-]);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
+const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
+const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const TaskStatus = defineAsyncComponent(
   () => import('~/components/pages/projects/TaskStatus.vue')
 );
@@ -49,9 +32,73 @@ definePageMeta({
 const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
 const buttonColorVariants = ['primary', 'neutral'] as const;
+const selected = ref('item1');
+const inputVariants = reactive([
+  {
+    id: '1',
+    value: 'item1',
+  },
+  {
+    id: '2',
+    value: 'item2',
+  },
+  {
+    id: '3',
+    value: 'item3',
+  },
+]);
 
 const isEnabledSwitch = ref(true);
 const isDisabledSwitch = ref(false);
+const inputDefault = ref('');
+const inputIcon = ref('');
+const inputClear = ref('');
+const inputPassword = ref('');
+const inputDisabled = ref('Disabled text');
+const inputReadonly = ref('Readonly value');
+const inputTopLabel = ref('');
+const inputWithButton = ref('');
+
+const form = reactive({
+  test: 0,
+});
+
+const rules = computed(() => ({
+  test: {
+    required: helpers.withMessage(
+      'This field is required!',
+      validators.required
+    ),
+    minLength: helpers.withMessage(
+      'Minimum length is 5 characters',
+      validators.minLength(5)
+    ),
+    maxLength: helpers.withMessage(
+      'Maximum length is 50 characters',
+      validators.maxLength(50)
+    ),
+    allowedChars: helpers.withMessage(
+      'Only letters, numbers, spaces, underscores and dashes are allowed',
+      helpers.regex(/^[a-zA-Z0-9 _-]+$/)
+    ),
+  },
+}));
+
+const { validationErrors, validateForm } = useValidation(form, rules.value);
+
+const handleSubmit = async () => {
+  try {
+    const isValid = await validateForm();
+    if (!isValid) return;
+
+    // await someStore.someHandler(form); // Example of form submission
+  } catch (error: any) {
+    //
+    console.error(error);
+  }
+};
+
+handleSubmit();
 
 function flattenColors(
   obj: Record<string, any>,
@@ -268,6 +315,60 @@ function flattenColors(
         <VacationIndicator status="approved" indicator="remote" />
         <VacationIndicator status="pending" indicator="remote" />
       </div>
+    </div>
+  </div>
+
+  <div class="mb-20 mt-20">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Inputs') }}
+    </h3>
+
+    <div class="grid grid-cols-3 gap-8">
+      <!-- Default input -->
+      <Input v-model="inputDefault" placeholder="Default input" />
+
+      <!-- Input with icon -->
+      <Input v-model="inputIcon" placeholder="With icon" icon="search" />
+
+      <!-- Input with clear button -->
+      <Input v-model="inputClear" placeholder="Clearable input" />
+
+      <!-- Password input -->
+      <Input v-model="inputPassword" type="password" placeholder="Password">
+        <template #topTextLeft>Label left</template>
+      </Input>
+
+      <!-- Disabled input -->
+      <Input v-model="inputDisabled" placeholder="Disabled" disabled>
+        <template #topTextLeft>Label left</template>
+      </Input>
+
+      <!-- Readonly input -->
+      <Input v-model="inputReadonly" placeholder="Readonly" readonly
+        ><template #topTextLeft>Label left</template></Input
+      >
+
+      <!-- Input with error -->
+      <Input v-model="form.test" placeholder="Error input">
+        <template #topTextLeft>Label left</template>
+        <template v-if="validationErrors.test.message" #errorMessage>
+          {{ validationErrors.test.message }}
+        </template>
+      </Input>
+
+      <!-- Input with top labels -->
+      <Input v-model="inputTopLabel">
+        <template #topTextLeft>Label left</template>
+        <template #topTextRight>Right info</template>
+      </Input>
+
+      <!-- Input with slot button (e.g. submit) -->
+      <Input v-model="inputWithButton">
+        <template #topTextLeft>Label left</template>
+        <template #default>
+          <Button icon-before="plus">Add</Button>
+        </template>
+      </Input>
     </div>
   </div>
 </template>
