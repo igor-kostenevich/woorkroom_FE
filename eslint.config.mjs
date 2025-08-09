@@ -88,12 +88,12 @@ export default createConfigForNuxt({
       'vue-i18n/no-missing-keys-in-other-locales': 'error',
       'vue-i18n/no-unknown-locale': 'error',
       'vue-i18n/no-unused-keys': 'error',
-      // 'vue-i18n/no-raw-text': [
-      //   'error',
-      //   {
-      //     ignorePattern: '^(?![^a-zA-Z]*[a-zA-Z]{2,})[\\s\\S]*$',
-      //     ignoreText: ['0', '00', '-'],
-      //   },
-      // ],
+      'vue-i18n/no-raw-text': [
+        'error',
+        {
+          ignorePattern: '^(?![^a-zA-Z]*[a-zA-Z]{2,})[\\s\\S]*$',
+          ignoreText: ['0', '00', '-'],
+        },
+      ],
     },
   });

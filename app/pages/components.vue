@@ -5,6 +5,7 @@ import iconList from '../../config/icon-list.json';
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
+const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const TaskStatus = defineAsyncComponent(
   () => import('~/components/pages/projects/TaskStatus.vue')
@@ -61,6 +62,25 @@ const inputWithButton = ref('');
 
 const form = reactive({
   test: 0,
+});
+
+const taDefault = ref('');
+const taWithLabels = ref('');
+const taWithMax = ref('');
+const taDisabled = ref('Disabled value');
+const taReadonly = ref('Readonly value');
+const taWithError = ref('');
+const taNoClear = ref('This one has no clear button');
+const taPrefilled = ref('Prefilled value\nSecond line…');
+const taLong = ref(`Line 1
+Line 2
+Line 3
+Line 4
+Line 5`);
+
+const taErrors = reactive<{ message: string }>({ message: '' });
+watch(taWithError, (v) => {
+  taErrors.message = v.trim().length < 10 ? 'Мінімум 10 символів' : '';
 });
 
 const rules = computed(() => ({
@@ -335,22 +355,22 @@ function flattenColors(
 
       <!-- Password input -->
       <Input v-model="inputPassword" type="password" placeholder="Password">
-        <template #topTextLeft>Label left</template>
+        <template #topTextLeft>{{ String('Label left') }}</template>
       </Input>
 
       <!-- Disabled input -->
       <Input v-model="inputDisabled" placeholder="Disabled" disabled>
-        <template #topTextLeft>Label left</template>
+        <template #topTextLeft>{{ String('Label left') }}</template>
       </Input>
 
       <!-- Readonly input -->
       <Input v-model="inputReadonly" placeholder="Readonly" readonly
-        ><template #topTextLeft>Label left</template></Input
+        ><template #topTextLeft>{{ String('Label left') }}</template></Input
       >
 
       <!-- Input with error -->
       <Input v-model="form.test" placeholder="Error input">
-        <template #topTextLeft>Label left</template>
+        <template #topTextLeft>{{ String('Label left') }}</template>
         <template v-if="validationErrors.test.message" #errorMessage>
           {{ validationErrors.test.message }}
         </template>
@@ -358,17 +378,86 @@ function flattenColors(
 
       <!-- Input with top labels -->
       <Input v-model="inputTopLabel">
-        <template #topTextLeft>Label left</template>
-        <template #topTextRight>Right info</template>
+        <template #topTextLeft>{{ String('Label left') }}</template>
+        <template #topTextRight>{{ String('Right info') }}</template>
       </Input>
 
       <!-- Input with slot button (e.g. submit) -->
       <Input v-model="inputWithButton">
-        <template #topTextLeft>Label left</template>
+        <template #topTextLeft>{{ String('Label left') }}</template>
         <template #default>
-          <Button icon-before="plus">Add</Button>
+          <Button icon-before="plus">{{ String('Add') }}</Button>
         </template>
       </Input>
+    </div>
+  </div>
+
+  <div class="mb-20 mt-20">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Textarea') }}
+    </h3>
+
+    <div class="grid grid-cols-3 gap-8">
+      <!-- 1. Default -->
+      <Textarea v-model="taDefault" placeholder="Default textarea" />
+
+      <!-- 2. With top labels (left/right) -->
+      <Textarea v-model="taWithLabels" placeholder="With top labels">
+        <template #topTextLeft>{{ String('Label left') }}</template>
+        <template #topTextRight>{{ String('Helper info') }}</template>
+      </Textarea>
+
+      <!-- 3. Maxlength + counter -->
+      <Textarea
+        id="ta-max"
+        v-model="taWithMax"
+        placeholder="With maxlength + counter"
+        :maxlength="120"
+        :show-counter="true"
+        name="description"
+        title="Max 120 chars"
+      >
+        <template #topTextLeft>{{ String('Description') }}</template>
+        <template #topTextRight>{{ String('Max 120') }}</template>
+      </Textarea>
+
+      <!-- 4. Disabled -->
+      <Textarea v-model="taDisabled" placeholder="Disabled" disabled>
+        <template #topTextLeft>{{ String('Disabled field') }}</template>
+      </Textarea>
+
+      <!-- 5. Readonly -->
+      <Textarea v-model="taReadonly" placeholder="Readonly" readonly>
+        <template #topTextLeft>{{ String('Readonly field') }}</template>
+      </Textarea>
+
+      <!-- 6. With error -->
+      <Textarea id="ta-error" v-model="taWithError" placeholder="With error">
+        <template #topTextLeft>{{ String('Validation example') }}</template>
+        <template v-if="taErrors.message" #errorMessage>
+          {{ taErrors.message }}
+        </template>
+      </Textarea>
+
+      <!-- 7. Without clear button -->
+      <Textarea
+        v-model="taNoClear"
+        placeholder="No clear button"
+        :hide-clear-btn="true"
+      >
+        <template #topTextLeft>{{ String('No clear') }}</template>
+      </Textarea>
+
+      <!-- 8. Prefilled -->
+      <Textarea v-model="taPrefilled" placeholder="Prefilled" name="notes">
+        <template #topTextLeft>{{ String('Prefilled') }}</template>
+      </Textarea>
+
+      <!-- 9. Long text demo -->
+      <Textarea v-model="taLong" placeholder="Long content demo">
+        <template #topTextLeft>{{ String('Long text') }}</template>
+        <template #topTextRight>{{ String('Scrolable') }}</template>
+      </Textarea>
     </div>
   </div>
 </template>
