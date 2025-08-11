@@ -225,7 +225,7 @@ const segmentsOptions = reactive([
   </div>
   <div class="mb-24 mt-32">
     <h3 class="mb-10 text-4xl font-bold text-dark">Segmented Controls</h3>
-    <Segment v-model="selectedSegment" :tabs="segmentsOptions" />
+    <Segment v-model="selectedSegment" :options="segmentsOptions" />
   </div>
   
   <div class="mb-20 mt-20">

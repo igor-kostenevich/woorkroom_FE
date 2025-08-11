@@ -1,15 +1,15 @@
 <template>
-  <div class="inline-block rounded-3xl bg-gray-secondary p-1">
+  <div class="inline-block rounded-3xl bg-gray-accentLight p-1">
     <button
-      v-for="tabOption in props.tabs"
+      v-for="tabOption in props.options"
       :key="tabOption.id"
-      class="rounded-3xl px-11 py-2 text-dark"
+      class="w-28 rounded-3xl px-5 py-2 text-dark"
       :class="
         route.query.tab === tabOption.label
           ? 'bg-primary text-white'
-          : 'bg-gray-secondary'
+          : 'bg-gray-accentLight'
       "
-      @click="setSelectedLabel(tabOption.label)"
+      @click="setSelectedLabel(tabOption.label, tabOption.id)"
     >
       {{ tabOption.label }}
     </button>
@@ -17,32 +17,35 @@
 </template>
 
 <script setup lang="ts">
-interface tab {
+const emit = defineEmits(['update:modelValue']);
+interface Tab {
   id: number;
   label: string;
 }
 const props = defineProps<{
   modelValue: number;
-  tabs: tab[];
+  options: Tab[];
 }>();
 
 const route = useRoute();
 const router = useRouter();
-const selected = props.tabs[props.modelValue];
-const emit = defineEmits(['update:modelValue']);
-if (selected) {
+const selected = computed(() => props.options[props.modelValue]);
+
+onMounted(() => {
+  if (selected.value && !route.query.tab) {
+    router.push({
+      query: {
+        tab: selected.value.label,
+      },
+    });
+  }
+});
+function setSelectedLabel(label: string, index: number) {
   router.push({
     query: {
-      tab: selected.label,
+      tab: label,
     },
   });
-}
-function setSelectedLabel(tab: string) {
-  router.push({ query: { tab } });
-  const selected = props.tabs.find((t) => t.label === tab);
-
-  if (selected) {
-    emit('update:modelValue', selected.id);
-  }
+  emit('update:modelValue', index);
 }
 </script>
