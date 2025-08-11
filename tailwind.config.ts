@@ -14,6 +14,7 @@ export default <Config>{
         base: '0px 6px 58px 0px rgba(196, 203, 214, 0.1)',
         secondary: '0px 1px 2px 0px rgba(184, 200, 224, 0.22)',
         primary: '0px 1px 4px rgba(63, 140, 255, 0.263)',
+        'primary-light': '1px 1px 4px rgba(63, 140, 255, 0.263)',
       },
       backgroundImage: {
         'gradient-primary':
