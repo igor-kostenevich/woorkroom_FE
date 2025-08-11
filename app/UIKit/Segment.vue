@@ -1,13 +1,18 @@
 <template>
-  <div class="inline-block rounded-3xl bg-gray-accentLight p-1">
+  <div
+    class="grid max-w-md rounded-3xl bg-gray-accent p-1 [grid-template-columns:repeat(var(--cols),minmax(0,1fr))]"
+    :style="{ '--cols': String(props.options.length) }"
+    role="tablist"
+  >
     <button
       v-for="tabOption in props.options"
       :key="tabOption.id"
-      class="w-28 rounded-3xl px-5 py-2 text-dark"
+      class="rounded-3xl px-5 py-2 text-dark transition-colors duration-100"
+      role="tab"
       :class="
         route.query.tab === tabOption.label
           ? 'bg-primary text-white'
-          : 'bg-gray-accentLight'
+          : 'bg-transparent'
       "
       @click="setSelectedLabel(tabOption.label, tabOption.id)"
     >
@@ -40,12 +45,14 @@ onMounted(() => {
     });
   }
 });
+
 function setSelectedLabel(label: string, index: number) {
   router.push({
     query: {
       tab: label,
     },
   });
+
   emit('update:modelValue', index);
 }
 </script>
