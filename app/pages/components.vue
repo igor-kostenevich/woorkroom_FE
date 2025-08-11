@@ -5,6 +5,7 @@ import iconList from '../../config/icon-list.json';
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
+const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const TaskStatus = defineAsyncComponent(
@@ -134,6 +135,22 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
+const selectedSegment = ref(0);
+
+const segmentsOptions = reactive([
+  {
+    id: 0,
+    label: 'List',
+  },
+  {
+    id: 1,
+    label: 'Board',
+  },
+  {
+    id: 2,
+    label: 'Timeline',
+  },
+]);
 </script>
 
 <template>
@@ -273,6 +290,17 @@ function flattenColors(
       </Switch>
     </div>
   </div>
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Segmented Controls') }}
+    </h3>
+    <Segment
+      v-model="selectedSegment"
+      class="max-w-md"
+      :options="segmentsOptions"
+    />
+  </div>
+
   <div class="mb-20 mt-20">
     <h3 class="text-dark-default mb-10 text-4xl font-bold">
       {{ String('Task statuses') }}
