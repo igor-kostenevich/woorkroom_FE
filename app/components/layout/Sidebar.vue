@@ -19,20 +19,30 @@
         </li>
       </ul>
     </nav>
-    <div class="relative mt-20 rounded-3xl bg-primary-opacity px-5 py-6 pt-24">
+    <div
+      class="relative mb-12 mt-20 rounded-3xl bg-primary-opacity px-5 py-6 pt-24"
+    >
       <img
         src="/images/common/woman.png"
         class="absolute -top-12 h-32 w-36"
         alt="woman"
       />
-      <Button icon-before="support" fullwidth> Support </Button>
+      <Button icon-before="support" fullwidth> {{ $t('Support') }} </Button>
     </div>
+    <LinkButton
+      icon-before="logout"
+      color="secondary"
+      class="inline-flex gap-4"
+    >
+      {{ $t('Logout') }}
+    </LinkButton>
   </aside>
 </template>
 
 <script lang="ts" setup>
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
+const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 
 const route = useRoute();
 

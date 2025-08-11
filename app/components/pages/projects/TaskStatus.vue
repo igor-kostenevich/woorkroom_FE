@@ -16,6 +16,6 @@ defineProps<{
       'bg-green-light text-green': status === 'done',
     }"
   >
-    {{ status }}
+    {{ $t('status.' + status) }}
   </div>
 </template>

@@ -2,7 +2,7 @@
   <component
     :is="as"
     :class="[
-      'inline-flex gap-1 border-b-2 border-transparent',
+      'inline-flex gap-1 self-center border-b-2 border-transparent',
       ...colorClasses,
     ]"
     v-bind="linkAttrs"

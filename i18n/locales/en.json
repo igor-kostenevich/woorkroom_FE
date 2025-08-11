@@ -5,5 +5,15 @@
   "Vacations": "Vacations",
   "Employees": "Employees",
   "Messenger": "Messenger",
-  "Info Portal": "Info Portal"
+  "Info Portal": "Info Portal",
+  "Logout": "Logout",
+  "Support": "Support",
+  "status": {
+    "to-do": "To Do",
+    "in-progress": "In Progress",
+    "in-review": "In Review",
+    "done": "Done",
+    "approved": "Approved",
+    "pending": "Pending"
+  }
 }

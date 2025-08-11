@@ -5,5 +5,13 @@
   "Vacations": "Відпустки",
   "Employees": "Співробітники",
   "Messenger": "Чат",
-  "Info Portal": "Інфопортал"
+  "Info Portal": "Інфопортал",
+  "status": {
+    "to-do": "До виконання",
+    "in-progress": "В процесі",
+    "in-review": "На розгляді",
+    "done": "Виконано",
+    "approved": "Затверджено",
+    "pending": "Очікує"
+  }
 }

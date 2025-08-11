@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { TVacationIndicator } from '~/types/vacations/VacationIndicator';
+import type { TVacationStatus } from '~/types/vacations/VacationIndicator';
 
 defineProps<{
-  status: TVacationIndicator;
+  status: TVacationStatus;
 }>();
 </script>
 
@@ -14,6 +14,6 @@ defineProps<{
       'bg-yellow text-white': status === 'pending',
     }"
   >
-    {{ status }}
+    {{ $t('status.' + status) }}
   </div>
 </template>
