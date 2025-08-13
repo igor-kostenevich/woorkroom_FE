@@ -15,5 +15,7 @@
     "done": "Done",
     "approved": "Approved",
     "pending": "Pending"
-  }
+  },
+  "Loading": "Loading...",
+  "noResults": "No results found"
 }
