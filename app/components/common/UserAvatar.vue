@@ -34,7 +34,7 @@
         :class="$attrs.class"
         stroke-width="2"
         stroke-linecap="round"
-        :transform="`rotate(-90 ${size / 2} ${size / 2})`"
+        :transform="`translate(${size} 0) scale(-1 1) rotate(-90 ${size / 2} ${size / 2})`"
         :stroke-dasharray="circumference"
         :stroke-dashoffset="dashoffset"
       />
@@ -97,7 +97,7 @@ const rate = props.occupancyRate ?? 0;
 const dashoffset = circumference - (circumference * rate) / 100;
 
 const fullNameInitials = computed(() =>
-  (props.fullName ?? '').replace(/(\p{L})\p{L}*/gu, '$1.')
+  (props.fullName ?? '').replace(/(\p{L})\p{L}*/gu, '$1')
 );
 
 defineOptions({ inheritAttrs: false });

@@ -551,53 +551,53 @@ const segmentsOptions = reactive([
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="50"
             size="xl"
             full-name="Петро Петрович"
             image="/images/common/test-image2.png"
           />
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="20"
             size="lg"
             full-name="Кетро Детрович"
             image="/images/common/test-image1.png"
           />
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="70"
             size="md"
             full-name="Еетро Сетрович"
             image="/images/common/test-image1.png"
           />
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="70"
             size="sm"
           />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="50"
             size="xl"
             full-name="Кетро Петрович"
           />
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="20"
             size="lg"
             full-name="Четро Йетрович"
           />
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="70"
             size="md"
             full-name="Еетро Оетрович"
           />
           <UserAvatar
-            class="bg-orange stroke-orange"
+            class="bg-yellow stroke-yellow"
             :occupancy-rate="70"
             size="sm"
           />
