@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/generate-icon-list.mjs && nuxt dev",
+    "dev": "nuxt dev",
     "build": "nuxt build",
     "start": "nuxt preview",
     "postinstall": "nuxi prepare",
@@ -13,7 +13,8 @@
     "stylelint:fix": "stylelint \"**/*.{vue,css,scss}\" --fix",
     "prepare": "node .husky/install.mjs && husky install",
     "clean": "npm cache clean --force && npx nuxi cleanup",
-    "test": "vitest"
+    "test": "vitest",
+    "icons:generate": "node scripts/generate-icon-list.mjs"
   },
   "lint-staged": {
     "**/*.{js,ts,vue,mjs}": [
