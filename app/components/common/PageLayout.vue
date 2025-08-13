@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref } from 'vue';
-
-const sidebarEl = ref<HTMLElement | null>(null);
+const sidebarEl = useTemplateRef<HTMLElement>('sidebarEl');
 const sidebarMaxH = ref<number>(0);
 
 const BOTTOM_GAP = 8;
@@ -43,7 +41,7 @@ onBeforeUnmount(() => {
 
       <div class="flex-1">
         <div class="mb-6">
-          <slot name="tabs" />
+          <slot name="actions" />
         </div>
         <div>
           <slot name="content" />
