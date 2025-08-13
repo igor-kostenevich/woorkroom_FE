@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/generate-icon-list.mjs && nuxt dev",
+    "dev": "nuxt dev",
     "build": "nuxt build",
     "start": "nuxt preview",
     "postinstall": "nuxi prepare",
@@ -13,7 +13,8 @@
     "stylelint:fix": "stylelint \"**/*.{vue,css,scss}\" --fix",
     "prepare": "node .husky/install.mjs && husky install",
     "clean": "npm cache clean --force && npx nuxi cleanup",
-    "test": "vitest"
+    "test": "vitest",
+    "icons:generate": "node scripts/generate-icon-list.mjs"
   },
   "lint-staged": {
     "**/*.{js,ts,vue,mjs}": [
@@ -35,6 +36,7 @@
     "@floating-ui/vue": "^1.1.6",
     "@fontsource-variable/inter": "^5.2.5",
     "@fontsource/barlow-semi-condensed": "^5.2.5",
+    "@headlessui/vue": "^1.7.23",
     "@nuxtjs/fontaine": "^0.5.0",
     "@nuxtjs/i18n": "^10.0.3",
     "@pinia/nuxt": "^0.11.0",
@@ -59,6 +61,7 @@
     "@nuxtjs/stylelint-module": "^5.2.1",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "@types/qrcode": "^1.5.5",
+    "@types/vue": "^1.0.31",
     "@vueuse/core": "^13.1.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.27.0",
