@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
+import UserAvatar from '~/components/common/UserAvatar.vue';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -486,6 +487,161 @@ const segmentsOptions = reactive([
         <template #topTextLeft>{{ String('Long text') }}</template>
         <template #topTextRight>{{ String('Scrolable') }}</template>
       </Textarea>
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('User avatar') }}
+    </h3>
+    <div class="flex gap-24">
+      <div class="flex flex-col gap-5">
+        <div class="flex items-center gap-5">
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="50"
+            size="xl"
+            full-name="Петро Петрович"
+            image="/images/common/test-image2.png"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="20"
+            size="lg"
+            full-name="Кетро Детрович"
+            image="/images/common/test-image1.png"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="70"
+            size="md"
+            full-name="Еетро Сетрович"
+            image="/images/common/test-image1.png"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="70"
+            size="sm"
+          />
+        </div>
+        <div class="flex items-center gap-5">
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="50"
+            size="xl"
+            full-name="Кетро Петрович"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="20"
+            size="lg"
+            full-name="Четро Йетрович"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="70"
+            size="md"
+            full-name="Еетро Оетрович"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            :occupancy-rate="70"
+            size="sm"
+          />
+        </div>
+        <div class="flex items-center gap-5">
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="50"
+            size="xl"
+            full-name="Петро Петрович"
+            image="/images/common/test-image2.png"
+          />
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="20"
+            size="lg"
+            full-name="Кетро Детрович"
+            image="/images/common/test-image1.png"
+          />
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="70"
+            size="md"
+            full-name="Еетро Сетрович"
+            image="/images/common/test-image1.png"
+          />
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="70"
+            size="sm"
+          />
+        </div>
+        <div class="flex items-center gap-5">
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="50"
+            size="xl"
+            full-name="Кетро Петрович"
+          />
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="20"
+            size="lg"
+            full-name="Четро Йетрович"
+          />
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="70"
+            size="md"
+            full-name="Еетро Оетрович"
+          />
+          <UserAvatar
+            class="bg-orange stroke-orange"
+            :occupancy-rate="70"
+            size="sm"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col gap-5">
+        <div class="flex items-center gap-5">
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="xl"
+            full-name="Кетро Петрович"
+            image="/images/common/test-image2.png"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="lg"
+            full-name="Четро Йетрович"
+            image="/images/common/test-image1.png"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="md"
+            full-name="Еетро Оетрович"
+            image="/images/common/test-image1.png"
+          />
+        </div>
+        <div class="flex items-center gap-5">
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="xl"
+            full-name="Кетро Петрович"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="lg"
+            full-name="Четро Йетрович"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="md"
+            full-name="Еетро Оетрович"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
