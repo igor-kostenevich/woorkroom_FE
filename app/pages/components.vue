@@ -536,106 +536,106 @@ const searchUsers = async (q: string) => {
         <div class="flex items-center gap-5">
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="50"
+            :progress="50"
             size="xl"
             full-name="Петро Петрович"
-            image="/images/common/test-image2.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="20"
+            :progress="20"
             size="lg"
             full-name="Кетро Детрович"
-            image="/images/common/test-image1.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="70"
+            :progress="70"
             size="md"
             full-name="Еетро Сетрович"
-            image="/images/common/test-image1.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="70"
+            :progress="70"
             size="sm"
           />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="50"
+            :progress="50"
             size="xl"
             full-name="Кетро Петрович"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="20"
+            :progress="20"
             size="lg"
             full-name="Четро Йетрович"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="70"
+            :progress="70"
             size="md"
             full-name="Еетро Оетрович"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
-            :occupancy-rate="70"
+            :progress="70"
             size="sm"
           />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="50"
+            :progress="50"
             size="xl"
             full-name="Петро Петрович"
-            image="/images/common/test-image2.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="20"
+            :progress="20"
             size="lg"
             full-name="Кетро Детрович"
-            image="/images/common/test-image1.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="70"
+            :progress="70"
             size="md"
             full-name="Еетро Сетрович"
-            image="/images/common/test-image1.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="70"
+            :progress="70"
             size="sm"
           />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="50"
+            :progress="50"
             size="xl"
             full-name="Кетро Петрович"
           />
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="20"
+            :progress="20"
             size="lg"
             full-name="Четро Йетрович"
           />
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="70"
+            :progress="70"
             size="md"
             full-name="Еетро Оетрович"
           />
           <UserAvatar
             class="bg-yellow stroke-yellow"
-            :occupancy-rate="70"
+            :progress="70"
             size="sm"
           />
         </div>
@@ -646,19 +646,25 @@ const searchUsers = async (q: string) => {
             class="bg-primary stroke-primary"
             size="xl"
             full-name="Кетро Петрович"
-            image="/images/common/test-image2.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
             size="lg"
             full-name="Четро Йетрович"
-            image="/images/common/test-image1.png"
+            image="/images/common/woman.png"
           />
           <UserAvatar
             class="bg-primary stroke-primary"
             size="md"
             full-name="Еетро Оетрович"
-            image="/images/common/test-image1.png"
+            image="/images/common/woman.png"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="sm"
+            full-name="Еетро Оетрович"
+            image="/images/common/woman.png"
           />
         </div>
         <div class="flex items-center gap-5">
@@ -675,6 +681,11 @@ const searchUsers = async (q: string) => {
           <UserAvatar
             class="bg-primary stroke-primary"
             size="md"
+            full-name="Еетро Оетрович"
+          />
+          <UserAvatar
+            class="bg-primary stroke-primary"
+            size="sm"
             full-name="Еетро Оетрович"
           />
         </div>
@@ -716,14 +727,14 @@ const searchUsers = async (q: string) => {
         <div>
           {{ String('Selected (local):') }}
           <span class="font-mono text-dark">{{
-              String(acSelected ?? 'null')
-            }}</span>
+            String(acSelected ?? 'null')
+          }}</span>
         </div>
         <div>
           {{ String('Selected (async):') }}
           <span class="font-mono text-dark">{{
-              String(acSelectedAsync ?? 'null')
-            }}</span>
+            String(acSelectedAsync ?? 'null')
+          }}</span>
         </div>
       </div>
     </div>
