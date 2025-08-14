@@ -37,7 +37,7 @@
         ref="input"
         v-model="value"
         v-bind="$attrs"
-        class="h-full w-full rounded-[14px] border-none px-4 pr-12 text-sm leading-6 placeholder-gray outline-none"
+        class="h-full w-full rounded-[14px] border-none px-4 pr-20 text-sm leading-6 placeholder-gray outline-none"
         :class="[
           {
             'text-gray': !isFocused && !$slots.errorMessage,

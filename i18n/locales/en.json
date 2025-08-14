@@ -15,5 +15,8 @@
     "done": "Done",
     "approved": "Approved",
     "pending": "Pending"
-  }
+  },
+  "My Profile": "My Profile",
+  "Loading": "Loading...",
+  "noResults": "No results found"
 }

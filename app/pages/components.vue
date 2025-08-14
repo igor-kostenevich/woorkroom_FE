@@ -9,6 +9,9 @@ const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
+const Autocomplete = defineAsyncComponent(
+  () => import('@/UIKit/Autocomplete.vue')
+);
 const TaskStatus = defineAsyncComponent(
   () => import('~/components/pages/projects/TaskStatus.vue')
 );
@@ -152,6 +155,40 @@ const segmentsOptions = reactive([
     label: 'Timeline',
   },
 ]);
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+const mockUsers: User[] = [
+  { id: 1, name: 'Alice Johnson', email: 'alice@acme.io' },
+  { id: 2, name: 'Bob Martin', email: 'bob@acme.io' },
+  { id: 3, name: 'Carlos Hernández', email: 'carlos@acme.io' },
+  { id: 4, name: 'Diana Kim', email: 'diana@acme.io' },
+  { id: 5, name: 'Ethan Brown', email: 'ethan@acme.io' },
+  { id: 6, name: 'Fatima Noor', email: 'fatima@acme.io' },
+  { id: 7, name: 'George Liu', email: 'george@acme.io' },
+  { id: 8, name: 'Hanna Petrenko', email: 'h.petrenko@acme.io' },
+  { id: 9, name: 'Igor Kostenevych', email: 'igor@acme.io' },
+  { id: 10, name: 'Jae Park', email: 'jae@acme.io' },
+  { id: 11, name: 'Katarina Novak', email: 'katarina@acme.io' },
+  { id: 12, name: 'Luca Bianchi', email: 'luca@acme.io' },
+];
+
+const acSelected = ref<number | null>(null);
+const acSelectedAsync = ref<number | null>(null);
+const acLocal = mockUsers;
+
+const searchUsers = async (q: string) => {
+  const ql = q.trim().toLowerCase();
+  // emulate network latency
+  await new Promise((r) => setTimeout(r, 300));
+  return mockUsers.filter(
+    (u) =>
+      u.name.toLowerCase().includes(ql) || u.email.toLowerCase().includes(ql)
+  );
+};
 </script>
 
 <template>
@@ -640,6 +677,53 @@ const segmentsOptions = reactive([
             size="md"
             full-name="Еетро Оетрович"
           />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-20 mt-20">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Autocomplete') }}
+    </h3>
+    <div class="grid grid-cols-3 gap-8">
+      <!-- 1) Local options -->
+      <Autocomplete
+        v-model="acSelected"
+        :options="acLocal"
+        :get-label="(u: any) => u.name"
+        :get-value="(u: any) => u.id"
+        icon="search"
+        placeholder="Local options"
+      />
+
+      <!-- 2) Async search with @vueuse/core debounce inside component -->
+      <Autocomplete
+        v-model="acSelectedAsync"
+        :search="searchUsers"
+        :get-label="(u: any) => u.name"
+        :get-value="(u: any) => u.id"
+        :min-chars="1"
+        :debounce="250"
+        icon="search"
+        placeholder="Async search (type to search)"
+      />
+
+      <!-- Selected values preview -->
+      <div
+        class="rounded-[14px] border bg-gray-50 p-4 text-sm leading-6 text-gray"
+      >
+        <div>
+          {{ String('Selected (local):') }}
+          <span class="font-mono text-dark">{{
+              String(acSelected ?? 'null')
+            }}</span>
+        </div>
+        <div>
+          {{ String('Selected (async):') }}
+          <span class="font-mono text-dark">{{
+              String(acSelectedAsync ?? 'null')
+            }}</span>
         </div>
       </div>
     </div>
