@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import Progress from '~/UIkit/Progress.vue';
+const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 
 const props = defineProps<{
   progress?: number;
