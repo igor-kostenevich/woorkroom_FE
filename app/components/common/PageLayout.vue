@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import Icon from '~/UIKit/Icon.vue';
+
 const sidebarEl = useTemplateRef<HTMLElement>('sidebarEl');
+
 const sidebarMaxH = ref<number>(0);
 
 const BOTTOM_GAP = 8;
@@ -28,12 +31,17 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
-    <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
+    <div class="flex justify-between">
+      <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
 
-    <div class="relative flex gap-5 pt-5">
+      <div class="self-start rounded-[14px] bg-white p-3">
+        <icon name="settings" :size="24" />
+      </div>
+    </div>
+    <div class="relative flex flex-col gap-8 pt-5 lg:flex-row">
       <div
         ref="sidebarEl"
-        class="sticky top-2 w-[265px] overflow-auto rounded-3xl bg-white py-[26px] pl-[18px] pr-[24px] shadow-base"
+        class="top-2 min-w-[265px] overflow-auto rounded-3xl bg-white py-[26px] pl-[18px] pr-[24px] shadow-base lg:sticky"
         :style="{ maxHeight: `${sidebarMaxH}px` }"
       >
         <slot name="sidebar" />

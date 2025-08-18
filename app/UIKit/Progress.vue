@@ -39,8 +39,8 @@ const props = defineProps<{
 const sizeVariations = {
   sm: 24,
   md: 40,
-  lg: 57,
-  xl: 65,
+  lg: 56,
+  xl: 64,
 } as const;
 const size = sizeVariations[props.size];
 

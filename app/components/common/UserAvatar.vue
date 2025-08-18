@@ -1,5 +1,5 @@
 <template>
-  <div :class="['relative inline', sizeClasses]">
+  <div :class="['relative inline-block', sizeClasses]">
     <Progress :progress="props.progress" :class="$attrs.class" :size="size" />
     <div class="absolute inset-0 flex items-center justify-center">
       <img
@@ -35,14 +35,11 @@
 </template>
 
 <script setup lang="ts">
+import type { IUserAvatar } from '~/types/components/UserAvatar';
+
 const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 
-const props = defineProps<{
-  progress?: number;
-  size: 'sm' | 'md' | 'lg' | 'xl';
-  fullName?: string;
-  image?: string;
-}>();
+const props = defineProps<IUserAvatar>();
 
 const sizeClasses = computed(() => ({
   'h-6 w-6': props.size === 'sm',
