@@ -18,5 +18,16 @@
   },
   "My Profile": "My Profile",
   "Loading": "Loading...",
-  "noResults": "No results found"
+  "noResults": "No results found",
+  "profile": {
+    "name": "Evan Yates",
+    "position":  "UI/UX Designer",
+    "Main info": "Main info",
+    "Contact Info": "Contact Info",
+    "Birthday Date": "Birthday Date",
+    "Project Data": "Project Data",
+    "All tasks": "All tasks",
+    "Active tasks": "Active tasks",
+    "Add Request": "Add Request"
+  }
 }

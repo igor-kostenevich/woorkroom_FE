@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-1">
-    <Sidebar hydrate-on-idle />
+    <!--    <Sidebar hydrate-on-idle />-->
     <main class="flex flex-1 flex-col">
       <Header hydrate-on-idle />
-      <div class="h-full px-10 pt-12">
+      <div class="h-full px-1 pt-12 lg:px-10">
         <slot />
       </div>
     </main>
@@ -12,5 +12,5 @@
 
 <script setup lang="ts">
 import Header from '~/components/layout/Header.vue';
-import Sidebar from '~/components/layout/Sidebar.vue';
+// import Sidebar from '~/components/layout/Sidebar.vue';
 </script>
