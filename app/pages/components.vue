@@ -2,6 +2,7 @@
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
 import UserAvatar from '~/components/common/UserAvatar.vue';
+import Progress from '~/UIKit/Progress.vue';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -535,159 +536,110 @@ const searchUsers = async (q: string) => {
       <div class="flex flex-col gap-5">
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-primary stroke-primary"
             :progress="50"
             size="xl"
             full-name="Петро Петрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             :progress="20"
             size="lg"
             full-name="Кетро Детрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             :progress="70"
             size="md"
             full-name="Еетро Сетрович"
             image="/images/common/woman.png"
           />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="70"
-            size="sm"
-          />
+          <Progress size="sm" :progress="90" />
+        </div>
+        <div class="flex items-center gap-5">
+          <UserAvatar :progress="50" size="xl" full-name="Кетро Петрович" />
+          <UserAvatar :progress="20" size="lg" full-name="Четро Йетрович" />
+          <UserAvatar :progress="70" size="md" full-name="Еетро Оетрович" />
+          <Progress size="sm" :progress="90" />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="50"
-            size="xl"
-            full-name="Кетро Петрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="20"
-            size="lg"
-            full-name="Четро Йетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="70"
-            size="md"
-            full-name="Еетро Оетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="70"
-            size="sm"
-          />
-        </div>
-        <div class="flex items-center gap-5">
-          <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="50"
             size="xl"
             full-name="Петро Петрович"
             image="/images/common/woman.png"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="20"
             size="lg"
             full-name="Кетро Детрович"
             image="/images/common/woman.png"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="70"
             size="md"
             full-name="Еетро Сетрович"
             image="/images/common/woman.png"
+            color="yellow"
           />
-          <UserAvatar
-            class="bg-yellow stroke-yellow"
-            :progress="70"
-            size="sm"
-          />
+          <Progress size="sm" :progress="90" />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="50"
             size="xl"
             full-name="Кетро Петрович"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="20"
             size="lg"
             full-name="Четро Йетрович"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="70"
             size="md"
             full-name="Еетро Оетрович"
+            color="yellow"
           />
-          <UserAvatar
-            class="bg-yellow stroke-yellow"
-            :progress="70"
-            size="sm"
-          />
+          <Progress size="sm" :progress="90" />
         </div>
       </div>
       <div class="flex flex-col gap-5">
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="xl"
             full-name="Кетро Петрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="lg"
             full-name="Четро Йетрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="md"
             full-name="Еетро Оетрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="sm"
             full-name="Еетро Оетрович"
             image="/images/common/woman.png"
           />
         </div>
         <div class="flex items-center gap-5">
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="xl"
-            full-name="Кетро Петрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="lg"
-            full-name="Четро Йетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="md"
-            full-name="Еетро Оетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="sm"
-            full-name="Еетро Оетрович"
-          />
+          <UserAvatar size="xl" full-name="Кетро Петрович" />
+          <UserAvatar size="lg" full-name="Четро Йетрович" />
+          <UserAvatar size="md" full-name="Еетро Оетрович" />
+          <UserAvatar size="sm" full-name="Еетро Оетрович" />
+        </div>
+        <div class="flex items-center gap-5">
+          <Progress size="xl" :progress="30" color="blue">12</Progress>
+          <Progress size="xl" :progress="60" color="red">6</Progress>
+          <Progress size="xl" :progress="90" color="violet">58</Progress>
         </div>
       </div>
     </div>
