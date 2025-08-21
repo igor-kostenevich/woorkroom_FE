@@ -21,13 +21,48 @@
   "noResults": "No results found",
   "profile": {
     "name": "Evan Yates",
-    "position":  "UI/UX Designer",
+    "position": "UI/UX Designer",
     "Main info": "Main info",
     "Contact Info": "Contact Info",
     "Birthday Date": "Birthday Date",
     "Project Data": "Project Data",
     "All tasks": "All tasks",
     "Active tasks": "Active tasks",
-    "Add Request": "Add Request"
+    "Add Request": "Add Request",
+
+    "Position": "Position",
+    "Company": "Company",
+    "Location": "Location",
+    "Email": "Email",
+    "Mobile Number": "Mobile Number",
+    "Telegram": "Telegram",
+
+    "placeholders": {
+      "position": "UI/UX Designer",
+      "company": "Cadabra",
+      "location": "NYC, New York, USA",
+      "birthday": "May 19, 1996",
+      "email": "evanyatesgmail.com",
+      "phone": "+1 675 346 23-10",
+      "telegram": "Evan 2256"
+    }
+  },
+  "settings": {
+    "Settings": "Settings",
+    "Account": "Account",
+    "Notifications": "Notifications",
+    "My Company": "My Company",
+    "Connected Apps": "Connected Apps",
+    "Payments": "Payments",
+    "Confidentiality": "Confidentiality",
+    "Safety": "Safety",
+    "Issue Activity": "Issue Activity",
+    "Tracking Activity": "Tracking Activity",
+    "New Comments": "New Comments",
+    "SendComments": "Send me notifications when someone’ve sent the comment",
+    "TrackedTask": "Send me notifications when someone’ve tracked time in tasks",
+    "SendMailText": "Send me email notifications for issue activity",
+    "send": "Don't send me notifications after 9:00 PM",
+    "edit": "Edit"
   }
 }

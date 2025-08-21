@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Icon from '~/UIKit/Icon.vue';
+import Button from '~/UIKit/Button.vue';
 
 const sidebarEl = useTemplateRef<HTMLElement>('sidebarEl');
 
@@ -34,9 +34,14 @@ onBeforeUnmount(() => {
     <div class="flex justify-between">
       <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
 
-      <div class="self-start rounded-[14px] bg-white p-3">
-        <icon name="settings" :size="24" />
-      </div>
+      <NuxtLink to="/profile/settings">
+        <Button
+          color="neutral"
+          size="md"
+          icon-before="settings"
+          class="self-baseline px-[10px] py-2.5"
+        />
+      </NuxtLink>
     </div>
     <div class="relative flex flex-col gap-8 pt-5 lg:flex-row">
       <div

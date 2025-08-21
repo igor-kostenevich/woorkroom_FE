@@ -37,7 +37,7 @@ definePageMeta({
 
 const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
-const buttonColorVariants = ['primary', 'neutral'] as const;
+const buttonColorVariants = ['primary', 'neutral', 'accent'] as const;
 const selected = ref('item1');
 const inputVariants = reactive([
   {

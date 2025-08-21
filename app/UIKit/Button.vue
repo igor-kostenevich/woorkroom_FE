@@ -96,7 +96,8 @@ const buttonAttrs = computed<IButtonAttrs>(() => {
         'bg-primary text-white hover:bg-primary-hover active:bg-primary-pressed shadow-primary disabled:shadow-none disabled:bg-gray-secondary',
       props.color === 'neutral' &&
         'bg-white hover:bg-[rgba(63,140,255,0.06)] text-dark active:border active:border-primary font-semibold disabled:text-gray-light disabled:bg-gray-opacity disabled:border-transparent',
-
+      props.color === 'accent' &&
+        'bg-light hover:bg-[rgba(63,140,255,0.06)] text-dark active:border active:border-primary font-semibold disabled:text-gray-light disabled:bg-gray-opacity disabled:border-transparent',
       // loading state
       props.loading && 'opacity-50 pointer-events-none',
       !slots.default && props.size === 'md' && 'px-4 py-2.5',

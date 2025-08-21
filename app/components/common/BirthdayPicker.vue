@@ -1,7 +1,6 @@
 <script setup>
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import Icon from '~/UIKit/Icon.vue';
 
 const maxDate = new Date();
 const minDate = new Date(1920, 0, 1);
@@ -16,6 +15,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -23,15 +26,6 @@ const emit = defineEmits(['update:modelValue']);
 const date = computed({
   get: () => props.modelValue,
   set: (val) => emit('update:modelValue', val),
-});
-onMounted(() => {
-  const icon = document.querySelector('.dp__input_icon');
-  const parent = icon.parentElement;
-  parent.style.cssText = `
-          position: absolute;
-          padding-right: 12px;
-          right: 25px;
-        `;
 });
 
 const formatDate = (d) => {
@@ -47,7 +41,6 @@ const formatDate = (d) => {
     <span v-if="$slots.birth" class="text-sm font-bold leading-6 text-gray">
       <slot name="birth" />
     </span>
-
     <VueDatePicker
       v-model="date"
       :enable-time-picker="false"
@@ -58,13 +51,10 @@ const formatDate = (d) => {
       :prevent-min-max-navigation="true"
       :light="true"
       :format="formatDate"
+      :disabled="readonly"
       :placeholder="placeholderDate"
-      class=".dp__theme_light relative"
-    >
-      <template #input-icon>
-        <Icon name="calendar-outlined" size="20" />
-      </template>
-    </VueDatePicker>
+      class="dp__theme_light relative"
+    />
   </div>
 </template>
 
@@ -76,7 +66,7 @@ const formatDate = (d) => {
 }
 
 .dp--clear-btn {
-  left: 0;
+  display: none;
 }
 
 .dp__active_date {
@@ -107,5 +97,19 @@ const formatDate = (d) => {
 
 .dp__outer_menu_wrap {
   margin-left: 2px;
+}
+
+.dp__disabled {
+  background: transparent;
+}
+
+.dp__input_icon {
+  left: auto;
+  right: 12px;
+}
+
+.dp__input_icon_pad {
+  padding-left: 1rem;
+  padding-right: 2.5rem;
 }
 </style>

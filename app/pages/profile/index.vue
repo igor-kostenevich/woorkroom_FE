@@ -13,13 +13,13 @@ const BirthdayPicker = defineAsyncComponent(
 );
 
 const ProjectsContent = defineAsyncComponent(
-  () => import('~/pages/profile/profile-content/ProjectsContent.vue')
+  () => import('~/components/pages/profile/ProjectsContent.vue')
 );
 const TeamContent = defineAsyncComponent(
-  () => import('~/pages/profile/profile-content/TeamContent.vue')
+  () => import('~/components/pages/profile/TeamContent.vue')
 );
 const VacationsContent = defineAsyncComponent(
-  () => import('~/pages/profile/profile-content/VacationsContent.vue')
+  () => import('~/components/pages/profile/VacationsContent.vue')
 );
 const segmentsOptions = reactive([
   {
@@ -75,18 +75,21 @@ const inputTelegram = ref('');
               full-name="Evan Yates"
             />
 
-            <Button
-              color="neutral"
-              size="md"
-              icon-before="edit"
-              class="self-baseline"
-            />
+            <NuxtLink to="/profile/settings">
+              <Button
+                color="neutral"
+                size="md"
+                icon-before="edit"
+                class="self-baseline px-[10px] py-2.5"
+              />
+            </NuxtLink>
           </div>
+
           <h2 class="mb-1.5 text-[22px] font-bold">
             {{ $t('profile.name') }}
           </h2>
-
           <h3 class="text-sm">{{ $t('profile.position') }}</h3>
+
           <div class="pt-7">
             <span
               class="absolute bottom-0 left-[-18px] right-[-24px] h-[1px] bg-gray-muted"
@@ -98,10 +101,11 @@ const inputTelegram = ref('');
           <h3 class="text-lg font-bold">{{ $t('profile.Main info') }}</h3>
 
           <div class="flex flex-col gap-4 pt-3">
-            <Input v-model="inputPositon" placeholder="UI/UX Designer">
+            <Input v-model="inputPositon" placeholder="UI/UX Designer" readonly>
               <template #topTextLeft>{{ String('Position') }}</template>
             </Input>
-            <Input v-model="inputCompany" placeholder="Cadabra">
+
+            <Input v-model="inputCompany" placeholder="Cadabra" readonly>
               <template #topTextLeft>{{ String('Company') }}</template>
             </Input>
 
@@ -109,6 +113,7 @@ const inputTelegram = ref('');
               v-model="inputLocation"
               placeholder="NYC, New York, USA"
               icon="location"
+              readonly
             >
               <template #topTextLeft>{{ String('Location') }}</template>
             </Input>
@@ -116,6 +121,7 @@ const inputTelegram = ref('');
             <BirthdayPicker
               v-model="inputDateOfBirth"
               placeholder-date="May 19, 1996"
+              readonly
             >
               <template #birth>
                 {{ $t('Birthday Date') }}
@@ -128,14 +134,23 @@ const inputTelegram = ref('');
               {{ $t('profile.Contact Info') }}
             </h4>
             <div class="flex flex-col gap-4">
-              <Input v-model="inputEmail" placeholder="evanyates@gmail.com">
+              <Input
+                v-model="inputEmail"
+                placeholder="evanyates@gmail.com"
+                readonly
+              >
                 <template #topTextLeft>{{ String('Email') }}</template>
               </Input>
 
-              <Input v-model="inputPhone" placeholder="+1 675 346 23-10">
+              <Input
+                v-model="inputPhone"
+                placeholder="+1 675 346 23-10"
+                readonly
+              >
                 <template #topTextLeft>{{ String('Mobile Number') }}</template>
               </Input>
-              <Input v-model="inputTelegram" placeholder="Evan 2256">
+
+              <Input v-model="inputTelegram" placeholder="Evan 2256" readonly>
                 <template #topTextLeft>{{ String('Telegram') }}</template>
               </Input>
             </div>
