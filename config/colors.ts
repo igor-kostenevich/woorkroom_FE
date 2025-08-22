@@ -25,7 +25,7 @@ export const colors = {
   },
   pink: '#DE92EB',
   yellow: '#FDC748',
-  purpule: {
+  purple: {
     DEFAULT: '#C418E6',
     opacity: '#C418E61C',
   },
