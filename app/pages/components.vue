@@ -10,6 +10,7 @@ const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
+const Dropdown = defineAsyncComponent(() => import('@/UIKit/Dropdown.vue'));
 const Autocomplete = defineAsyncComponent(
   () => import('@/UIKit/Autocomplete.vue')
 );
@@ -190,6 +191,27 @@ const searchUsers = async (q: string) => {
       u.name.toLowerCase().includes(ql) || u.email.toLowerCase().includes(ql)
   );
 };
+
+const ddIndexDefault = ref<number | null>(null);
+const ddIndexSearch = ref<number | null>(null);
+const ddIndexDisabled = ref<number | null>(0);
+const ddIndexMd = ref<number | null>(null);
+const ddIndexFull = ref<number | null>(null);
+
+type DDOption = {
+  label: string;
+  icon?: string;
+  disabled?: boolean;
+  code?: string;
+  image?: string;
+};
+const ddOptions: DDOption[] = [
+  { label: 'United States', code: 'US', image: 'images/common/woman.png' },
+  { label: 'Germany', icon: 'checked', code: 'DE' },
+  { label: 'Ukraine', icon: 'checked', code: 'UA' },
+  { label: 'Japan', icon: 'checked', code: 'JP', disabled: true },
+  { label: 'Spain', icon: 'checked', code: 'ES' },
+];
 </script>
 
 <template>
@@ -688,6 +710,123 @@ const searchUsers = async (q: string) => {
             String(acSelectedAsync ?? 'null')
           }}</span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DROPDOWNS -->
+  <div class="mb-24 mt-32">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Dropdowns') }}
+    </h3>
+
+    <div class="grid grid-cols-3 gap-8">
+      <!-- 1) Базовий -->
+      <Dropdown
+        v-model="ddIndexDefault"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Select country"
+      />
+
+      <!-- 2) З пошуком по label (desktop — інпут в триггері; mobile — в панелі) -->
+      <Dropdown
+        v-model="ddIndexSearch"
+        :options="ddOptions"
+        label-field="label"
+        search-field="label"
+        placeholder="Search country"
+      />
+
+      <Dropdown
+        v-model="ddIndexDisabled"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Disabled"
+        disabled
+      />
+
+      <Dropdown
+        v-model="ddIndexMd"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Size: md"
+        size="md"
+      >
+        <template #label>
+          {{ String('Select country') }}
+        </template>
+      </Dropdown>
+
+      <div>
+        <Dropdown
+          v-model="ddIndexFull"
+          :options="ddOptions"
+          label-field="label"
+          placeholder="Choose..."
+          :fullwidth="true"
+        >
+          <template #label>
+            {{ String('Select country') }}
+          </template>
+        </Dropdown>
+      </div>
+
+      <Dropdown
+        v-model="ddIndexDefault"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Custom option template"
+      >
+        <template #label>
+          {{ String('Select country') }}
+        </template>
+        <template #option="{ option, index }">
+          <Icon v-if="option.icon" :type="option.icon" :size="20" />
+          <span
+            class="flex-1 truncate"
+            :class="
+              ddIndexDefault === ddOptions.indexOf(option)
+                ? 'text-black'
+                : 'text-gray-600'
+            "
+          >
+            {{ index + 1 }}. {{ option.label }}
+          </span>
+          <Icon
+            v-if="ddIndexDefault === ddOptions.indexOf(option)"
+            type="checked"
+          />
+        </template>
+      </Dropdown>
+    </div>
+
+    <div
+      class="mt-6 rounded-[14px] border bg-gray-50 p-4 text-sm leading-6 text-gray"
+    >
+      <div>
+        {{ String('Selected (basic):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexDefault ?? 'null')
+        }}</span>
+      </div>
+      <div>
+        {{ String('Selected (search):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexSearch ?? 'null')
+        }}</span>
+      </div>
+      <div>
+        {{ String('Selected (md):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexMd ?? 'null')
+        }}</span>
+      </div>
+      <div>
+        {{ String('Selected (fullwidth):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexFull ?? 'null')
+        }}</span>
       </div>
     </div>
   </div>

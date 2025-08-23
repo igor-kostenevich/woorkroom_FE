@@ -25,7 +25,7 @@
     </div>
 
     <div
-      class="relative flex h-12 w-full items-center rounded-[14px] border bg-gray-100 transition-colors"
+      class="relative flex h-12 w-full items-center rounded-[14px] border border-gray-dark transition-colors"
       :class="{
         'border-red': $slots.errorMessage,
         'border-gray-secondary': disabled,
