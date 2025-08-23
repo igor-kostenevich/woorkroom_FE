@@ -206,7 +206,7 @@ type DDOption = {
   image?: string;
 };
 const ddOptions: DDOption[] = [
-  { label: 'United States', code: 'US', image: 'images/common/woman.png' },
+  { label: 'United States', code: 'US', image: '/images/common/woman.png' },
   { label: 'Germany', icon: 'checked', code: 'DE' },
   { label: 'Ukraine', icon: 'checked', code: 'UA' },
   { label: 'Japan', icon: 'checked', code: 'JP', disabled: true },
