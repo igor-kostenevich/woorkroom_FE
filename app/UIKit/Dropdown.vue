@@ -222,10 +222,7 @@
 <script lang="ts" setup>
 import { onClickOutside, useElementSize, useScrollLock } from '@vueuse/core';
 import useApp from '@/composables/useApp';
-import type {
-  autoUpdate as AutoUpdate,
-  type Placement,
-} from '@floating-ui/dom';
+import type { autoUpdate as AutoUpdate, Placement } from '@floating-ui/dom';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
