@@ -33,15 +33,13 @@ onBeforeUnmount(() => {
   <div>
     <div class="flex justify-between">
       <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
-
-      <NuxtLink to="/profile/settings">
-        <Button
-          color="neutral"
-          size="md"
-          icon-before="settings"
-          class="self-baseline px-[10px] py-2.5"
-        />
-      </NuxtLink>
+      <Button
+        to="profile/settings"
+        color="neutral"
+        size="lg"
+        class="self-baseline"
+        icon-before="settings"
+      />
     </div>
     <div class="relative flex flex-col gap-8 pt-5 lg:flex-row">
       <div

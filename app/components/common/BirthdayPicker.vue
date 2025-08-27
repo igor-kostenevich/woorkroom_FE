@@ -1,9 +1,10 @@
 <script setup>
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 
-const maxDate = new Date();
-const minDate = new Date(1920, 0, 1);
+const MAX_DATE = new Date();
+const MIN_DATE = new Date(1920, 0, 1);
 
 const props = defineProps({
   modelValue: {
@@ -11,7 +12,7 @@ const props = defineProps({
     default: null,
   },
 
-  placeholderDate: {
+  placeholder: {
     type: String,
     default: '',
   },
@@ -44,17 +45,21 @@ const formatDate = (d) => {
     <VueDatePicker
       v-model="date"
       :enable-time-picker="false"
-      :max-date="maxDate"
-      :min-date="minDate"
+      :max-date="MAX_DATE"
+      :min-date="MIN_DATE"
       :teleport="false"
       :year-range="[1920, new Date().getFullYear()]"
       :prevent-min-max-navigation="true"
       :light="true"
       :format="formatDate"
       :disabled="readonly"
-      :placeholder="placeholderDate"
+      :placeholder="placeholder"
       class="dp__theme_light relative"
-    />
+    >
+      <template #input-icon>
+        <Icon name="calendar-outlined" :size="24" />
+      </template>
+    </VueDatePicker>
   </div>
 </template>
 
@@ -105,7 +110,7 @@ const formatDate = (d) => {
 
 .dp__input_icon {
   left: auto;
-  right: 12px;
+  right: 1rem;
 }
 
 .dp__input_icon_pad {

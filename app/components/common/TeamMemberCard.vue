@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { TeamMemberCard } from '~/types/profile/TeamMemberCard';
-import UserAvatar from '~/components/common/UserAvatar.vue';
-import EmployeeLvl from '~/components/pages/employees/EmployeeLvl.vue';
+
+const UserAvatar = defineAsyncComponent(
+  () => import('~/components/common/UserAvatar.vue')
+);
+const EmployeeLvl = defineAsyncComponent(
+  () => import('~/components/pages/employees/EmployeeLvl.vue')
+);
 
 const props = defineProps<TeamMemberCard>();
 </script>
@@ -21,8 +26,6 @@ const props = defineProps<TeamMemberCard>();
 
     <div class="mb-2 text-sm">{{ props.position }}</div>
 
-    <div>
-      <EmployeeLvl :lvl="1" />
-    </div>
+    <EmployeeLvl :lvl="1" />
   </div>
 </template>

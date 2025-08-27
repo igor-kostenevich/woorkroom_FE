@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import UserAvatar from './UserAvatar.vue';
 import type { IAssignee } from '~/types/components/Assignee';
+
+const UserAvatar = defineAsyncComponent(
+  () => import('@/components/common/UserAvatar.vue')
+);
+
 const props = defineProps<{
   assignees: IAssignee[];
   maxVisible?: number;

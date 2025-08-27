@@ -3,7 +3,7 @@ import TeamMemberCard from '~/components/common/TeamMemberCard.vue';
 </script>
 
 <template>
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-8">
+  <div class="grid gap-7 lg:grid-cols-2 xl:grid-cols-4">
     <TeamMemberCard
       v-for="n in 7"
       :key="n"
