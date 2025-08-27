@@ -57,95 +57,97 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]);
 </script>
 
 <template>
+  <div class="flex justify-between">
+    <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
+
+    <NuxtLink to="/profile/settings">
+      <Button
+        color="neutral"
+        size="md"
+        icon-before="settings"
+        class="self-baseline px-[10px] py-2.5"
+      />
+    </NuxtLink>
+  </div>
   <PageLayout>
-    <template #sidebar>
-      <div>
-        <div class="relative">
-          <div class="mb-4 flex justify-between">
-            <UserAvatar
-              class="block bg-primary stroke-primary"
-              :progress="60"
-              size="xl"
-              full-name="Evan Yates"
-            />
+    <template #sidebar-header>
+      <div class="relative">
+        <div class="mb-4 flex justify-between">
+          <UserAvatar
+            class="block bg-primary stroke-primary"
+            :progress="60"
+            size="xl"
+            full-name="Evan Yates"
+          />
 
-            <Button
-              color="neutral"
-              size="md"
-              icon-before="edit"
-              class="self-baseline px-[10px] py-2.5"
-            />
-          </div>
-
-          <h2 class="mb-1.5 text-[22px] font-bold">
-            {{ $t('profile.name') }}
-          </h2>
-          <h3 class="text-sm">{{ $t('profile.position') }}</h3>
-
-          <div class="pt-7">
-            <span
-              class="absolute bottom-0 left-[-18px] right-[-24px] h-[1px] bg-gray-muted"
-            />
-          </div>
+          <Button
+            color="neutral"
+            size="md"
+            icon-before="edit"
+            class="self-baseline px-[10px] py-2.5"
+          />
         </div>
 
-        <div class="pt-7">
-          <h3 class="text-lg font-bold">{{ $t('profile.Main info') }}</h3>
+        <h2 class="mb-1.5 text-[22px] font-bold">
+          {{ $t('profile.name') }}
+        </h2>
+        <h3 class="text-sm">{{ $t('profile.position') }}</h3>
+      </div>
+    </template>
 
-          <div class="flex flex-col gap-4 pt-3">
-            <Input v-model="inputPositon" placeholder="UI/UX Designer" readonly>
-              <template #topTextLeft>{{ String('Position') }}</template>
-            </Input>
+    <template #sidebar-content>
+      <div>
+        <h3 class="text-lg font-bold">{{ $t('profile.Main info') }}</h3>
 
-            <Input v-model="inputCompany" placeholder="Cadabra" readonly>
-              <template #topTextLeft>{{ String('Company') }}</template>
-            </Input>
+        <div class="flex flex-col gap-4 pt-3">
+          <Input v-model="inputPositon" placeholder="UI/UX Designer" readonly>
+            <template #topTextLeft>{{ String('Position') }}</template>
+          </Input>
 
+          <Input v-model="inputCompany" placeholder="Cadabra" readonly>
+            <template #topTextLeft>{{ String('Company') }}</template>
+          </Input>
+
+          <Input
+            v-model="inputLocation"
+            placeholder="NYC, New York, USA"
+            icon="location"
+            readonly
+          >
+            <template #topTextLeft>{{ String('Location') }}</template>
+          </Input>
+
+          <BirthdayPicker
+            v-model="inputDateOfBirth"
+            placeholder-date="May 19, 1996"
+            readonly
+          >
+            <template #birth>
+              {{ $t('Birthday Date') }}
+            </template>
+          </BirthdayPicker>
+        </div>
+
+        <div class="pt-6">
+          <h4 class="pb-3 text-lg font-bold">
+            {{ $t('profile.Contact Info') }}
+          </h4>
+          <div class="flex flex-col gap-4">
             <Input
-              v-model="inputLocation"
-              placeholder="NYC, New York, USA"
-              icon="location"
+              v-model="inputEmail"
+              placeholder="evanyates@gmail.com"
               readonly
             >
-              <template #topTextLeft>{{ String('Location') }}</template>
+              <template #topTextLeft>{{ String('Email') }}</template>
             </Input>
 
-            <BirthdayPicker
-              v-model="inputDateOfBirth"
-              placeholder-date="May 19, 1996"
-              readonly
-            >
-              <template #birth>
-                {{ $t('Birthday Date') }}
-              </template>
-            </BirthdayPicker>
-          </div>
+            <Input v-model="inputPhone" placeholder="+1 675 346 23-10" readonly>
+              <template #topTextLeft>{{ String('Mobile Number') }}</template>
+            </Input>
 
-          <div class="pt-6">
-            <h4 class="pb-3 text-lg font-bold">
-              {{ $t('profile.Contact Info') }}
-            </h4>
-            <div class="flex flex-col gap-4">
-              <Input
-                v-model="inputEmail"
-                placeholder="evanyates@gmail.com"
-                readonly
-              >
-                <template #topTextLeft>{{ String('Email') }}</template>
-              </Input>
-
-              <Input
-                v-model="inputPhone"
-                placeholder="+1 675 346 23-10"
-                readonly
-              >
-                <template #topTextLeft>{{ String('Mobile Number') }}</template>
-              </Input>
-
-              <Input v-model="inputTelegram" placeholder="Evan 2256" readonly>
-                <template #topTextLeft>{{ String('Telegram') }}</template>
-              </Input>
-            </div>
+            <Input v-model="inputTelegram" placeholder="Evan 2256" readonly>
+              <template #topTextLeft>{{ String('Telegram') }}</template>
+            </Input>
           </div>
         </div>
       </div>
