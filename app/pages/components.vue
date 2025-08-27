@@ -141,20 +141,42 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
-const selectedSegment = ref(0);
+const selectedSegment1 = ref(0);
+const selectedSegment2 = ref(0);
+const selectedSegment3 = ref(0);
 
-const segmentsOptions = reactive([
+const segmentsOptions1 = ref([
   {
-    id: 0,
+    id: 1234,
     label: 'List',
   },
   {
-    id: 1,
-    label: 'Board',
+    id: 116414,
+    label: 'Activity',
+  },
+]);
+const segmentsOptions2 = ref([
+  {
+    id: 1346141,
+    label: 'Employees’ vacations',
   },
   {
-    id: 2,
-    label: 'Timeline',
+    id: 134,
+    label: 'Calendar',
+  },
+]);
+const segmentsOptions3 = ref([
+  {
+    id: 1346,
+    label: 'Projects',
+  },
+  {
+    id: 456,
+    label: 'Team',
+  },
+  {
+    id: 548,
+    label: 'My vacations',
   },
 ]);
 
@@ -355,11 +377,26 @@ const ddOptions: DDOption[] = [
     <h3 class="mb-10 text-4xl font-bold text-dark">
       {{ String('Segmented Controls') }}
     </h3>
-    <Segment
-      v-model="selectedSegment"
-      class="max-w-md"
-      :options="segmentsOptions"
-    />
+    <div class="flex flex-col gap-8">
+      <Segment
+        v-model="selectedSegment1"
+        class="max-w-80"
+        :options="segmentsOptions1"
+        query-key="tabList"
+      />
+      <Segment
+        v-model="selectedSegment2"
+        class="max-w-sm"
+        :options="segmentsOptions2"
+        query-key="tabVacations"
+      />
+      <Segment
+        v-model="selectedSegment3"
+        class="max-w-md"
+        :options="segmentsOptions3"
+        query-key="tabProjects"
+      />
+    </div>
   </div>
 
   <div class="mb-20 mt-20">

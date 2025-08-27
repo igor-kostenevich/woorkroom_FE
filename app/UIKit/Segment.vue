@@ -1,20 +1,21 @@
 <template>
   <div
-    class="grid max-w-md rounded-3xl bg-gray-accent p-1 [grid-template-columns:repeat(var(--cols),minmax(0,1fr))]"
+    class="grid rounded-3xl bg-gray-accent p-1 [grid-template-columns:repeat(var(--cols),minmax(0,1fr))]"
     :style="{ '--cols': String(props.options.length) }"
     role="tablist"
   >
     <button
       v-for="tabOption in props.options"
       :key="tabOption.id"
-      class="rounded-3xl px-5 py-2 text-dark transition-colors duration-100"
+      type="button"
+      class="rounded-3xl px-3 py-2 text-sm text-dark transition-colors duration-100 sm:px-4 sm:text-base"
       role="tab"
       :class="
-        route.query.tab === tabOption.label
+        props.modelValue === tabOption.id
           ? 'bg-primary text-white'
           : 'bg-transparent'
       "
-      @click="setSelectedLabel(tabOption.label, tabOption.id)"
+      @click="setSelectedLabel(tabOption.id)"
     >
       {{ tabOption.label }}
     </button>
@@ -30,29 +31,46 @@ interface Tab {
 const props = defineProps<{
   modelValue: number;
   options: Tab[];
+  queryKey: string;
 }>();
 
 const route = useRoute();
 const router = useRouter();
-const selected = computed(() => props.options[props.modelValue]);
 
 onMounted(() => {
-  if (selected.value && !route.query.tab) {
-    router.push({
+  const queryVal = route.query[props.queryKey] as string | undefined;
+
+  const found = props.options.find(
+    (opt) => String(opt.id) === String(queryVal)
+  );
+  if (found) {
+    emit('update:modelValue', found.id);
+  } else {
+    const defaults = props.options[0]!;
+    emit('update:modelValue', defaults.id);
+
+    router.replace({
       query: {
-        tab: selected.value.label,
+        ...route.query,
+        [props.queryKey]: String(defaults.id),
       },
     });
   }
 });
 
-function setSelectedLabel(label: string, index: number) {
-  router.push({
-    query: {
-      tab: label,
-    },
+watch(
+  () => route.query[props.queryKey] as string | undefined,
+  (id) => {
+    if (id !== null && id !== String(props.modelValue))
+      emit('update:modelValue', Number(id));
+  }
+);
+
+function setSelectedLabel(id: number) {
+  router.replace({
+    query: { ...route.query, [props.queryKey]: String(id) },
   });
 
-  emit('update:modelValue', index);
+  emit('update:modelValue', id);
 }
 </script>
