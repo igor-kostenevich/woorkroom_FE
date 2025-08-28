@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import ProjectCard from '~/components/common/ProjectCard.vue';
+import type {IAssignee} from '~/types/components/Assignee';
 
-const assignees = [
+const ProjectCard = defineAsyncComponent(() => import('~/components/common/ProjectCard.vue'));
+
+const assignees:IAssignee[] = [
   { id: 1, name: 'Петро Петрович', avatarUrl: '/images/common/woman.png' },
   { id: 2, name: 'Іван Іванович', avatarUrl: '/images/common/woman.png' },
   { id: 3, name: 'Марія Іванівна', avatarUrl: '/images/common/woman.png' },

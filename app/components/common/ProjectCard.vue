@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { IProjectCard } from '~/types/profile/ProjectCard';
-import PriorityBadge from '~/components/common/PriorityBadge.vue';
 
-const Assigneers = defineAsyncComponent(
-  () => import('~/components/pages/projects/common/Assigneers.vue')
-);
+const  PriorityBadge = defineAsyncComponent(() => import('~/components/common/PriorityBadge.vue'));
+const Assigneers = defineAsyncComponent(() => import('~/components/pages/projects/common/Assigneers.vue'));
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 
 const props = defineProps<IProjectCard>();

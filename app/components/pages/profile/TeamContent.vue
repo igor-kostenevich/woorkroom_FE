@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TeamMemberCard from '~/components/common/TeamMemberCard.vue';
+const  TeamMemberCard = defineAsyncComponent(() => import('~/components/common/TeamMemberCard.vue'));
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 export interface IAssignee {
-  id: string;
+  id: number | string;
   name: string;
   avatarUrl: string;
 }
