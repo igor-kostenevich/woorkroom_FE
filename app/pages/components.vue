@@ -11,6 +11,7 @@ const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const Dropdown = defineAsyncComponent(() => import('@/UIKit/Dropdown.vue'));
+const Accordion = defineAsyncComponent(() => import('@/UIKit/Accordion.vue'));
 const Autocomplete = defineAsyncComponent(
   () => import('@/UIKit/Autocomplete.vue')
 );
@@ -233,6 +234,51 @@ const ddOptions: DDOption[] = [
   { label: 'Ukraine', icon: 'checked', code: 'UA' },
   { label: 'Japan', icon: 'checked', code: 'JP', disabled: true },
   { label: 'Spain', icon: 'checked', code: 'ES' },
+];
+
+type InfoConfig = {
+  is: Component;
+  props?: Record<string, any>;
+  children?: any;
+};
+type AccordionItem = {
+  title: string;
+  icon?: string;
+  info: string | InfoConfig;
+};
+const accordionItems: AccordionItem[] = [
+  {
+    title: 'What is your refund policy?',
+    info: 'Refunds are processed within 5–7 business days after approval.',
+  },
+  {
+    title: 'Try free',
+    info: {
+      is: Button,
+      props: { color: 'primary', size: 'md', iconBefore: 'plus' },
+      children: 'Start',
+    },
+  },
+  {
+    title: 'Do you offer support?',
+    info: 'We provide email and chat support on business days, 9:00–18:00.',
+    icon: 'notifications',
+  },
+  {
+    title: 'Is there a trial period?',
+    info: 'There is a 14-day free trial with full functionality.',
+    icon: 'support',
+  },
+  {
+    title: 'How do I cancel?',
+    info: 'Go to Billing → Manage → Cancel subscription. Your access remains until the end of the billing period.',
+    icon: 'support',
+  },
+  {
+    title: 'Is my data secure?',
+    info: 'We use HTTPS, daily backups, and role-based access controls.',
+    icon: 'support',
+  },
 ];
 </script>
 
@@ -865,6 +911,16 @@ const ddOptions: DDOption[] = [
           String(ddIndexFull ?? 'null')
         }}</span>
       </div>
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Accordion') }}
+    </h3>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <Accordion :items="accordionItems" />
     </div>
   </div>
 </template>
