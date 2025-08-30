@@ -64,5 +64,9 @@
     "SendMailText": "Send me email notifications for issue activity",
     "send": "Don't send me notifications after 9:00 PM",
     "edit": "Edit"
+  },
+  "calendar": {
+    "Add Request": "Add Request",
+    "Request Type": "Request Type"
   }
 }

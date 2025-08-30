@@ -1,8 +1,16 @@
 <script setup lang="ts">
-const UserAvatar = defineAsyncComponent(() => import('~/components/common/UserAvatar.vue'));
+import CalendarRequest from '~/components/common/CalendarRequest.vue';
+
+const UserAvatar = defineAsyncComponent(
+  () => import('~/components/common/UserAvatar.vue')
+);
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
-const BirthdayPicker = defineAsyncComponent(() => import('~/components/common/BirthdayPicker.vue'));
-const PageLayout = defineAsyncComponent(() => import('~/components/common/PageLayout.vue'));
+const BirthdayPicker = defineAsyncComponent(
+  () => import('~/components/common/BirthdayPicker.vue')
+);
+const PageLayout = defineAsyncComponent(
+  () => import('~/components/common/PageLayout.vue')
+);
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 
 const profile = reactive({
@@ -68,7 +76,6 @@ const toggleEdit = async () => {
 };
 </script>
 
-
 <template>
   <div class="flex justify-between">
     <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
@@ -124,9 +131,7 @@ const toggleEdit = async () => {
           placeholder="Cadabra"
           :readonly="!isEditing"
         >
-          <template #topTextLeft
-          >{{ $t('profile.Company') }}
-          </template>
+          <template #topTextLeft>{{ $t('profile.Company') }} </template>
           <template v-if="validationErrors.company.message" #errorMessage>
             {{ validationErrors.company.message }}
           </template>
@@ -138,9 +143,7 @@ const toggleEdit = async () => {
           icon="location"
           :readonly="!isEditing"
         >
-          <template #topTextLeft
-          >{{ $t('profile.Location') }}
-          </template>
+          <template #topTextLeft>{{ $t('profile.Location') }} </template>
           <template v-if="validationErrors.location.message" #errorMessage>
             {{ validationErrors.location.message }}
           </template>
@@ -151,7 +154,7 @@ const toggleEdit = async () => {
           placeholder-date="May 19, 1996"
           :readonly="!isEditing"
         >
-          <template #birth> {{$t('profile.Birthday Date')}}</template>
+          <template #birth> {{ $t('profile.Birthday Date') }}</template>
         </BirthdayPicker>
 
         <div class="pt-6">
@@ -165,7 +168,7 @@ const toggleEdit = async () => {
               :readonly="!isEditing"
             >
               <template #topTextLeft
-              >{{ $t('profile.placeholders.email') }}
+                >{{ $t('profile.placeholders.email') }}
               </template>
               <template v-if="validationErrors.email?.message" #errorMessage>
                 {{ validationErrors.email.message }}
@@ -178,7 +181,7 @@ const toggleEdit = async () => {
               :readonly="!isEditing"
             >
               <template #topTextLeft
-              >{{ $t('profile.placeholders.phone') }}
+                >{{ $t('profile.placeholders.phone') }}
               </template>
               <template v-if="validationErrors.phone?.message" #errorMessage>
                 {{ validationErrors.phone.message }}
@@ -191,7 +194,7 @@ const toggleEdit = async () => {
               :readonly="!isEditing"
             >
               <template #topTextLeft
-              >{{ $t('profile.placeholders.telegram') }}
+                >{{ $t('profile.placeholders.telegram') }}
               </template>
               <template v-if="validationErrors.telegram?.message" #errorMessage>
                 {{ validationErrors.telegram.message }}
@@ -202,10 +205,10 @@ const toggleEdit = async () => {
       </div>
     </template>
 
-
     <template #content>
-
-      <NuxtPage/>
+      <NuxtPage />
     </template>
   </PageLayout>
+
+  <CalendarRequest />
 </template>
