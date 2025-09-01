@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Calendar as VCalendar } from 'v-calendar';
+import { DatePicker as VDatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
+import Button from '~/UIKit/Button.vue';
 
+const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
 const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
 
@@ -18,10 +20,21 @@ const calendarOptions = reactive([
   { id: 0, label: 'Days' },
   { id: 1, label: 'Hours' },
 ]);
+
+const range = ref<{ start: Date | null; end: Date | null } | null>();
+
+// Styling for the selected range (start / middle / end)
+const selectAttribute = computed(() => ({
+  highlight: {
+    start: { contentClass: 'text-white bg-red rounded-l-md' },
+    base: { contentClass: ' bg-red' },
+    end: { contentClass: 'text-white  bg-red rounded-r-md' },
+  },
+}));
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="max-w-[488px] bg-white">
     <div class="mb-7">
       <h2 class="pb-7 text-xl font-bold">{{ $t('calendar.Add Request') }}</h2>
 
@@ -35,6 +48,7 @@ const calendarOptions = reactive([
           :id="input.id"
           :key="input.id"
           v-model="selected"
+          name="radio-picker"
           class="rounded-lg border border-gray-dark p-3"
           :value="input.value"
         >
@@ -42,20 +56,37 @@ const calendarOptions = reactive([
         </Radio>
       </div>
 
-      <Segment
-        v-model="selectedCalendar"
-        class="mt-9"
-        :options="calendarOptions"
-      />
+      <div class="flex justify-center">
+        <Segment
+          v-model="selectedCalendar"
+          class="mt-9 flex-[1_1_auto]"
+          :options="calendarOptions"
+        />
+      </div>
     </div>
 
-    <div class="max-w-[488px]">
-      <VCalendar
-        :trim-weeks="false"
-        :locale="{ masks: { weekdays: 'WWW' } }"
-        transparent
-        expanded
-      />
+    <VDatePicker
+      v-model="range"
+      is-range
+      :popover="false"
+      :locale="{ masks: { weekdays: 'WWW' } }"
+      mode="date"
+      :select-attribute="selectAttribute"
+    >
+      <template #header-prev-button>
+        <Icon name="arrow-left" class="text-primary" />
+      </template>
+
+      <template #header-next-button>
+        <Icon name="arrow-right" class="text-primary" />
+      </template>
+    </VDatePicker>
+
+    <div class="mt-7 flex justify-between">
+      <div class="rounded-xl bg-light p-2.5">
+        <Icon name="comment" />
+      </div>
+      <Button>{{ $t('calendar.Send Request') }}</Button>
     </div>
   </div>
 </template>
@@ -67,10 +98,18 @@ const calendarOptions = reactive([
 
 .vc-weeks {
   padding: 23px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .vc-header {
   margin-top: 30px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: [prev] auto [title] auto [next] auto !important;
+  column-gap: 110px;
 }
 
 .vc-weekdays {
@@ -85,7 +124,6 @@ const calendarOptions = reactive([
 }
 
 .vc-day {
-  width: 52px;
   height: 52px;
 }
 
@@ -96,11 +134,19 @@ const calendarOptions = reactive([
 }
 
 .vc-week {
-  gap: 10px;
   font-family: 'Nunito Sans', sans-serif;
 }
 
-.vc-day-content:hover {
-  background-color: transparent;
+.vc-day-content.vc-blue {
+  background: #15c0e6;
+  border-radius: 14px !important;
+  height: 52px;
+  width: 52px;
+  color: white !important;
+}
+
+.vc-highlight {
+  height: 52px;
+  background: #15c0e6;
 }
 </style>

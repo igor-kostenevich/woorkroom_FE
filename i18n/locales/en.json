@@ -67,6 +67,7 @@
   },
   "calendar": {
     "Add Request": "Add Request",
-    "Request Type": "Request Type"
+    "Request Type": "Request Type",
+    "Send Request": "Send Request"
   }
 }

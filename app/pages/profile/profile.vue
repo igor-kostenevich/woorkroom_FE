@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import CalendarRequest from '~/components/common/CalendarRequest.vue';
-
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
 );
@@ -209,6 +207,4 @@ const toggleEdit = async () => {
       <NuxtPage />
     </template>
   </PageLayout>
-
-  <CalendarRequest />
 </template>

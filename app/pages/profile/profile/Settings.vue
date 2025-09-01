@@ -1,14 +1,30 @@
 <script setup lang="ts">
+import CalendarRequest from '~/components/common/CalendarRequest.vue';
+
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 
-const Account = defineAsyncComponent(() => import('~/components/pages/profile/settings/Account.vue'));
-const Notifications = defineAsyncComponent(() => import('~/components/pages/profile/settings/Notifications.vue'));
-const MyCompany = defineAsyncComponent(() => import('~/components/pages/profile/settings/MyCompany.vue'));
-const ConnectedApps = defineAsyncComponent(() => import('~/components/pages/profile/settings/ConnectedApps.vue'));
-const Payments = defineAsyncComponent(() => import('~/components/pages/profile/settings/Payments.vue'));
-const Confidentiality = defineAsyncComponent(() => import('~/components/pages/profile/settings/Confidentiality.vue'));
-const Safety = defineAsyncComponent(() => import('~/components/pages/profile/settings/Safety.vue'));
+const Account = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/Account.vue')
+);
+const Notifications = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/Notifications.vue')
+);
+const MyCompany = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/MyCompany.vue')
+);
+const ConnectedApps = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/ConnectedApps.vue')
+);
+const Payments = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/Payments.vue')
+);
+const Confidentiality = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/Confidentiality.vue')
+);
+const Safety = defineAsyncComponent(
+  () => import('~/components/pages/profile/settings/Safety.vue')
+);
 
 type SettingsPage = {
   name: string;
@@ -16,7 +32,7 @@ type SettingsPage = {
   icon: string;
 };
 
-const settingsPages:SettingsPage[]  = [
+const settingsPages: SettingsPage[] = [
   { name: 'Account', component: Account, icon: 'account' },
   { name: 'Notifications', component: Notifications, icon: 'notifications' },
   { name: 'My Company', component: MyCompany, icon: 'company' },
@@ -27,16 +43,11 @@ const settingsPages:SettingsPage[]  = [
 ];
 
 const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
-
-
 </script>
 
 <template>
-
-
   <div>
-    <div class="mt-6 mb-4 ">
-
+    <div class="mb-4 mt-6">
       <Button
         class="!text-xl !font-bold"
         to="/profile/profile"
@@ -46,7 +57,6 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
       >
         {{ $t('settings.Settings') }}
       </Button>
-
     </div>
 
     <div class="flex gap-8">
@@ -57,11 +67,11 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
           <li v-for="page in settingsPages" :key="page.name">
             <button
               :class="[
-                  'flex w-full items-center gap-4 rounded-xl px-2 py-2.5 text-left font-semibold transition-colors',
-                  activePage.name === page.name
-                    ? 'bg-primary-opacity text-primary'
-                    : 'text-gray',
-                ]"
+                'flex w-full items-center gap-4 rounded-xl px-2 py-2.5 text-left font-semibold transition-colors',
+                activePage.name === page.name
+                  ? 'bg-primary-opacity text-primary'
+                  : 'text-gray',
+              ]"
               @click="activePage = page"
             >
               <Icon :name="page.icon" :size="24" />
@@ -75,6 +85,7 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
         <component :is="activePage.component" />
       </div>
     </div>
-
   </div>
+
+  <CalendarRequest />
 </template>
