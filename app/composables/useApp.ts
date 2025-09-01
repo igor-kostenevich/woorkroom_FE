@@ -7,12 +7,8 @@ const isAppFullyLoaded = ref<boolean>(false); // Tracks whether the application 
 const isAppInFocus = ref<boolean>(true); // Tracks whether the page is currently active/visible
 const windowWidth = ref<number>(360); // Stores the current window width
 
-// Mobile: 0 - 672
-// Tablet: 673 - 1015
-// Desktop: 1016 - ∞
-// ⚠️ Mobile menu - 768
-
 // These breakpoints
+const MOBILE_MENU_BREAKPOINT = 640;
 const TABLET_BREAKPOINT = 768;
 const DESKTOP_BREAKPOINT = 1024;
 
@@ -113,6 +109,10 @@ export default function useApp() {
     return windowWidth.value >= DESKTOP_BREAKPOINT;
   });
 
+  const hasMobileMenu = computed(() => {
+    return windowWidth.value < MOBILE_MENU_BREAKPOINT;
+  });
+
   return {
     initApp,
 
@@ -128,6 +128,7 @@ export default function useApp() {
     isMobile,
     isTablet,
     isDesktop,
+    hasMobileMenu,
 
     // UserAgent
     parseUserAgent,

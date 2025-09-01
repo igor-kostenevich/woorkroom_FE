@@ -280,6 +280,8 @@ const accordionItems: AccordionItem[] = [
     icon: 'support',
   },
 ];
+
+const { showModal } = useModal();
 </script>
 
 <template>
@@ -921,6 +923,26 @@ const accordionItems: AccordionItem[] = [
 
     <div class="grid gap-8 md:grid-cols-2">
       <Accordion :items="accordionItems" />
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Modal') }}
+    </h3>
+
+    <div class="">
+      <Button
+        color="primary"
+        fullwidth
+        @click="
+          showModal({
+            name: 'Example',
+            data: { tab: 0, testData: 'Hello from components page!' },
+          })
+        "
+        >{{ String('Open modal') }}</Button
+      >
     </div>
   </div>
 </template>

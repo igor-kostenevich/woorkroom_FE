@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IUserAvatar } from '~/types/components/user-avatar';
+import type { IUserAvatar } from '~/types/components';
 const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 
 const props = defineProps<IUserAvatar>();

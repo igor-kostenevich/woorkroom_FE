@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IUserAvatar } from '~/types/components/user-avatar';
+import type { IUserAvatar } from '~/types/components';
 
 const props = defineProps<IUserAvatar>();
 

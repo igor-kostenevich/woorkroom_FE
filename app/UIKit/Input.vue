@@ -103,7 +103,7 @@
 
 <script setup lang="ts">
 import type { DirectiveNumber } from '~/directives/directive-number';
-import type { TInputType } from '@/types/components/input';
+import type { TInputType } from '@/types/components';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 

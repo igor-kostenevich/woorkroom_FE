@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ILinkButtonProps } from '~/types/components/link';
+import type { ILinkButtonProps } from '~/types/components';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 
