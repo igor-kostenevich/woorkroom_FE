@@ -1,8 +1,21 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
-import UserAvatar from '~/components/common/UserAvatar.vue';
-import Progress from '~/UIKit/Progress.vue';
+import type {
+  IEmployeeProfile,
+  IEmployeeStats,
+  ITask,
+  IRequest,
+} from '~/types/components/employee-cards';
+
+const Progress = defineAsyncComponent(() => import('@/UIKit/Progress.vue'));
+const UserAvatar = defineAsyncComponent(
+  () => import('~/components/common/UserAvatar.vue')
+);
+const EmployeeOverview = defineAsyncComponent(
+  () =>
+    import('~/components/pages/projects/employees-cards/EmployeeOverview.vue')
+);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -212,6 +225,56 @@ const ddOptions: DDOption[] = [
   { label: 'Japan', icon: 'checked', code: 'JP', disabled: true },
   { label: 'Spain', icon: 'checked', code: 'ES' },
 ];
+
+const firstCard: IEmployeeProfile = reactive({
+  image: '/images/common/woman.png',
+  fullName: 'Evan Yates',
+  email: 'evanyates@gmail.com',
+  gender: 'male',
+  birthday: 'Apr 12, 1995',
+  age: 25,
+  position: 'UI/UX Designer',
+  level: 2,
+  details: true,
+});
+
+const secondCard: IEmployeeStats = reactive({
+  image: '/images/common/woman.png',
+  fullName: 'Evan Yates',
+  email: 'evanyates@gmail.com',
+  vacations: 10,
+  sickLeave: 5,
+  workRemotely: 19,
+});
+
+const thirdCard: ITask = reactive({
+  taskName: 'Research',
+  estimate: '2d 4h',
+  spentTime: '1d 1h',
+  assigneeImage: '/images/common/woman.png',
+  fullName: 'Evan Yates',
+  priority: 'medium',
+  status: 'done',
+  progress: 100,
+});
+
+const fourthCard: ITask = reactive({
+  taskName: 'Research',
+  estimate: '6h',
+  spentTime: '0h',
+  assigneeImage: '/images/common/woman.png',
+  fullName: 'Evan Yates',
+  priority: 'high',
+  progress: 0,
+});
+
+const fifthCard: IRequest = reactive({
+  requestType: 'sick',
+  duration: '3 days',
+  startDay: 'Sep 1, 2020',
+  endDay: 'Sep 3, 2020',
+  status: 'pending',
+});
 </script>
 
 <template>
@@ -828,6 +891,18 @@ const ddOptions: DDOption[] = [
           String(ddIndexFull ?? 'null')
         }}</span>
       </div>
+    </div>
+  </div>
+  <div class="mb-20 mt-20">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Cards') }}
+    </h3>
+    <div class="flex flex-col gap-8">
+      <employee-overview :data="firstCard" :gap="131" />
+      <employee-overview :data="secondCard" :gap="476" />
+      <employee-overview :data="thirdCard" :gap="164" />
+      <employee-overview :data="fourthCard" :gap="181" />
+      <employee-overview :data="fifthCard" :gap="161" />
     </div>
   </div>
 </template>

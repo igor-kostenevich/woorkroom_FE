@@ -18,5 +18,34 @@
   },
   "My Profile": "My Profile",
   "Loading": "Loading...",
-  "noResults": "No results found"
+  "noResults": "No results found",
+  "employeesCards": {
+    "employeeOverviewCard": {
+      "gender": "Gender",
+      "birthday": "Birthday",
+      "fullAge": "Full age",
+      "position": "Position",
+      "vacations": "Vacations",
+      "sickLeave": "Sick Leave",
+      "workRemotely": "Work remotely"
+    },
+    "taskCard": {
+      "taskName": "Task Name",
+      "estimate": "Estimate",
+      "spentTime": "Spent Time",
+      "assignee": "Assignee",
+      "priority": "Priority"
+    },
+    "requestCard": {
+      "requestType": "Request Type",
+      "duration": "Duration",
+      "startDay": "Start Day",
+      "endDay": "End Day"
+    }
+  },
+  "indicator": {
+    "sick": "Sick leave",
+    "remote": "Work remotely",
+    "vacation": "Vacation"
+  }
 }

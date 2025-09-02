@@ -15,5 +15,34 @@
     "pending": "Очікує"
   },
   "Loading": "Завантаження...",
-  "noResults": "Результатів не знайдено"
+  "noResults": "Результатів не знайдено",
+  "employeesCards": {
+    "employeeOverviewCard": {
+      "gender": "Стать",
+      "birthday": "День народження",
+      "fullAge": "Повний вік",
+      "position": "Посада",
+      "vacations": "Відпустки",
+      "sickLeave": "Лікарняні",
+      "workRemotely": "Віддалена робота"
+    },
+    "taskCard": {
+      "taskName": "Назва завдання",
+      "estimate": "Оцінка",
+      "spentTime": "Витрачений час",
+      "assignee": "Виконавець",
+      "priority": "Пріоритет"
+    },
+    "requestCard": {
+      "requestType": "Тип запиту",
+      "duration": "Тривалість",
+      "startDay": "Початок",
+      "endDay": "Кінець"
+    }
+  },
+  "indicator": {
+    "sick": "Лікарняний",
+    "remotely": "Віддалена робота",
+    "vacation": "Відпустка"
+  }
 }

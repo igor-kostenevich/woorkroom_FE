@@ -1,7 +1,7 @@
 <template>
   <div :class="['relative', sizeClasses]">
     <svg
-      v-if="props.progress"
+      v-if="props.progress !== undefined"
       class="absolute left-0 top-0"
       :width="size"
       :height="size"
