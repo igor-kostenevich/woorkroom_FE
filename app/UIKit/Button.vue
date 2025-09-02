@@ -99,9 +99,12 @@ const buttonAttrs = computed<IButtonAttrs>(() => {
 
       // loading state
       props.loading && 'opacity-50 pointer-events-none',
-      !slots.default && props.size === 'md' && 'px-4 py-2.5',
+      !slots.default &&
+        props.size === 'md' &&
+        props.color !== 'neutral' &&
+        'px-4 py-2.5',
       !slots.default && props.size === 'lg' && 'px-5 py-2.5',
-      !slots.default && props.color === 'neutral' && '!p-3',
+      !slots.default && props.color === 'neutral' && 'p-3',
 
       // fullwidth
       props.fullwidth && 'w-full',

@@ -2,8 +2,11 @@
   <component
     :is="as"
     :class="[
-      'inline-flex gap-1 self-center border-b-2 border-transparent',
+      'inline-flex gap-2 self-center',
       ...colorClasses,
+      {
+        'border-b-2 border-transparent': !noUnderline,
+      },
     ]"
     v-bind="linkAttrs"
   >
@@ -34,6 +37,7 @@ const props = withDefaults(defineProps<ILinkButtonProps>(), {
   color: 'primary',
   iconAfter: '',
   iconBefore: '',
+  noUnderline: false,
 });
 
 const colorMap = {
@@ -60,7 +64,6 @@ const colorClasses = computed(() => {
     color.text,
     color.hoverText,
     color.activeText,
-    'border-b-2 border-transparent',
     color.hoverBorder,
     color.activeBorder,
   ];
