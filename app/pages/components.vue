@@ -1,9 +1,26 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
-import UserAvatar from '~/components/common/UserAvatar.vue';
-import Progress from '~/UIKit/Progress.vue';
 
+const UserAvatar = defineAsyncComponent(
+  () => import('~/components/common/UserAvatar.vue')
+);
+const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
+const Text = defineAsyncComponent(
+  () => import('~/components/common/additional/Text.vue')
+);
+const Position = defineAsyncComponent(
+  () => import('~/components/common/additional/Position.vue')
+);
+const UserInfo = defineAsyncComponent(
+  () => import('~/components/common/additional/UserInfo.vue')
+);
+const Priority = defineAsyncComponent(
+  () => import('~/components/common/additional/Priority.vue')
+);
+const Assignee = defineAsyncComponent(
+  () => import('~/components/common/additional/Assignee.vue')
+);
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
@@ -282,6 +299,58 @@ const accordionItems: AccordionItem[] = [
 ];
 
 const { showModal } = useModal();
+
+const userAvatarData = [
+  {
+    id: '1',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '2',
+    fullName: 'Shawn Stone',
+  },
+  {
+    id: '3',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '4',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '5',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '6',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '7',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '8',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '9',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+  {
+    id: '10',
+    userImage: '/images/common/woman.png',
+    fullName: 'Oscar Holloway',
+  },
+];
 </script>
 
 <template>
@@ -944,5 +1013,17 @@ const { showModal } = useModal();
         >{{ String('Open modal') }}</Button
       >
     </div>
+  </div>
+  <div class="flex gap-12">
+    <Text gender="Male" birthday="1515" :age="12" />
+    <Position position-name="UI/UX Designer" :position-level="2" />
+    <user-info
+      user-image="/images/common/woman.png"
+      full-name="Петро Петрович"
+      user-email="evanyates@gmail.com"
+      :progress="32"
+    />
+    <priority priority="medium" :label="true" />
+    <assignee :label="true" :user-avatar-data="userAvatarData" />
   </div>
 </template>

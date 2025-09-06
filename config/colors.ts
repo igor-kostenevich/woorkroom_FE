@@ -37,6 +37,7 @@ export const colors = {
   green: {
     DEFAULT: '#00D097',
     light: '#E0F9F2',
+    vivid: '#0ac947',
   },
   orange: '#FFBD21',
   red: {
