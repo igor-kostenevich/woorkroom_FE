@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="label" class="mb-2 text-sm text-gray-light">
+    <div v-if="showLabel" class="mb-1 text-sm text-gray-light">
       {{ $t('additional.assignees') }}
     </div>
     <div class="flex -space-x-1">
@@ -35,14 +35,12 @@ interface IUserData {
 }
 interface IAssigneeData {
   showLabel?: boolean;
-  label?: string;
   userAvatarData?: IUserData[];
   max?: number;
 }
 
 const props = withDefaults(defineProps<IAssigneeData>(), {
-  showLabel: false,
-  label: 'additional.priority',
+  showLabel: true,
   userAvatarData: () => [],
   max: 3,
 });
@@ -50,6 +48,7 @@ const props = withDefaults(defineProps<IAssigneeData>(), {
 const visibleUsers = computed<IUserData[]>(() =>
   props.userAvatarData.slice(0, props.max)
 );
+
 const restUsers = computed<number>(() =>
   Math.max(0, props.userAvatarData.length - props.max)
 );

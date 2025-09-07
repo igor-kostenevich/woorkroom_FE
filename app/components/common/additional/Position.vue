@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-2 text-sm text-gray-light">
+    <div class="mb-1 text-sm text-gray-light">
       {{ $t('additional.position') }}
     </div>
     <div class="text-dark">

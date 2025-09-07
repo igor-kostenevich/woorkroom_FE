@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="showLabel" class="mb-2 ml-2 text-sm text-gray-light">
+    <div v-if="showLabel" class="mb-1 ml-2 text-sm text-gray-light">
       {{ $t('additional.priority') }}
     </div>
-    <div :class="[colorClass, 'flex capitalize']">
-      <Icon :size="24" :name="iconName" />
+    <div :class="[colors, 'flex capitalize']">
+      <Icon :size="24" :name="iconName" :class="['mr-1', iconClass]" />
       {{ props.priority }}
     </div>
   </div>
@@ -19,17 +19,20 @@ interface IPriorityData {
 }
 const props = withDefaults(defineProps<IPriorityData>(), {
   priority: 'low',
-  showLabel: false,
+  showLabel: true,
 });
 
 const MAP = {
-  low: { icon: 'arrow-down', color: 'text-green-vivid' },
-  medium: { icon: 'arrow-right', color: 'text-orange' },
-  high: { icon: 'arrow-up', color: 'text-red' },
+  low: {
+    icon: 'arrow-down',
+    color: 'text-green-vivid',
+    class: 'transfrom rotate-180',
+  },
+  medium: { icon: 'arrow-up', color: 'text-orange', class: '' },
+  high: { icon: 'arrow-up', color: 'text-red', class: '' },
 } as const;
 
-const iconName = computed<'arrow-down' | 'arrow-right' | 'arrow-up'>(
-  () => MAP[props.priority].icon
-);
-const colorClass = computed<string>(() => MAP[props.priority].color);
+const iconName = computed(() => MAP[props.priority].icon);
+const colors = computed<string>(() => MAP[props.priority].color);
+const iconClass = computed<string>(() => MAP[props.priority].class);
 </script>

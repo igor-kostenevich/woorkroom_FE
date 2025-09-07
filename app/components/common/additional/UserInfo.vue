@@ -7,7 +7,7 @@
       :image="userImage"
     />
     <div>
-      <div v-if="fullName" class="mb-2 font-bold text-dark">{{ fullName }}</div>
+      <div v-if="fullName" class="mb-1 font-bold text-dark">{{ fullName }}</div>
       <div v-if="userEmail" class="text-sm text-gray-light">
         {{ userEmail }}
       </div>
@@ -22,13 +22,14 @@ const UserAvatar = defineAsyncComponent(
 
 interface IUserData {
   userImage?: string;
-  fullName?: string;
+  fullName: string;
   userEmail?: string;
-  progress: number;
+  progress?: number;
 }
 
 withDefaults(defineProps<IUserData>(), {
   fullName: '',
   userEmail: '',
+  userImage: '',
 });
 </script>
