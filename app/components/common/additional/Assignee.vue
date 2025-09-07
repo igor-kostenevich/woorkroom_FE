@@ -1,27 +1,23 @@
 <template>
   <div>
     <div v-if="label" class="mb-2 text-sm text-gray-light">
-      {{ $t('additional.priority') }}
+      {{ $t('additional.assignees') }}
     </div>
-    <div class="flex">
+    <div class="flex -space-x-1">
       <UserAvatar
-        v-for="(userAvatar, index) in newListWithUsers"
+        v-for="userAvatar in visibleUsers"
         :key="userAvatar.id"
         size="sm"
         :full-name="userAvatar.fullName"
         :image="userAvatar.userImage"
-        :class="[
-          'rounded-full border-2 border-white',
-          index === 1 ? '-translate-x-1' : '',
-          index === 2 ? '-translate-x-2' : '',
-          index === 3 ? '-translate-x-3' : '',
-        ]"
+        class="rounded-full border-2 border-white"
       />
       <div
-        v-if="userAvatarData.length > 4"
-        class="flex h-6 w-6 -translate-x-4 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white"
+        v-if="restUsers > 0"
+        class="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white"
+        :aria-label="`+${restUsers}`"
       >
-        +{{ numAssignees }}
+        +{{ restUsers }}
       </div>
     </div>
   </div>
@@ -38,15 +34,23 @@ interface IUserData {
   fullName: string;
 }
 interface IAssigneeData {
-  label: boolean;
-  userAvatarData: IUserData[];
+  showLabel?: boolean;
+  label?: string;
+  userAvatarData?: IUserData[];
+  max?: number;
 }
-const props = defineProps<IAssigneeData>();
 
-const numAssignees = computed(() => props.userAvatarData.length - 3);
-const newListWithUsers = computed(() =>
-  props.userAvatarData.length > 4
-    ? props.userAvatarData.slice(0, 3)
-    : props.userAvatarData
+const props = withDefaults(defineProps<IAssigneeData>(), {
+  showLabel: false,
+  label: 'additional.priority',
+  userAvatarData: () => [],
+  max: 3,
+});
+
+const visibleUsers = computed<IUserData[]>(() =>
+  props.userAvatarData.slice(0, props.max)
+);
+const restUsers = computed<number>(() =>
+  Math.max(0, props.userAvatarData.length - props.max)
 );
 </script>

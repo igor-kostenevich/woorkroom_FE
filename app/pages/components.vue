@@ -1015,7 +1015,7 @@ const userAvatarData = [
     </div>
   </div>
   <div class="flex gap-12">
-    <Text gender="Male" birthday="1515" :age="12" />
+    <Text label="additional.text.gender" text="Male" />
     <Position position-name="UI/UX Designer" :position-level="2" />
     <user-info
       user-image="/images/common/woman.png"
@@ -1023,7 +1023,7 @@ const userAvatarData = [
       user-email="evanyates@gmail.com"
       :progress="32"
     />
-    <priority priority="medium" :label="true" />
-    <assignee :label="true" :user-avatar-data="userAvatarData" />
+    <priority priority="medium" :show-label="true" />
+    <assignee :show-label="true" :user-avatar-data="userAvatarData" :max="4" />
   </div>
 </template>

@@ -26,6 +26,7 @@
       "age": "Age"
     },
     "position": "Position",
-    "priority": "Priority"
+    "priority": "Priority",
+    "assignees": "Assignees"
   }
 }

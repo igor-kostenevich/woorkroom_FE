@@ -1,29 +1,16 @@
 <template>
   <div>
     <div class="mb-2 text-sm text-gray-light">
-      {{ $t('additional.text.gender') }}
+      {{ $t(label) }}
     </div>
-    <div class="text-dark">{{ gender }}</div>
-  </div>
-  <div>
-    <div class="mb-2 text-sm text-gray-light">
-      {{ $t('additional.text.birthday') }}
-    </div>
-    <div class="text-dark">{{ birthday }}</div>
-  </div>
-  <div>
-    <div class="mb-2 text-sm text-gray-light">
-      {{ $t('additional.text.age') }}
-    </div>
-    <div class="text-dark">{{ age }}</div>
+    <div class="text-dark">{{ text }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
 interface ITextData {
-  gender: 'Male' | 'Female';
-  birthday: string;
-  age: number;
+  label?: string;
+  text?: string;
 }
 defineProps<ITextData>();
 </script>

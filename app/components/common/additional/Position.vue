@@ -11,14 +11,19 @@
 </template>
 
 <script setup lang="ts">
+import type { EmployeeLevel } from '@/types/employees/EmployeeLvl';
+
 const EmployeeLvl = defineAsyncComponent(
   () => import('~/components/pages/employees/EmployeeLvl.vue')
 );
 
 interface IPositionData {
-  positionName: string;
-  positionLevel: number;
+  positionName?: string;
+  positionLevel?: EmployeeLevel;
 }
 
-defineProps<IPositionData>();
+withDefaults(defineProps<IPositionData>(), {
+  positionName: '',
+  positionLevel: 1,
+});
 </script>
