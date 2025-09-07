@@ -18,5 +18,15 @@
   },
   "My Profile": "My Profile",
   "Loading": "Loading...",
-  "noResults": "No results found"
+  "noResults": "No results found",
+  "additional": {
+    "text": {
+      "gender": "Gender",
+      "birthday": "Birthday",
+      "age": "Age"
+    },
+    "position": "Position",
+    "priority": "Priority",
+    "assignees": "Assignees"
+  }
 }
