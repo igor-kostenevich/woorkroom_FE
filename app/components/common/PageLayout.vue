@@ -9,9 +9,11 @@
         <div class="border-b border-gray-muted p-6 pb-8">
           <slot name="sidebar-header" />
         </div>
+
         <div class="px-6 pb-10 pt-7">
           <slot name="sidebar-content" />
         </div>
+        
       </aside>
 
       <main class="flex-1">

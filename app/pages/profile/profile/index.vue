@@ -2,9 +2,17 @@
 const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 
-const ProjectsContent = defineAsyncComponent(() => import('~/components/pages/profile/ProjectsContent.vue'));
-const TeamContent = defineAsyncComponent(() => import('~/components/pages/profile/TeamContent.vue'));
-const VacationsContent = defineAsyncComponent(() => import('~/components/pages/profile/VacationsContent.vue'));
+const ProjectsContent = defineAsyncComponent(
+  () => import('~/components/pages/profile/ProjectsContent.vue')
+);
+const TeamContent = defineAsyncComponent(
+  () => import('~/components/pages/profile/TeamContent.vue')
+);
+const VacationsContent = defineAsyncComponent(
+  () => import('~/components/pages/profile/VacationsContent.vue')
+);
+
+const { showModal } = useModal();
 
 const segmentsOptions = reactive([
   {
@@ -24,7 +32,7 @@ const segmentsOptions = reactive([
   },
 ]);
 
-const selectedSegment = ref(0);
+const selectedSegment = ref(2);
 const componentsMap = {
   ProjectsContent,
   TeamContent,
@@ -35,19 +43,19 @@ const currentComponent = computed(
   () =>
     componentsMap[
       segmentsOptions[selectedSegment.value]!.comp as keyof typeof componentsMap
-      ],
+    ]
 );
-
 </script>
 
 <template>
-
-
-  <div class="flex flex-col items-center justify-between gap-2 lg:flex-row mb-6">
+  <div
+    class="mb-6 flex flex-col items-center justify-between gap-2 lg:flex-row"
+  >
     <Segment
       v-model="selectedSegment"
       class="max-w-md"
       :options="segmentsOptions"
+      query-key="tabNavigation"
     />
 
     <Button
@@ -55,11 +63,16 @@ const currentComponent = computed(
       color="primary"
       size="md"
       icon-before="plus"
+      @click="
+        showModal({
+          name: 'AddRequest',
+          data: { tab: 0},
+        })
+      "
     >
       {{ $t('profile.Add Request') }}
     </Button>
   </div>
-
 
   <component :is="currentComponent" />
 </template>

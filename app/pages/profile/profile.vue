@@ -89,8 +89,8 @@ const toggleEdit = async () => {
     <template #sidebar-header>
       <div class="mb-4 flex justify-between">
         <UserAvatar
-          class="block bg-primary stroke-primary"
           :progress="60"
+          color="primary"
           size="xl"
           full-name="Evan Yates"
         />

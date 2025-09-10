@@ -87,5 +87,5 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
     </div>
   </div>
 
-  <CalendarRequest />
+
 </template>

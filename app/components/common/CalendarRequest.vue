@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { DatePicker as VDatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
-import Button from '~/UIKit/Button.vue';
 
+const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
 const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
@@ -23,21 +23,33 @@ const calendarOptions = reactive([
 
 const range = ref<{ start: Date | null; end: Date | null } | null>();
 
-// Styling for the selected range (start / middle / end)
-const selectAttribute = computed(() => ({
-  highlight: {
-    start: { contentClass: 'text-white bg-red rounded-l-md' },
-    base: { contentClass: ' bg-red' },
-    end: { contentClass: 'text-white  bg-red rounded-r-md' },
+const route = useRoute();
+const showTime = computed(() => route.query.tabCalendar === '1');
+
+const startTime = ref('');
+const endTime = ref('');
+
+
+
+const vacationRange = { start: new Date(2025, 8, 16), end: new Date(2025, 8, 19) };
+const attrs = ref([
+  {
+    key: 'vacation',
+    highlight: { color: 'red', fillMode: 'outline', class: 'vacation-highlight' },
+    content: { class: 'vacation-no-blue' },
+
+    dates: vacationRange,
+    popover: {
+      label: 'You have 3 days of Vacation left',
+      visibility: 'hover',
+    },
   },
-}));
+]);
 </script>
 
 <template>
   <div class="max-w-[488px] bg-white">
     <div class="mb-7">
-      <h2 class="pb-7 text-xl font-bold">{{ $t('calendar.Add Request') }}</h2>
-
       <h3 class="pb-2 text-sm font-bold text-gray">
         {{ $t('calendar.Request Type') }}
       </h3>
@@ -61,6 +73,7 @@ const selectAttribute = computed(() => ({
           v-model="selectedCalendar"
           class="mt-9 flex-[1_1_auto]"
           :options="calendarOptions"
+          query-key="tabCalendar"
         />
       </div>
     </div>
@@ -71,7 +84,9 @@ const selectAttribute = computed(() => ({
       :popover="false"
       :locale="{ masks: { weekdays: 'WWW' } }"
       mode="date"
-      :select-attribute="selectAttribute"
+      class="mb-6"
+      :attributes="attrs"
+      :trim-weeks="true"
     >
       <template #header-prev-button>
         <Icon name="arrow-left" class="text-primary" />
@@ -82,11 +97,27 @@ const selectAttribute = computed(() => ({
       </template>
     </VDatePicker>
 
-    <div class="mt-7 flex justify-between">
-      <div class="rounded-xl bg-light p-2.5">
-        <Icon name="comment" />
+    <div v-if="showTime">
+      <div class="mb-6 flex gap-x-7">
+        <Input v-model="startTime" placeholder="9:00 AM" icon="time-outlined">
+          <template #topTextLeft>{{ $t('calendar.From') }}</template>
+        </Input>
+        <Input v-model="endTime" placeholder="1:00 PM" icon="time-outlined">
+          <template #topTextLeft>{{ $t('calendar.To') }}</template>
+        </Input>
       </div>
-      <Button>{{ $t('calendar.Send Request') }}</Button>
+
+      <div
+        class="flex items-center justify-between rounded-xl bg-light px-7 py-4"
+      >
+        <div class="text-lg font-bold">
+          {{ $t('calendar.Time for Vacation') }}
+        </div>
+        <div class="text-3xl font-bold text-blue">
+          {{ $t('calendar.time') }}
+        </div>
+      </div>
+      {{ range }}
     </div>
   </div>
 </template>
@@ -149,4 +180,23 @@ const selectAttribute = computed(() => ({
   height: 52px;
   background: #15c0e6;
 }
+
+.vc-weeks .vc-week:last-child .vc-day.is-not-in-month:nth-child(n + 8) {
+  display: none;
+}
+
+.vc-day.is-not-in-month * {
+  color: #9aa3af;
+}
+
+.vacation-highlight {
+  background: transparent !important;
+}
+
+/* Prevent blue selection only for days inside the 'vacation' attribute */
+.vacation-no-blue.vc-blue {
+  background: transparent !important;
+  color: inherit !important;
+}
+
 </style>

@@ -2,6 +2,7 @@
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
 import UserAvatar from '~/components/common/UserAvatar.vue';
+import Progress from '~/UIKit/Progress.vue';
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -9,6 +10,8 @@ const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
+const Dropdown = defineAsyncComponent(() => import('@/UIKit/Dropdown.vue'));
+const Accordion = defineAsyncComponent(() => import('@/UIKit/Accordion.vue'));
 const Autocomplete = defineAsyncComponent(
   () => import('@/UIKit/Autocomplete.vue')
 );
@@ -139,20 +142,42 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
-const selectedSegment = ref(0);
+const selectedSegment1 = ref(0);
+const selectedSegment2 = ref(0);
+const selectedSegment3 = ref(0);
 
-const segmentsOptions = reactive([
+const segmentsOptions1 = ref([
   {
-    id: 0,
+    id: 1234,
     label: 'List',
   },
   {
-    id: 1,
-    label: 'Board',
+    id: 116414,
+    label: 'Activity',
+  },
+]);
+const segmentsOptions2 = ref([
+  {
+    id: 1346141,
+    label: 'Employees’ vacations',
   },
   {
-    id: 2,
-    label: 'Timeline',
+    id: 134,
+    label: 'Calendar',
+  },
+]);
+const segmentsOptions3 = ref([
+  {
+    id: 1346,
+    label: 'Projects',
+  },
+  {
+    id: 456,
+    label: 'Team',
+  },
+  {
+    id: 548,
+    label: 'My vacations',
   },
 ]);
 
@@ -189,6 +214,74 @@ const searchUsers = async (q: string) => {
       u.name.toLowerCase().includes(ql) || u.email.toLowerCase().includes(ql)
   );
 };
+
+const ddIndexDefault = ref<number | null>(null);
+const ddIndexSearch = ref<number | null>(null);
+const ddIndexDisabled = ref<number | null>(0);
+const ddIndexMd = ref<number | null>(null);
+const ddIndexFull = ref<number | null>(null);
+
+type DDOption = {
+  label: string;
+  icon?: string;
+  disabled?: boolean;
+  code?: string;
+  image?: string;
+};
+const ddOptions: DDOption[] = [
+  { label: 'United States', code: 'US', image: '/images/common/woman.png' },
+  { label: 'Germany', icon: 'checked', code: 'DE' },
+  { label: 'Ukraine', icon: 'checked', code: 'UA' },
+  { label: 'Japan', icon: 'checked', code: 'JP', disabled: true },
+  { label: 'Spain', icon: 'checked', code: 'ES' },
+];
+
+type InfoConfig = {
+  is: Component;
+  props?: Record<string, any>;
+  children?: any;
+};
+type AccordionItem = {
+  title: string;
+  icon?: string;
+  info: string | InfoConfig;
+};
+const accordionItems: AccordionItem[] = [
+  {
+    title: 'What is your refund policy?',
+    info: 'Refunds are processed within 5–7 business days after approval.',
+  },
+  {
+    title: 'Try free',
+    info: {
+      is: Button,
+      props: { color: 'primary', size: 'md', iconBefore: 'plus' },
+      children: 'Start',
+    },
+  },
+  {
+    title: 'Do you offer support?',
+    info: 'We provide email and chat support on business days, 9:00–18:00.',
+    icon: 'notifications',
+  },
+  {
+    title: 'Is there a trial period?',
+    info: 'There is a 14-day free trial with full functionality.',
+    icon: 'support',
+  },
+  {
+    title: 'How do I cancel?',
+    info: 'Go to Billing → Manage → Cancel subscription. Your access remains until the end of the billing period.',
+    icon: 'support',
+  },
+  {
+    title: 'Is my data secure?',
+    info: 'We use HTTPS, daily backups, and role-based access controls.',
+    icon: 'support',
+  },
+];
+
+const { showModal } = useModal();
 </script>
 
 <template>
@@ -332,11 +425,26 @@ const searchUsers = async (q: string) => {
     <h3 class="mb-10 text-4xl font-bold text-dark">
       {{ String('Segmented Controls') }}
     </h3>
-    <Segment
-      v-model="selectedSegment"
-      class="max-w-md"
-      :options="segmentsOptions"
-    />
+    <div class="flex flex-col gap-8">
+      <Segment
+        v-model="selectedSegment1"
+        class="max-w-80"
+        :options="segmentsOptions1"
+        query-key="tabList"
+      />
+      <Segment
+        v-model="selectedSegment2"
+        class="max-w-sm"
+        :options="segmentsOptions2"
+        query-key="tabVacations"
+      />
+      <Segment
+        v-model="selectedSegment3"
+        class="max-w-md"
+        :options="segmentsOptions3"
+        query-key="tabProjects"
+      />
+    </div>
   </div>
 
   <div class="mb-20 mt-20">
@@ -535,159 +643,110 @@ const searchUsers = async (q: string) => {
       <div class="flex flex-col gap-5">
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-primary stroke-primary"
             :progress="50"
             size="xl"
             full-name="Петро Петрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             :progress="20"
             size="lg"
             full-name="Кетро Детрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             :progress="70"
             size="md"
             full-name="Еетро Сетрович"
             image="/images/common/woman.png"
           />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="70"
-            size="sm"
-          />
+          <Progress size="sm" :progress="90" />
+        </div>
+        <div class="flex items-center gap-5">
+          <UserAvatar :progress="50" size="xl" full-name="Кетро Петрович" />
+          <UserAvatar :progress="20" size="lg" full-name="Четро Йетрович" />
+          <UserAvatar :progress="70" size="md" full-name="Еетро Оетрович" />
+          <Progress size="sm" :progress="90" />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="50"
-            size="xl"
-            full-name="Кетро Петрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="20"
-            size="lg"
-            full-name="Четро Йетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="70"
-            size="md"
-            full-name="Еетро Оетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            :progress="70"
-            size="sm"
-          />
-        </div>
-        <div class="flex items-center gap-5">
-          <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="50"
             size="xl"
             full-name="Петро Петрович"
             image="/images/common/woman.png"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="20"
             size="lg"
             full-name="Кетро Детрович"
             image="/images/common/woman.png"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="70"
             size="md"
             full-name="Еетро Сетрович"
             image="/images/common/woman.png"
+            color="yellow"
           />
-          <UserAvatar
-            class="bg-yellow stroke-yellow"
-            :progress="70"
-            size="sm"
-          />
+          <Progress size="sm" :progress="90" />
         </div>
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="50"
             size="xl"
             full-name="Кетро Петрович"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="20"
             size="lg"
             full-name="Четро Йетрович"
+            color="yellow"
           />
           <UserAvatar
-            class="bg-yellow stroke-yellow"
             :progress="70"
             size="md"
             full-name="Еетро Оетрович"
+            color="yellow"
           />
-          <UserAvatar
-            class="bg-yellow stroke-yellow"
-            :progress="70"
-            size="sm"
-          />
+          <Progress size="sm" :progress="90" />
         </div>
       </div>
       <div class="flex flex-col gap-5">
         <div class="flex items-center gap-5">
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="xl"
             full-name="Кетро Петрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="lg"
             full-name="Четро Йетрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="md"
             full-name="Еетро Оетрович"
             image="/images/common/woman.png"
           />
           <UserAvatar
-            class="bg-primary stroke-primary"
             size="sm"
             full-name="Еетро Оетрович"
             image="/images/common/woman.png"
           />
         </div>
         <div class="flex items-center gap-5">
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="xl"
-            full-name="Кетро Петрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="lg"
-            full-name="Четро Йетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="md"
-            full-name="Еетро Оетрович"
-          />
-          <UserAvatar
-            class="bg-primary stroke-primary"
-            size="sm"
-            full-name="Еетро Оетрович"
-          />
+          <UserAvatar size="xl" full-name="Кетро Петрович" />
+          <UserAvatar size="lg" full-name="Четро Йетрович" />
+          <UserAvatar size="md" full-name="Еетро Оетрович" />
+          <UserAvatar size="sm" full-name="Еетро Оетрович" />
+        </div>
+        <div class="flex items-center gap-5">
+          <Progress size="xl" :progress="30" color="blue">12</Progress>
+          <Progress size="xl" :progress="60" color="red">6</Progress>
+          <Progress size="xl" :progress="90" color="violet">58</Progress>
         </div>
       </div>
     </div>
@@ -737,6 +796,153 @@ const searchUsers = async (q: string) => {
           }}</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- DROPDOWNS -->
+  <div class="mb-24 mt-32">
+    <h3 class="text-dark-default mb-10 text-4xl font-bold">
+      {{ String('Dropdowns') }}
+    </h3>
+
+    <div class="grid grid-cols-3 gap-8">
+      <!-- 1) Базовий -->
+      <Dropdown
+        v-model="ddIndexDefault"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Select country"
+      />
+
+      <!-- 2) З пошуком по label (desktop — інпут в триггері; mobile — в панелі) -->
+      <Dropdown
+        v-model="ddIndexSearch"
+        :options="ddOptions"
+        label-field="label"
+        search-field="label"
+        placeholder="Search country"
+      />
+
+      <Dropdown
+        v-model="ddIndexDisabled"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Disabled"
+        disabled
+      />
+
+      <Dropdown
+        v-model="ddIndexMd"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Size: md"
+        size="md"
+      >
+        <template #label>
+          {{ String('Select country') }}
+        </template>
+      </Dropdown>
+
+      <div>
+        <Dropdown
+          v-model="ddIndexFull"
+          :options="ddOptions"
+          label-field="label"
+          placeholder="Choose..."
+          :fullwidth="true"
+        >
+          <template #label>
+            {{ String('Select country') }}
+          </template>
+        </Dropdown>
+      </div>
+
+      <Dropdown
+        v-model="ddIndexDefault"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Custom option template"
+      >
+        <template #label>
+          {{ String('Select country') }}
+        </template>
+        <template #option="{ option, index }">
+          <Icon v-if="option.icon" :type="option.icon" :size="20" />
+          <span
+            class="flex-1 truncate"
+            :class="
+              ddIndexDefault === ddOptions.indexOf(option)
+                ? 'text-black'
+                : 'text-gray-600'
+            "
+          >
+            {{ index + 1 }}. {{ option.label }}
+          </span>
+          <Icon
+            v-if="ddIndexDefault === ddOptions.indexOf(option)"
+            type="checked"
+          />
+        </template>
+      </Dropdown>
+    </div>
+
+    <div
+      class="mt-6 rounded-[14px] border bg-gray-50 p-4 text-sm leading-6 text-gray"
+    >
+      <div>
+        {{ String('Selected (basic):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexDefault ?? 'null')
+        }}</span>
+      </div>
+      <div>
+        {{ String('Selected (search):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexSearch ?? 'null')
+        }}</span>
+      </div>
+      <div>
+        {{ String('Selected (md):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexMd ?? 'null')
+        }}</span>
+      </div>
+      <div>
+        {{ String('Selected (fullwidth):') }}
+        <span class="font-mono text-dark">{{
+          String(ddIndexFull ?? 'null')
+        }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Accordion') }}
+    </h3>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <Accordion :items="accordionItems" />
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Modal') }}
+    </h3>
+
+    <div class="">
+      <Button
+        color="primary"
+        fullwidth
+        @click="
+          showModal({
+            name: 'Example',
+            data: { tab: 0, testData: 'Hello from components page!' },
+          })
+        "
+        >{{ String('Open modal') }}</Button
+      >
     </div>
   </div>
 </template>

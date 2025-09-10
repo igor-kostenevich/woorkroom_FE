@@ -10,7 +10,7 @@ const props = defineProps<TeamMemberCard>();
 <template>
   <div class="flex flex-col items-center rounded-3xl bg-white py-4 shadow-base">
     <UserAvatar
-      class="block bg-primary stroke-primary"
+      color="primary"
       :progress="50"
       size="lg"
       :full-name="props.name"

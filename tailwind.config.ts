@@ -10,6 +10,19 @@ export default <Config>{
       fontFamily: {
         'nunito-sans': ['Nunito Sans', 'sans-serif'],
       },
+      keyframes: {
+        'head-shake': {
+          '0%': { transform: 'translate(0)' },
+          '6.5%': { transform: 'translate(-6px) rotateY(-9deg)' },
+          '18.5%': { transform: 'translate(5px) rotateY(7deg)' },
+          '31.5%': { transform: 'translate(-3px) rotateY(-5deg)' },
+          '43.5%': { transform: 'translate(2px) rotateY(3deg)' },
+          '50%': { transform: 'translate(0)' },
+        },
+      },
+      animation: {
+        'head-shake': 'head-shake 0.6s ease-in-out',
+      },
       boxShadow: {
         base: '0px 6px 58px 0px rgba(196, 203, 214, 0.1)',
         secondary: '0px 1px 2px 0px rgba(184, 200, 224, 0.22)',

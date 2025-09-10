@@ -3,7 +3,7 @@
     <Sidebar hydrate-on-idle />
     <main class="flex flex-1 flex-col">
       <Header hydrate-on-idle />
-      <div class="h-full px-1 pt-12 lg:px-10">
+      <div class="h-full pl-10 pr-5 pt-12">
         <slot />
       </div>
     </main>

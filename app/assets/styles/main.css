@@ -2,3 +2,24 @@ html,
 body {
   @apply m-0 h-full w-full touch-manipulation font-nunito-sans text-base font-normal;
 }
+
+* {
+  min-height: 0;
+  scrollbar-color: rgb(163 163 163) transparent;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgb(234 179 8);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}

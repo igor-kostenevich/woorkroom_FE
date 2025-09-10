@@ -33,11 +33,7 @@
       <div
         class="relative mb-12 mt-20 rounded-3xl bg-primary-opacity px-5 py-6 pt-24"
       >
-        <img
-          src="/images/common/woman.png"
-          class="absolute -top-12 h-32 w-36"
-          alt="woman"
-        />
+
         <Button icon-before="support" fullwidth>{{ $t('Support') }}</Button>
       </div>
 

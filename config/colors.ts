@@ -1,6 +1,7 @@
 export const colors = {
   white: '#ffffff',
   primary: {
+    overlay: '#2155A329',
     light: '#A7CAFF',
     DEFAULT: '#3F8CFF',
     opacity: '#3F8CFF1F',
@@ -26,7 +27,7 @@ export const colors = {
   },
   pink: '#DE92EB',
   yellow: '#FDC748',
-  purpule: {
+  purple: {
     DEFAULT: '#C418E6',
     opacity: '#C418E61C',
   },

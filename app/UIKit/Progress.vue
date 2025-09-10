@@ -1,46 +1,55 @@
 <template>
-  <svg
-    v-if="props.progress"
-    class="absolute left-0 top-0"
-    :width="size"
-    :height="size"
-    :viewBox="`0 0 ${size} ${size}`"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle
-      :cx="size / 2"
-      :cy="size / 2"
-      :r="radius"
-      fill="none"
-      class="stroke-gray-secondary"
-      stroke-width="2"
-    />
-    <circle
-      :cx="size / 2"
-      :cy="size / 2"
-      :r="radius"
-      fill="none"
-      :class="$attrs.class"
-      stroke-width="2"
-      stroke-linecap="round"
-      :transform="`translate(${size} 0) scale(-1 1) rotate(-90 ${size / 2} ${size / 2})`"
-      :stroke-dasharray="circumference"
-      :stroke-dashoffset="dashoffset"
-    />
-  </svg>
+  <div :class="['relative', sizeClasses]">
+    <svg
+      v-if="props.progress"
+      class="absolute left-0 top-0"
+      :width="size"
+      :height="size"
+      :viewBox="`0 0 ${size} ${size}`"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        :cx="size / 2"
+        :cy="size / 2"
+        :r="radius"
+        fill="none"
+        class="stroke-gray-secondary"
+        stroke-width="2"
+      />
+      <circle
+        :cx="size / 2"
+        :cy="size / 2"
+        :r="radius"
+        :class="selectedStrokeColor"
+        fill="none"
+        stroke-width="2"
+        stroke-linecap="round"
+        :transform="`translate(${size} 0) scale(-1 1) rotate(-90 ${size / 2} ${size / 2})`"
+        :stroke-dasharray="circumference"
+        :stroke-dashoffset="dashoffset"
+      />
+    </svg>
+    <div
+      :class="[
+        'absolute inset-0 flex items-center justify-center',
+        selectedTextClasses,
+      ]"
+    >
+      <slot />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  progress?: number;
-  size: 'sm' | 'md' | 'lg' | 'xl';
-}>();
+import type { IUserAvatar } from '~/types/components';
+
+const props = defineProps<IUserAvatar>();
 
 const sizeVariations = {
   sm: 24,
-  md: 40,
-  lg: 56,
-  xl: 64,
+  md: 48,
+  lg: 58,
+  xl: 72,
 } as const;
 const size = sizeVariations[props.size];
 
@@ -49,5 +58,30 @@ const circumference = 2 * Math.PI * radius;
 const rate = props.progress ?? 0;
 const dashoffset = circumference - (circumference * rate) / 100;
 
-defineOptions({ inheritAttrs: false });
+const sizeClasses = computed(() => ({
+  'h-6 w-6': props.size === 'sm',
+  'h-12 w-12': props.size === 'md',
+  'h-[58px] w-[58px]': props.size === 'lg',
+  'h-[72px] w-[72px]': props.size === 'xl',
+}));
+
+const strokeClasses = {
+  primary: 'stroke-primary',
+  yellow: 'stroke-yellow',
+  blue: 'stroke-blue',
+  red: 'stroke-red',
+  violet: 'stroke-purple',
+} as const;
+const selectedStrokeColor = computed(
+  () => strokeClasses[props.color ?? 'primary']
+);
+
+const textClasses = {
+  primary: 'text-xl text-primary',
+  yellow: 'text-xl text-yellow',
+  blue: 'text-blue text-xl font-extrabold',
+  red: 'text-red text-xl font-extrabold',
+  violet: 'text-purple text-xl font-extrabold',
+} as const;
+const selectedTextClasses = computed(() => textClasses[props.color ?? 'blue']);
 </script>
