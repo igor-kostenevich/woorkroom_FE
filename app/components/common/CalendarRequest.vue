@@ -29,15 +29,13 @@ const showTime = computed(() => route.query.tabCalendar === '1');
 const startTime = ref('');
 const endTime = ref('');
 
-
-
-const vacationRange = { start: new Date(2025, 8, 16), end: new Date(2025, 8, 19) };
+const vacationRange = {
+  start: new Date(2025, 8, 16),
+  end: new Date(2025, 8, 19),
+};
 const attrs = ref([
   {
     key: 'vacation',
-    highlight: { color: 'red', fillMode: 'outline', class: 'vacation-highlight' },
-    content: { class: 'vacation-no-blue' },
-
     dates: vacationRange,
     popover: {
       label: 'You have 3 days of Vacation left',
@@ -45,6 +43,39 @@ const attrs = ref([
     },
   },
 ]);
+
+const toYMD = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const rangesOverlap = (
+  a: { start: Date; end: Date },
+  b: { start: Date; end: Date }
+) => {
+  const aStart = toYMD(a.start),
+    aEnd = toYMD(a.end);
+  const bStart = toYMD(b.start),
+    bEnd = toYMD(b.end);
+
+  return aStart <= bEnd && bStart <= aEnd;
+};
+
+watch(
+  range,
+  (val) => {
+    if (!val?.start || !val?.end) return;
+    if (rangesOverlap({ start: val.start, end: val.end }, vacationRange)) {
+      const highlights = document.querySelectorAll('.vc-highlight');
+      highlights.forEach((highlight) => {
+        highlight.classList.add('vc-red');
+      });
+      const blueDays = document.querySelectorAll(
+        '.vc-day-content.vc-focusable.vc-focus.vc-attr.vc-attr.vc-highlight-content-light.vc-blue'
+      );
+      blueDays.forEach((day) => {
+        day.classList.add('vc-red');
+      });
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <template>
@@ -181,6 +212,10 @@ const attrs = ref([
   background: #15c0e6;
 }
 
+.vc-red {
+  background: #f65160 !important;
+}
+
 .vc-weeks .vc-week:last-child .vc-day.is-not-in-month:nth-child(n + 8) {
   display: none;
 }
@@ -188,15 +223,4 @@ const attrs = ref([
 .vc-day.is-not-in-month * {
   color: #9aa3af;
 }
-
-.vacation-highlight {
-  background: transparent !important;
-}
-
-/* Prevent blue selection only for days inside the 'vacation' attribute */
-.vacation-no-blue.vc-blue {
-  background: transparent !important;
-  color: inherit !important;
-}
-
 </style>
