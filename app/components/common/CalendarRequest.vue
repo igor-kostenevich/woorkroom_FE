@@ -6,6 +6,11 @@ const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
 const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
+const TextArea = defineAsyncComponent(() => import('~/UIKit/Textarea.vue'));
+
+defineProps<{
+  showTextArea: boolean;
+}>();
 
 const requestType = reactive([
   { id: '1', value: 'Vacation' },
@@ -15,6 +20,7 @@ const requestType = reactive([
 
 const selected = ref('item1');
 const selectedCalendar = ref(0);
+const TextAreaText = ref('');
 
 const calendarOptions = reactive([
   { id: 0, label: 'Days' },
@@ -33,18 +39,14 @@ const vacationRange = {
   start: new Date(2025, 8, 16),
   end: new Date(2025, 8, 19),
 };
-const attrs = ref([
-  {
-    key: 'vacation',
-    dates: vacationRange,
-    popover: {
-      label: 'You have 3 days of Vacation left',
-      visibility: 'hover',
-    },
-  },
-]);
+
+const daysCount = computed(() => {
+  const diff = vacationRange.end.getTime() - vacationRange.start.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+});
 
 const toYMD = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
 const rangesOverlap = (
   a: { start: Date; end: Date },
   b: { start: Date; end: Date }
@@ -53,29 +55,42 @@ const rangesOverlap = (
     aEnd = toYMD(a.end);
   const bStart = toYMD(b.start),
     bEnd = toYMD(b.end);
-
   return aStart <= bEnd && bStart <= aEnd;
 };
 
 watch(
   range,
-  (val) => {
-    if (!val?.start || !val?.end) return;
-    if (rangesOverlap({ start: val.start, end: val.end }, vacationRange)) {
-      const highlights = document.querySelectorAll('.vc-highlight');
-      highlights.forEach((highlight) => {
-        highlight.classList.add('vc-red');
-      });
-      const blueDays = document.querySelectorAll(
-        '.vc-day-content.vc-focusable.vc-focus.vc-attr.vc-attr.vc-highlight-content-light.vc-blue'
+  async (val) => {
+    if (!val?.start) return;
+
+    const start = val.start;
+    const end = val.end ?? val.start;
+
+    const overlapped = rangesOverlap({ start, end }, vacationRange);
+
+    await nextTick();
+    document
+      .querySelectorAll('.vc-red')
+      .forEach((el) => el.classList.remove('vc-red'));
+
+    if (overlapped) {
+      const targets = document.querySelectorAll(
+        '.vc-day-content.vc-blue, .vc-highlight'
       );
-      blueDays.forEach((day) => {
-        day.classList.add('vc-red');
-      });
+      targets.forEach((el) => el.classList.add('vc-red'));
     }
   },
   { deep: true }
 );
+const attrs = ref([
+  {
+    key: 'vacation',
+    dates: vacationRange,
+    popover: {
+      placement: 'top-start',
+    },
+  },
+]);
 </script>
 
 <template>
@@ -115,7 +130,7 @@ watch(
       :popover="false"
       :locale="{ masks: { weekdays: 'WWW' } }"
       mode="date"
-      class="mb-6"
+      class="] mb-6"
       :attributes="attrs"
       :trim-weeks="true"
     >
@@ -126,9 +141,15 @@ watch(
       <template #header-next-button>
         <Icon name="arrow-right" class="text-primary" />
       </template>
+
+      <template #day-popover>
+        <div class="px-2 py-2 text-sm text-red">
+          {{ String(`You have ${daysCount} days of Vacation left`) }}
+        </div>
+      </template>
     </VDatePicker>
 
-    <div v-if="showTime">
+    <div v-if="showTime" class="mb-5">
       <div class="mb-6 flex gap-x-7">
         <Input v-model="startTime" placeholder="9:00 AM" icon="time-outlined">
           <template #topTextLeft>{{ $t('calendar.From') }}</template>
@@ -150,6 +171,12 @@ watch(
       </div>
       {{ range }}
     </div>
+
+    <TextArea
+      v-if="showTextArea"
+      v-model="TextAreaText"
+      placeholder="Add your comment"
+    />
   </div>
 </template>
 
@@ -222,5 +249,12 @@ watch(
 
 .vc-day.is-not-in-month * {
   color: #9aa3af;
+}
+
+.vc-day:focus,
+.vc-day-content:focus,
+.vc-focus .vc-day-content {
+  outline: none !important;
+  box-shadow: none !important;
 }
 </style>
