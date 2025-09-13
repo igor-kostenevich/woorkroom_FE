@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { DatePicker as VDatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
+import { useDateFormat } from '@vueuse/core';
 
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
@@ -18,7 +19,7 @@ const requestType = reactive([
   { id: '3', value: 'Work remotely' },
 ]);
 
-const selected = ref('item1');
+const selected = ref('Vacation');
 const selectedCalendar = ref(0);
 const TextAreaText = ref('');
 
@@ -60,7 +61,7 @@ const rangesOverlap = (
 
 watch(
   range,
-  async (val) => {
+  async (val: typeof range.value) => {
     if (!val?.start) return;
 
     const start = val.start;
@@ -82,6 +83,7 @@ watch(
   },
   { deep: true }
 );
+
 const attrs = ref([
   {
     key: 'vacation',
@@ -91,6 +93,16 @@ const attrs = ref([
     },
   },
 ]);
+
+const formattedStart = computed(() =>
+  range.value?.start
+    ? useDateFormat(range.value.start, 'MMM DD, YYYY').value
+    : ''
+);
+
+const formattedEnd = computed(() =>
+  range.value?.end ? useDateFormat(range.value.end, 'MMM DD, YYYY').value : ''
+);
 </script>
 
 <template>
@@ -170,6 +182,8 @@ const attrs = ref([
         </div>
       </div>
       {{ range }}
+      <div>{{ formattedStart }}</div>
+      <div>{{ formattedEnd }}</div>
     </div>
 
     <TextArea
