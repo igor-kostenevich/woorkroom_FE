@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import CalendarRequest from '~/components/common/CalendarRequest.vue';
-
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 
@@ -86,6 +84,4 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
       </div>
     </div>
   </div>
-
-
 </template>

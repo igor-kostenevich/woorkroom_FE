@@ -3,7 +3,8 @@ import { DatePicker as VDatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 import { useDateFormat } from '@vueuse/core';
 
-const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
+const TimeDuration = defineAsyncComponent(() => import('./RequestTime.vue'));
+
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
 const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
@@ -32,9 +33,6 @@ const range = ref<{ start: Date | null; end: Date | null } | null>();
 
 const route = useRoute();
 const showTime = computed(() => route.query.tabCalendar === '1');
-
-const startTime = ref('');
-const endTime = ref('');
 
 const vacationRange = {
   start: new Date(2025, 8, 16),
@@ -103,6 +101,9 @@ const formattedStart = computed(() =>
 const formattedEnd = computed(() =>
   range.value?.end ? useDateFormat(range.value.end, 'MMM DD, YYYY').value : ''
 );
+
+const startTime = ref('09:00');
+const endTime = ref('01:21');
 </script>
 
 <template>
@@ -162,30 +163,16 @@ const formattedEnd = computed(() =>
     </VDatePicker>
 
     <div v-if="showTime" class="mb-5">
-      <div class="mb-6 flex gap-x-7">
-        <Input v-model="startTime" placeholder="9:00 AM" icon="time-outlined">
-          <template #topTextLeft>{{ $t('calendar.From') }}</template>
-        </Input>
-        <Input v-model="endTime" placeholder="1:00 PM" icon="time-outlined">
-          <template #topTextLeft>{{ $t('calendar.To') }}</template>
-        </Input>
-      </div>
-
-      <div
-        class="flex items-center justify-between rounded-xl bg-light px-7 py-4"
-      >
-        <div class="text-lg font-bold">
-          {{ $t('calendar.Time for Vacation') }}
-        </div>
-        <div class="text-3xl font-bold text-blue">
-          {{ $t('calendar.time') }}
-        </div>
-      </div>
-      {{ range }}
-      <div>{{ formattedStart }}</div>
-      <div>{{ formattedEnd }}</div>
+      <TimeDuration
+        v-model:start="startTime"
+        v-model:end="endTime"
+        :label="$t('calendar.Work Period')"
+      />
     </div>
+    {{ range }}
 
+    <div>{{ formattedStart }}</div>
+    <div>{{ formattedEnd }}</div>
     <TextArea
       v-if="showTextArea"
       v-model="TextAreaText"
