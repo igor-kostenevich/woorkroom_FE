@@ -6,7 +6,11 @@
     </template>
 
     <div class="tab-content">
-      <CalendarRequest :show-text-area="showTextArea" />
+      <CalendarRequest
+        ref="calendarRef"
+        :show-text-area="showTextArea"
+        @submit="handleSubmit"
+      />
     </div>
 
     <!-- 🟢This slot is optional -->
@@ -19,7 +23,7 @@
         @click="showTextArea = !showTextArea"
       />
 
-      <Button @click="hideModal">
+      <Button @click="submitForm">
         {{ $t('calendar.Send Request') }}
       </Button>
     </template>
@@ -41,5 +45,25 @@ const { data } = defineProps<IModalProps>();
 console.warn('modal data', data);
 
 const { hideModal } = useModal();
+const lastPayload = ref(null);
+
 const showTextArea = ref(false);
+
+function handleSubmit(payload: any) {
+  lastPayload.value = payload;
+}
+
+const calendarRef = ref<any>(null);
+
+function submitForm() {
+  if (!calendarRef.value) return;
+
+  const ok = calendarRef.value.onSubmit();
+  if (!ok) {
+    console.warn('Validation failed,');
+    return;
+  }
+  console.warn(lastPayload.value, ' lastPayload.value');
+  hideModal();
+}
 </script>

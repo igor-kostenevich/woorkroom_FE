@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { DatePicker as VDatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
-import { useDateFormat } from '@vueuse/core';
 
 const TimeDuration = defineAsyncComponent(() => import('./RequestTime.vue'));
 
@@ -29,8 +28,6 @@ const calendarOptions = reactive([
   { id: 1, label: 'Hours' },
 ]);
 
-const range = ref<{ start: Date | null; end: Date | null } | null>();
-
 const route = useRoute();
 const showTime = computed(() => route.query.tabCalendar === '1');
 
@@ -39,27 +36,42 @@ const vacationRange = {
   end: new Date(2025, 8, 19),
 };
 
-const daysCount = computed(() => {
-  const diff = vacationRange.end.getTime() - vacationRange.start.getTime();
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-});
+const {
+  range,
+  daysCount,
+  formattedStart,
+  formattedEnd,
+  rangesOverlap,
+  validateAndPreparePayload,
+} = useVacationCalendar(vacationRange);
 
-const toYMD = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+const emit = defineEmits<{
+  (e: 'submit', payload: any): void;
+}>();
 
-const rangesOverlap = (
-  a: { start: Date; end: Date },
-  b: { start: Date; end: Date }
-) => {
-  const aStart = toYMD(a.start),
-    aEnd = toYMD(a.end);
-  const bStart = toYMD(b.start),
-    bEnd = toYMD(b.end);
-  return aStart <= bEnd && bStart <= aEnd;
-};
+function onSubmit() {
+  try {
+    const payload = validateAndPreparePayload({
+      requestType: selected.value,
+      calendarType: selectedCalendar.value,
+      showTime: showTime.value,
+      startTime: startTime.value,
+      endTime: endTime.value,
+      comment: TextAreaText.value,
+    });
 
+    emit('submit', payload);
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
+defineExpose({ onSubmit });
 watch(
   range,
-  async (val: typeof range.value) => {
+  async (val: any) => {
     if (!val?.start) return;
 
     const start = val.start;
@@ -82,28 +94,16 @@ watch(
   { deep: true }
 );
 
+const startTime = ref('5:00');
+const endTime = ref('10:00');
+
 const attrs = ref([
   {
     key: 'vacation',
     dates: vacationRange,
-    popover: {
-      placement: 'top-start',
-    },
+    popover: { placement: 'top-start' },
   },
 ]);
-
-const formattedStart = computed(() =>
-  range.value?.start
-    ? useDateFormat(range.value.start, 'MMM DD, YYYY').value
-    : ''
-);
-
-const formattedEnd = computed(() =>
-  range.value?.end ? useDateFormat(range.value.end, 'MMM DD, YYYY').value : ''
-);
-
-const startTime = ref('09:00');
-const endTime = ref('01:21');
 </script>
 
 <template>
@@ -172,6 +172,7 @@ const endTime = ref('01:21');
     {{ range }}
 
     <div>{{ formattedStart }}</div>
+
     <div>{{ formattedEnd }}</div>
     <TextArea
       v-if="showTextArea"
