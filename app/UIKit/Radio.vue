@@ -24,7 +24,7 @@
       @change="emit('update:modelValue', props.value)"
     />
 
-    <span v-if="$slots.default" class="text-gray">
+    <span v-if="$slots.default">
       <slot />
     </span>
   </label>

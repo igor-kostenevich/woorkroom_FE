@@ -63,7 +63,7 @@ function submitForm() {
     console.warn('Validation failed,');
     return;
   }
-  console.warn(lastPayload.value, ' lastPayload.value');
+  console.warn(lastPayload.value);
   hideModal();
 }
 </script>

@@ -107,20 +107,20 @@ const attrs = ref([
 </script>
 
 <template>
-  <div class="max-w-[488px] bg-white">
+  <div class="bg-white">
     <div class="mb-7">
       <h3 class="pb-2 text-sm font-bold text-gray">
         {{ $t('calendar.Request Type') }}
       </h3>
 
-      <div class="flex gap-5">
+      <div class="flex flex-col gap-6 pt-1.5 sm:flex-row sm:pt-0 lg:gap-5">
         <Radio
           v-for="input in requestType"
           :id="input.id"
           :key="input.id"
           v-model="selected"
           name="radio-picker"
-          class="rounded-lg border border-gray-dark p-3"
+          class="rounded-lg border-0 sm:border sm:p-3 lg:border-gray-dark"
           :value="input.value"
         >
           {{ input.value }}
@@ -137,31 +137,34 @@ const attrs = ref([
       </div>
     </div>
 
-    <VDatePicker
-      v-model="range"
-      is-range
-      :popover="false"
-      :locale="{ masks: { weekdays: 'WWW' } }"
-      mode="date"
-      class="] mb-6"
-      :attributes="attrs"
-      :trim-weeks="true"
-    >
-      <template #header-prev-button>
-        <Icon name="arrow-left" class="text-primary" />
-      </template>
+    <div class="max-w-full overflow-auto sm:max-w-[488px] sm:overflow-visible">
+      <VDatePicker
+        v-model="range"
+        is-range
+        :popover="false"
+        :locale="{ masks: { weekdays: 'WWW' } }"
+        mode="date"
+        class="mb-6"
+        :attributes="attrs"
+        trim-weeks
+        :colums="1"
+        expanded
+      >
+        <template #header-prev-button>
+          <Icon name="arrow-left" class="text-primary" />
+        </template>
 
-      <template #header-next-button>
-        <Icon name="arrow-right" class="text-primary" />
-      </template>
+        <template #header-next-button>
+          <Icon name="arrow-right" class="text-primary" />
+        </template>
 
-      <template #day-popover>
-        <div class="px-2 py-2 text-sm text-red">
-          {{ String(`You have ${daysCount} days of Vacation left`) }}
-        </div>
-      </template>
-    </VDatePicker>
-
+        <template #day-popover>
+          <div class="px-2 py-2 text-sm text-red">
+            {{ String(`You have ${daysCount} days of Vacation left`) }}
+          </div>
+        </template>
+      </VDatePicker>
+    </div>
     <div v-if="showTime" class="mb-5">
       <TimeDuration
         v-model:start="startTime"
@@ -239,6 +242,40 @@ const attrs = ref([
 .vc-highlight {
   height: 52px;
   background: #15c0e6;
+}
+
+@media (width <= 640px) {
+  .vc-highlight vc-highlight-bg-solid {
+    background: none;
+    border: none;
+    height: 46px;
+  }
+
+  .vc-header {
+    margin-top: 10px;
+    display: flex !important;
+  }
+
+  .vc-title {
+    display: none;
+  }
+
+  .vc-day-content.vc-blue {
+    height: 46px;
+    width: 46px;
+  }
+
+  .vc-day {
+    height: 46px;
+  }
+
+  .vc-weeks {
+    padding: 0;
+  }
+
+  .mb-6.vc-container.vc-monthly.vc-blue.vc-light.vc-expanded.vc-bordered {
+    border: none;
+  }
 }
 
 .vc-red {
