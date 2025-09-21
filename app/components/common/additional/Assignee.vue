@@ -3,7 +3,7 @@
     <div v-if="showLabel" class="mb-1 text-sm text-gray-light">
       {{ $t('additional.assignees') }}
     </div>
-    <div class="flex -space-x-1">
+    <div class="flex items-center -space-x-1">
       <UserAvatar
         v-for="userAvatar in visibleUsers"
         :key="userAvatar.id"
@@ -14,7 +14,7 @@
       />
       <div
         v-if="restUsers > 0"
-        class="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white"
+        class="relative z-10 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-white"
         :aria-label="`+${restUsers}`"
       >
         +{{ restUsers }}

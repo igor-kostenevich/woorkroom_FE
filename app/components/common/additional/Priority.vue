@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="showLabel" class="mb-1 ml-2 text-sm text-gray-light">
+    <div v-if="showLabel" class="mb-1 text-sm text-gray-light">
       {{ $t('additional.priority') }}
     </div>
     <div :class="[colors, 'flex capitalize']">
@@ -26,7 +26,7 @@ const MAP = {
   low: {
     icon: 'arrow-down',
     color: 'text-green-vivid',
-    class: 'transfrom rotate-180',
+    class: 'transform rotate-180',
   },
   medium: { icon: 'arrow-up', color: 'text-orange', class: '' },
   high: { icon: 'arrow-up', color: 'text-red', class: '' },

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="">
     <div v-if="label" class="mb-1 text-sm text-gray-light">
-      {{ label }}
+      {{ $t(label) }}
     </div>
-    <div class="text-dark">{{ text }}</div>
+    <div class="w-32 truncate text-dark">{{ text }}</div>
   </div>
 </template>
 
