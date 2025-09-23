@@ -137,7 +137,7 @@ const attrs = ref([
       </div>
     </div>
 
-    <div class="max-w-full overflow-auto sm:max-w-[488px] sm:overflow-visible">
+    <div class="max-w-full sm:max-w-[488px]">
       <VDatePicker
         v-model="range"
         is-range
@@ -147,7 +147,6 @@ const attrs = ref([
         class="mb-6"
         :attributes="attrs"
         trim-weeks
-        :colums="1"
         expanded
       >
         <template #header-prev-button>
@@ -248,12 +247,14 @@ const attrs = ref([
   .vc-highlight vc-highlight-bg-solid {
     background: none;
     border: none;
-    height: 46px;
+    height: auto;
   }
 
   .vc-header {
     margin-top: 10px;
     display: flex !important;
+    gap: 170px;
+    margin-bottom: 20px;
   }
 
   .vc-title {
@@ -261,16 +262,21 @@ const attrs = ref([
   }
 
   .vc-day-content.vc-blue {
-    height: 46px;
-    width: 46px;
+    height: auto;
+    width: auto;
   }
 
   .vc-day {
-    height: 46px;
+    height: auto;
+    width: auto;
   }
 
   .vc-weeks {
     padding: 0;
+  }
+
+  .vc-pane {
+    min-width: auto;
   }
 
   .mb-6.vc-container.vc-monthly.vc-blue.vc-light.vc-expanded.vc-bordered {
@@ -295,5 +301,9 @@ const attrs = ref([
 .vc-focus .vc-day-content {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.vc-highlight-bg-outline {
+  border: none;
 }
 </style>

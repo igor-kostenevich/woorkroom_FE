@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import type { IProjectCard } from '~/types/profile/ProjectCard';
 
-const  PriorityBadge = defineAsyncComponent(() => import('~/components/common/PriorityBadge.vue'));
-const Assigneers = defineAsyncComponent(() => import('~/components/pages/projects/common/Assigneers.vue'));
+const PriorityBadge = defineAsyncComponent(
+  () => import('~/components/common/additional/Priority.vue')
+);
+const Assignee = defineAsyncComponent(
+  () => import('~/components/common/additional/Assignee.vue')
+);
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 
 const props = defineProps<IProjectCard>();
@@ -50,8 +54,12 @@ const props = defineProps<IProjectCard>();
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <span class="text-sm text-gray-light">{{ $t('Active tasks') }}</span>
-          <Assigneers :assignees="props.assignees ?? []" :max-visible="3" />
+          <span class="text-sm text-gray-light">{{ $t('Assignees') }}</span>
+          <Assignee
+            :show-label="false"
+            :user-avatar-data="props.assignees ?? []"
+            :max="3"
+          />
         </div>
       </div>
     </div>

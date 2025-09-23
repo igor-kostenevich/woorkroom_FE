@@ -1,5 +1,3 @@
-import type { IAssignee } from '~/types/components/Assignee';
-
 export interface IProjectCard {
   id: string;
   title: string;

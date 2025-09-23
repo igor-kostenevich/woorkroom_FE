@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
+const Accordion = defineAsyncComponent(() => import('~/UIKit/Accordion.vue'));
 
 const Account = defineAsyncComponent(
   () => import('~/components/pages/profile/settings/Account.vue')
@@ -41,6 +42,46 @@ const settingsPages: SettingsPage[] = [
 ];
 
 const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
+
+type AccordionItem = {
+  title: string;
+  icon?: string;
+  info: string | InfoConfig;
+};
+const accordionItems: AccordionItem[] = [
+  {
+    title: 'What is your refund policy?',
+    info: 'Refunds are processed within 5–7 business days after approval.',
+  },
+  {
+    title: 'Try free',
+    info: {
+      is: Button,
+      props: { color: 'primary', size: 'md', iconBefore: 'plus' },
+      children: 'Start',
+    },
+  },
+  {
+    title: 'Do you offer support?',
+    info: 'We provide email and chat support on business days, 9:00–18:00.',
+    icon: 'notifications',
+  },
+  {
+    title: 'Is there a trial period?',
+    info: 'There is a 14-day free trial with full functionality.',
+    icon: 'support',
+  },
+  {
+    title: 'How do I cancel?',
+    info: 'Go to Billing → Manage → Cancel subscription. Your access remains until the end of the billing period.',
+    icon: 'support',
+  },
+  {
+    title: 'Is my data secure?',
+    info: 'We use HTTPS, daily backups, and role-based access controls.',
+    icon: 'support',
+  },
+];
 </script>
 
 <template>
@@ -57,7 +98,7 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
       </Button>
     </div>
 
-    <div class="flex gap-8">
+    <div class="hidden gap-8 lg:flex">
       <div
         class="-mt-1 min-h-screen min-w-[265px] rounded-3xl bg-white shadow-base"
       >
@@ -82,6 +123,10 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
       <div class="flex-auto rounded-3xl bg-white px-6 py-9 shadow-base">
         <component :is="activePage.component" />
       </div>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:hidden">
+      <Accordion :items="accordionItems" />
     </div>
   </div>
 </template>

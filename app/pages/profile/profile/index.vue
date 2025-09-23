@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
-
+const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
 const ProjectsContent = defineAsyncComponent(
   () => import('~/components/pages/profile/ProjectsContent.vue')
 );
@@ -14,6 +14,13 @@ const VacationsContent = defineAsyncComponent(
 
 const { showModal } = useModal();
 
+const ddIndexDefault = ref<number | null>(null);
+const ddOptions = [
+  { label: 'Current Projects', code: 'Current Projects' },
+  { label: 'Archived Projects', code: 'Archived Projects' },
+  { label: 'Completed Projects', code: 'Completed Projects' },
+  { label: 'Closed Projects', code: 'Closed Projects' },
+];
 const segmentsOptions = reactive([
   {
     id: 0,
@@ -66,12 +73,20 @@ const currentComponent = computed(
       @click="
         showModal({
           name: 'AddRequest',
-          data: { tab: 0},
+          data: { tab: 0 },
         })
       "
     >
       {{ $t('profile.Add Request') }}
     </Button>
+
+    <Dropdown
+      v-if="currentComponent === ProjectsContent"
+      v-model="ddIndexDefault"
+      :options="ddOptions"
+      label-field="label"
+      placeholder="Chose Projects"
+    />
   </div>
 
   <component :is="currentComponent" />
