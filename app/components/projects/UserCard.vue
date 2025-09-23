@@ -9,7 +9,7 @@
         :is="firstItem.componentName"
         v-if="firstItem"
         v-bind="firstItem.data"
-        class="flex-initial md:[margin-right:var(--gap)]"
+        class="min-w-52 max-w-sm truncate md:[margin-right:var(--gap)]"
         :style="{ '--gap': gap + 'px' }"
       />
       <Button
@@ -21,14 +21,17 @@
       />
     </div>
     <div
-      class="grid grid-cols-[1fr_1fr] gap-5 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] md:flex-1 md:justify-between md:gap-8 md:[grid-template-columns:repeat(var(--cols),minmax(165px,1fr))]"
-      :style="{ '--cols': String(props.cardData.length - 1) }"
+      class="grid flex-1 gap-11"
+      :style="{
+        gridTemplateColumns: `repeat(${props.cardData.length - 1}, minmax(165px, 1fr))`,
+      }"
     >
       <component
         :is="item.componentName"
         v-for="(item, index) in restCardData"
         :key="index"
         v-bind="item.data"
+        class="w-auto truncate"
       />
     </div>
     <Button

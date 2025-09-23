@@ -1,9 +1,9 @@
 <template>
-  <div class="min-w-52">
+  <div class="">
     <div class="mb-1 text-sm text-gray-light">
       {{ $t('additional.position') }}
     </div>
-    <div class="flex max-w-52 flex-1 items-center justify-between gap-3">
+    <div class="flex flex-1 items-center justify-between gap-3">
       <div class="truncate text-dark">
         {{ positionName }}
       </div>

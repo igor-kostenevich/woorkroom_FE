@@ -400,7 +400,7 @@ const testCardData1 = [
     data: {
       userImage: '/images/common/woman.png',
       fullName: 'Oscar ',
-      userEmail: 'evanyates@gmailqfqrqferferfq.com',
+      userEmail: 'evanyates@gmail.com',
     },
   },
   {
@@ -518,6 +518,14 @@ const testCardData3 = [
     componentName: TaskStatus,
     data: {
       status: 'in-review',
+    },
+  },
+  {
+    componentName: Progress,
+    data: {
+      size: 'sm',
+      progress: 90,
+      color: 'primary',
     },
   },
 ];
@@ -726,6 +734,14 @@ const testCardData7 = [
     componentName: TaskStatus,
     data: {
       status: 'to-do',
+    },
+  },
+  {
+    componentName: Progress,
+    data: {
+      size: 'sm',
+      progress: 90,
+      color: 'primary',
     },
   },
 ];

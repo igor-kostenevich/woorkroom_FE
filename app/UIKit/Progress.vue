@@ -1,5 +1,5 @@
 <template>
-  <div :class="['relative', sizeClasses]">
+  <div :class="['relative self-center', sizeClasses]">
     <svg
       v-if="props.progress"
       class="absolute left-0 top-0"

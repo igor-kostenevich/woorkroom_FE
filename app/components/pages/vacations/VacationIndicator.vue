@@ -35,6 +35,6 @@ const indicatorClass = computed(() => {
 <template>
   <div class="flex items-center gap-3 text-sm font-medium text-gray">
     <div class="h-3.5 w-3.5 rounded-full" :class="indicatorClass" />
-    <span class="font-bold text-dark">{{ $t('indicator.' + indicator) }}</span>
+    <span>{{ $t('status.' + status) }}</span>
   </div>
 </template>

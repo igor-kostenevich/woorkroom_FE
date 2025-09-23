@@ -8,7 +8,7 @@
         :image="userImage"
       />
     </div>
-    <div class="w-52">
+    <div>
       <div v-if="fullName" class="mb-1 truncate font-bold text-dark">
         {{ fullName }}
       </div>
