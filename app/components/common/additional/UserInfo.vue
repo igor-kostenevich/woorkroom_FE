@@ -9,10 +9,10 @@
       />
     </div>
     <div>
-      <div v-if="fullName" class="mb-1 truncate font-bold text-dark">
+      <div v-if="fullName" class="mb-1 font-bold text-dark">
         {{ fullName }}
       </div>
-      <div v-if="userEmail" class="truncate text-sm text-gray-light">
+      <div v-if="userEmail" class="text-sm text-gray-light">
         {{ userEmail }}
       </div>
     </div>

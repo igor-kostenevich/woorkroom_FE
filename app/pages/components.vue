@@ -22,8 +22,8 @@ const Priority = defineAsyncComponent(
 const Assignee = defineAsyncComponent(
   () => import('~/components/common/additional/Assignee.vue')
 );
-const UserCard = defineAsyncComponent(
-  () => import('~/components/projects/UserCard.vue')
+const EntityCardTable = defineAsyncComponent(
+  () => import('~/components/projects/EntityCardTable.vue')
 );
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -357,394 +357,512 @@ const userAvatarData = [
 ];
 
 const testCardData = [
-  {
-    componentName: UserInfo,
-    data: {
-      userImage: '/images/common/woman.png',
-      fullName: 'Oscar Holloway',
-      userEmail: 'evanyates@gmail.com',
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: 'Oscar Holloway',
+        userEmail: 'evanyates@gmail.com',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.gender',
-      text: 'Male',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Male',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.birthday',
-      text: 'Apr 12, 1995',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 12, 1995',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.age',
-      text: '25',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: '25',
+      },
     },
-  },
-  {
-    componentName: Position,
-    data: {
-      positionName: 'UI/UX Designer',
-      positionLevel: 2,
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UI/UX Designer',
+        positionLevel: 2,
+      },
     },
-  },
-];
-const testCardData1 = [
-  {
-    componentName: UserInfo,
-    data: {
-      userImage: '/images/common/woman.png',
-      fullName: 'Oscar ',
-      userEmail: 'evanyates@gmail.com',
+  ],
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: 'Oscar Holl owayqwdqw dqwdqwdqwd qwdqwdqwdq',
+        userEmail: 'evanyates@gm.com',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.gender',
-      text: 'Female',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Maqwdqw dqwdqwdle',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.birthday',
-      text: 'Apr 12, 2001 23423',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 1 qwdqcqw qwdq2, 1995',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.age',
-      text: '93 234',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: ' qwqwdqwdqd 25',
+      },
     },
-  },
-  {
-    componentName: Position,
-    data: {
-      positionName: 'UI/UX Designera wg wvf erhah caah',
-      positionLevel: 1,
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UI/UX Desiqee mqefqef  qefq qef fqefqefqe fqgner',
+        positionLevel: 1,
+      },
     },
-  },
-];
-const testCardData2 = [
-  {
-    componentName: UserInfo,
-    data: {
-      userImage: '/images/common/woman.png',
-      fullName: 'Evanwerwrwgwwg Yatesqergregwer',
-      userEmail: 'evanyates@gmailqfqrqferferfq.com',
+  ],
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: 'Oscar Ho wefwef lloway',
+        userEmail: 'evany ates@ wefwefw gmail.com',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.vacations',
-      text: '15',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Ma qwdqd le',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.sickLeave',
-      text: '3',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 12qwd dqwdqwd , 1995',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.remotely',
-      text: '25',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: '25 qwdqwd edq ',
+      },
     },
-  },
-];
-const testCardData3 = [
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.taskName',
-      text: 'Research',
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UI/UXq qwd  Designer',
+        positionLevel: 2,
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.estimate',
-      text: '2d 4h',
+  ],
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: ' wefwef lloway',
+        userEmail: 'evanyaail.com',
+      },
     },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.spentTime',
-      text: '1d 2h',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Male ',
+      },
     },
-  },
-  {
-    componentName: Assignee,
-    data: {
-      userAvatarData: [
-        {
-          id: '3',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '4',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '5',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-      ],
-      max: 4,
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 1 1995',
+      },
     },
-  },
-  {
-    componentName: Priority,
-    data: {
-      priority: 'medium',
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: '25 q ',
+      },
     },
-  },
-  {
-    componentName: TaskStatus,
-    data: {
-      status: 'in-review',
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UDesigner',
+        positionLevel: 3,
+      },
     },
-  },
-  {
-    componentName: Progress,
-    data: {
-      size: 'sm',
-      progress: 90,
-      color: 'primary',
-    },
-  },
-];
-const testCardData4 = [
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.taskName',
-      text: 'Animation for buttons',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.estimate',
-      text: '7d 2h',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.spentTime',
-      text: '124514 2h',
-    },
-  },
-  {
-    componentName: Assignee,
-    data: {
-      userAvatarData: [
-        {
-          id: '3',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '4',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '5',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-      ],
-      max: 4,
-    },
-  },
-  {
-    componentName: Priority,
-    data: {
-      priority: 'medium',
-    },
-  },
-];
-const testCardData5 = [
-  {
-    componentName: Text,
-    data: {
-      status: 'pending',
-      indicator: 'sick',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.duration',
-      text: '3 days',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.startDay',
-      text: 'Sep 13, 2020',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.endDay',
-      text: 'Sep 16, 2020',
-    },
-  },
-  {
-    componentName: VacationStatus,
-    data: {
-      status: 'pending',
-    },
-  },
+  ],
 ];
 
-const testCardData6 = [
-  {
-    componentName: UserInfo,
-    data: {
-      userImage: '/images/common/woman.png',
-      fullName: 'Oscar H',
-      userEmail: 'evanyates.com',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.gender',
-      text: 'female',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.birthday',
-      text: 'Apr 12, 1995 iuhib ihbhb ',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.age',
-      text: '25 bj vcytybb ',
-    },
-  },
-  {
-    componentName: Position,
-    data: {
-      positionName: 'UI/UX Desiknjn kjnk gner',
-      positionLevel: 2,
-    },
-  },
-];
-
-const testCardData7 = [
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.taskName',
-      text: 'Researc erfe rf ererf ref h',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.estimate',
-      text: '2d 4hq  qfrfqe rfqe rf q',
-    },
-  },
-  {
-    componentName: Text,
-    data: {
-      label: 'additional.spentTime',
-      text: '1d 2h qer fqef qerfq qerf eqrf ',
-    },
-  },
-  {
-    componentName: Assignee,
-    data: {
-      userAvatarData: [
-        {
-          id: '3',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '4',
-          userImage: '/images/common/woman.png',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '5',
-          fullName: 'Oscar Holloway',
-          userImage: '/images/common/woman.png',
-        },
-        {
-          id: '6',
-          fullName: 'Oscar Holloway',
-          userImage: '/images/common/woman.png',
-        },
-        {
-          id: '7',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '8',
-          fullName: 'Oscar Holloway',
-        },
-        {
-          id: '9',
-          fullName: 'Oscar Holloway',
-          userImage: '/images/common/woman.png',
-        },
-        {
-          id: '10',
-          fullName: 'Oscar Holloway',
-        },
-      ],
-      max: 9,
-    },
-  },
-  {
-    componentName: Priority,
-    data: {
-      priority: 'high',
-    },
-  },
-  {
-    componentName: TaskStatus,
-    data: {
-      status: 'to-do',
-    },
-  },
-  {
-    componentName: Progress,
-    data: {
-      size: 'sm',
-      progress: 90,
-      color: 'primary',
-    },
-  },
-];
+//
+// const testCardData1 = [
+//   {
+//     componentName: UserInfo,
+//     data: {
+//       userImage: '/images/common/woman.png',
+//       fullName: 'Oscar ',
+//       userEmail: 'evanyates@gmail.com',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.gender',
+//       text: 'Female',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.birthday',
+//       text: 'Apr 12, 2001 23423',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.age',
+//       text: '93 234',
+//     },
+//   },
+//   {
+//     componentName: Position,
+//     data: {
+//       positionName: 'UI/UX Designera wg wvf erhah caah',
+//       positionLevel: 1,
+//     },
+//   },
+// ];
+// const testCardData2 = [
+//   {
+//     componentName: UserInfo,
+//     data: {
+//       userImage: '/images/common/woman.png',
+//       fullName: 'Evanwerwrwgwwg Yatesqergregwer',
+//       userEmail: 'evanyates@gmailqfqrqferferfq.com',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.vacations',
+//       text: '15',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.sickLeave',
+//       text: '3',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.remotely',
+//       text: '25',
+//     },
+//   },
+// ];
+// const testCardData3 = [
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.taskName',
+//       text: 'Research',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.estimate',
+//       text: '2d 4h',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.spentTime',
+//       text: '1d 2h',
+//     },
+//   },
+//   {
+//     componentName: Assignee,
+//     data: {
+//       userAvatarData: [
+//         {
+//           id: '3',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '4',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '5',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//       ],
+//       max: 4,
+//     },
+//   },
+//   {
+//     componentName: Priority,
+//     data: {
+//       priority: 'medium',
+//     },
+//   },
+//   {
+//     componentName: TaskStatus,
+//     data: {
+//       status: 'in-review',
+//     },
+//   },
+//   {
+//     componentName: Progress,
+//     data: {
+//       size: 'sm',
+//       progress: 90,
+//       color: 'primary',
+//     },
+//   },
+// ];
+// const testCardData4 = [
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.taskName',
+//       text: 'Animation for buttons',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.estimate',
+//       text: '7d 2h',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.spentTime',
+//       text: '124514 2h',
+//     },
+//   },
+//   {
+//     componentName: Assignee,
+//     data: {
+//       userAvatarData: [
+//         {
+//           id: '3',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '4',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '5',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//       ],
+//       max: 4,
+//     },
+//   },
+//   {
+//     componentName: Priority,
+//     data: {
+//       priority: 'medium',
+//     },
+//   },
+// ];
+// const testCardData5 = [
+//   {
+//     componentName: Text,
+//     data: {
+//       status: 'pending',
+//       indicator: 'sick',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.duration',
+//       text: '3 days',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.startDay',
+//       text: 'Sep 13, 2020',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.endDay',
+//       text: 'Sep 16, 2020',
+//     },
+//   },
+//   {
+//     componentName: VacationStatus,
+//     data: {
+//       status: 'pending',
+//     },
+//   },
+// ];
+//
+// const testCardData6 = [
+//   {
+//     componentName: UserInfo,
+//     data: {
+//       userImage: '/images/common/woman.png',
+//       fullName: 'Oscar H',
+//       userEmail: 'evanyates.com',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.gender',
+//       text: 'female',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.birthday',
+//       text: 'Apr 12, 1995 iuhib ihbhb ',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.age',
+//       text: '25 bj vcytybb ',
+//     },
+//   },
+//   {
+//     componentName: Position,
+//     data: {
+//       positionName: 'UI/UX Desiknjn kjnk gner',
+//       positionLevel: 2,
+//     },
+//   },
+// ];
+//
+// const testCardData7 = [
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.taskName',
+//       text: 'Researc erfe rf ererf ref h',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.estimate',
+//       text: '2d 4hq  qfrfqe rfqe rf q',
+//     },
+//   },
+//   {
+//     componentName: Text,
+//     data: {
+//       label: 'additional.spentTime',
+//       text: '1d 2h qer fqef qerfq qerf eqrf ',
+//     },
+//   },
+//   {
+//     componentName: Assignee,
+//     data: {
+//       userAvatarData: [
+//         {
+//           id: '3',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '4',
+//           userImage: '/images/common/woman.png',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '5',
+//           fullName: 'Oscar Holloway',
+//           userImage: '/images/common/woman.png',
+//         },
+//         {
+//           id: '6',
+//           fullName: 'Oscar Holloway',
+//           userImage: '/images/common/woman.png',
+//         },
+//         {
+//           id: '7',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '8',
+//           fullName: 'Oscar Holloway',
+//         },
+//         {
+//           id: '9',
+//           fullName: 'Oscar Holloway',
+//           userImage: '/images/common/woman.png',
+//         },
+//         {
+//           id: '10',
+//           fullName: 'Oscar Holloway',
+//         },
+//       ],
+//       max: 9,
+//     },
+//   },
+//   {
+//     componentName: Priority,
+//     data: {
+//       priority: 'high',
+//     },
+//   },
+//   {
+//     componentName: TaskStatus,
+//     data: {
+//       status: 'to-do',
+//     },
+//   },
+//   {
+//     componentName: Progress,
+//     data: {
+//       size: 'sm',
+//       progress: 90,
+//       color: 'primary',
+//     },
+//   },
+// ];
 </script>
 
 <template>
@@ -1431,17 +1549,10 @@ const testCardData7 = [
     <h3 class="mb-10 text-4xl font-bold text-dark">
       {{ String('Cards') }}
     </h3>
-    <div class="flex flex-col gap-9 md:overflow-x-scroll md:pb-5">
-      <UserCard :gap="131" :card-data="testCardData" is-button />
-      <UserCard :gap="131" :card-data="testCardData1" is-button />
-
-      <UserCard :gap="131" :card-data="testCardData6" is-button />
-
-      <UserCard :gap="400" :card-data="testCardData2" :is-button="false" />
-      <UserCard :gap="131" :card-data="testCardData3" :is-button="false" />
-      <UserCard :gap="131" :card-data="testCardData7" :is-button="false" />
-      <UserCard :gap="131" :card-data="testCardData4" :is-button="false" />
-      <UserCard :gap="131" :card-data="testCardData5" :is-button="false" />
-    </div>
+    <EntityCardTable
+      :first-element-width="360"
+      :cards-data="testCardData"
+      :is-button="false"
+    />
   </div>
 </template>

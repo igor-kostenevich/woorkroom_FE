@@ -3,10 +3,8 @@
     <div class="mb-1 text-sm text-gray-light">
       {{ $t('additional.position') }}
     </div>
-    <div class="flex flex-1 items-center justify-between gap-3">
-      <div class="truncate text-dark">
-        {{ positionName }}
-      </div>
+    <div class="text-dark">
+      {{ positionName }}
       <EmployeeLvl :lvl="positionLevel" class="ml-2" />
     </div>
   </div>
