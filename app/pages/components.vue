@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { colors } from '../../config/colors';
 import iconList from '../../config/icon-list.json';
+import RequestType from '~/components/common/additional/RequestType.vue';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
@@ -20,6 +21,9 @@ const Priority = defineAsyncComponent(
 );
 const Assignee = defineAsyncComponent(
   () => import('~/components/common/additional/Assignee.vue')
+);
+const EntityCardTable = defineAsyncComponent(
+  () => import('~/components/projects/EntityCardTable.vue')
 );
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -350,6 +354,160 @@ const userAvatarData = [
     userImage: '/images/common/woman.png',
     fullName: 'Oscar Holloway',
   },
+];
+const testCardData = [
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: 'Oscar Holloway',
+        userEmail: 'evanyates@gmail.com',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Male',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 12, 1995',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: '25',
+      },
+    },
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UI/UX Designer',
+        positionLevel: 2,
+      },
+    },
+  ],
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: 'Oscar Holl owayqwdqw dqwdqwdqwd qwdqwdqwdq',
+        userEmail: 'evanyates@gm.com',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Maqwdqw dqwdqwdle',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 1 qwdqcqw qwdq2, 1995',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: ' qwqwdqwdqd 25',
+      },
+    },
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UI/UX Desiqee mqefqef  qefq qef fqefqefqe fqgner',
+        positionLevel: 1,
+      },
+    },
+  ],
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: 'Oscar Ho wefwef lloway',
+        userEmail: 'evany ates@ wefwefw gmail.com',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Ma qwdqd le',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 12qwd dqwdqwd , 1995',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: '25 qwdqwd edq ',
+      },
+    },
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UI/UXq qwd  Designer',
+        positionLevel: 2,
+      },
+    },
+  ],
+  [
+    {
+      componentName: UserInfo,
+      data: {
+        userImage: '/images/common/woman.png',
+        fullName: ' wefwef lloway',
+        userEmail: 'evanyaail.com',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.gender',
+        text: 'Male ',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.birthday',
+        text: 'Apr 1 1995',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.age',
+        text: '25 q ',
+      },
+    },
+    {
+      componentName: Position,
+      data: {
+        positionName: 'UDesigner',
+        positionLevel: 3,
+      },
+    },
+  ],
 ];
 </script>
 
@@ -1014,16 +1172,33 @@ const userAvatarData = [
       >
     </div>
   </div>
-  <div class="flex gap-12">
-    <Text :label="$t('additional.text.gender')" :text="String('Male')" />
-    <Position position-name="UI/UX Designer" :position-level="2" />
-    <UserInfo
-      user-image="/images/common/woman.png"
-      full-name="Петро Петрович"
-      user-email="evanyates@gmail.com"
-      :progress="32"
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Additional components for cards') }}
+    </h3>
+    <div class="flex gap-12">
+      <Text :label="$t('additional.text.gender')" :text="String('Male')" />
+      <Position position-name="UI/UX Designer" :position-level="2" />
+      <UserInfo
+        user-image="/images/common/woman.png"
+        full-name="Петро Петрович"
+        user-email="evanyates@gmail.com"
+        :progress="32"
+      />
+      <Priority priority="high" />
+      <Assignee :user-avatar-data="userAvatarData" :max="4" />
+      <RequestType show-label />
+    </div>
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Cards') }}
+    </h3>
+    <EntityCardTable
+      :first-column-width="360"
+      :cards-data="testCardData"
+      :show-action-button="true"
     />
-    <Priority priority="high" />
-    <Assignee :user-avatar-data="userAvatarData" :max="4" />
   </div>
 </template>

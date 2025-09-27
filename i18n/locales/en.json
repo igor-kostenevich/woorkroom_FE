@@ -19,14 +19,27 @@
   "My Profile": "My Profile",
   "Loading": "Loading...",
   "noResults": "No results found",
+  "indicator": {
+    "sick": "Sick leave",
+    "remote": "Work remotely",
+    "vacation": "Vacation"
+  },
   "additional": {
-    "text": {
-      "gender": "Gender",
-      "birthday": "Birthday",
-      "age": "Age"
-    },
+    "gender": "Gender",
+    "birthday": "Birthday",
+    "age": "Full age",
     "position": "Position",
     "priority": "Priority",
-    "assignees": "Assignees"
+    "assignees": "Assignees",
+    "vacations": "Vacation",
+    "sickLeave": "Sick Leave",
+    "remotely": "Remote work",
+    "estimate": "Estimate",
+    "spentTime": "Spent Time",
+    "requestType": "Request Type",
+    "taskName": "Task Name",
+    "duration": "Duration",
+    "startDay": "Start Day",
+    "endDay": "End Day"
   }
 }

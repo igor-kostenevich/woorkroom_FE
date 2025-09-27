@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="label" class="mb-1 text-sm text-gray-light">
-      {{ label }}
+      {{ $t(label) }}
     </div>
     <div class="text-dark">{{ text }}</div>
   </div>
@@ -10,7 +10,7 @@
 <script setup lang="ts">
 interface ITextData {
   label?: string;
-  text: string;
+  text?: string;
 }
 defineProps<ITextData>();
 </script>
