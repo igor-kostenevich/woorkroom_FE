@@ -6,7 +6,7 @@ export interface IEntityCardCell {
 export type IEntityCardRow = IEntityCardCell[];
 
 export interface IEntityCardTable {
-  firstElementWidth?: number;
+  firstColumnWidth?: number;
   cardsData: IEntityCardCell[][];
-  isButton: boolean;
+  showActionButton: boolean;
 }

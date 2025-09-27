@@ -1550,9 +1550,9 @@ const testCardData = [
       {{ String('Cards') }}
     </h3>
     <EntityCardTable
-      :first-element-width="360"
+      :first-column-width="360"
       :cards-data="testCardData"
-      :is-button="false"
+      :show-action-button="true"
     />
   </div>
 </template>

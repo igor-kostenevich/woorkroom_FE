@@ -1,34 +1,35 @@
 <template>
-  <div class="max-2xl:overflow-x-auto max-md:overflow-x-visible">
+  <div class="overflow-x-visible md:overflow-x-auto 2xl:overflow-x-visible">
     <table
-      class="w-full table-auto border-separate border-spacing-y-4 max-2xl:min-w-max max-md:min-w-0"
+      class="w-full min-w-0 table-auto border-separate border-spacing-y-4 md:min-w-max 2xl:min-w-0"
     >
-      <tbody class="max-md:flex max-md:flex-col max-md:gap-5">
+      <tbody class="flex flex-col gap-5 md:table-row-group">
         <tr
           v-for="(card, index) in cardsData"
           :key="index"
-          class="rounded-3xl bg-white shadow-sm max-md:relative max-md:flex max-md:flex-wrap max-md:gap-6 max-md:p-5 md:table-row"
+          class="relative flex flex-wrap gap-6 rounded-3xl bg-white p-5 shadow-sm md:table-row"
         >
           <td
             v-for="(element, ind) in card"
             :key="ind"
-            class="bg-white first:rounded-l-3xl last:rounded-r-3xl max-md:w-auto max-md:flex-[0_1_auto] max-md:first:w-full max-md:first:basis-full md:table-cell md:px-7 md:py-5"
-            :style="{ '--firstElementWidth': firstElementWidth + 'px' }"
+            class="bg-white first:w-full first:rounded-l-3xl last:rounded-r-3xl md:table-cell md:px-7 md:py-5 md:first:w-auto"
+            :style="{ '--firstElementWidth': firstColumnWidth + 'px' }"
           >
             <div
               :class="[
-                ind === 0
-                  ? 'max-md:w-full max-md:border-b max-md:border-b-gray-accent max-md:pb-6 md:min-w-[var(--firstElementWidth)]'
-                  : '',
-                isButton ? 'max-md:pr-16' : '',
+                {
+                  'w-full border-b border-b-gray-accent pb-6 md:w-auto md:min-w-[var(--firstElementWidth)] md:border-0 md:pb-0':
+                    ind === 0,
+                  'pr-16 md:pr-0': showActionButton && ind === 0,
+                },
               ]"
             >
               <component :is="element.componentName" v-bind="element.data" />
             </div>
           </td>
-          <td v-if="isButton" class="rounded-r-3xl md:px-7 md:py-5">
-            <div class="right-6 top-6 flex justify-end max-md:absolute">
-              <Button color="neutral" size="md" icon-before="more" />
+          <td v-if="showActionButton" class="rounded-r-3xl md:px-7 md:py-5">
+            <div class="absolute right-6 top-6 flex justify-end md:static">
+              <Button color="accent" size="md" icon-before="more" />
             </div>
           </td>
         </tr>
@@ -42,7 +43,7 @@ import type { IEntityCardTable } from '~/types/components/entity-card-table';
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 
 withDefaults(defineProps<IEntityCardTable>(), {
-  firstElementWidth: 100,
-  isButton: false,
+  firstColumnWidth: 100,
+  showActionButton: false,
 });
 </script>
