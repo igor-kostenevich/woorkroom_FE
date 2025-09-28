@@ -25,32 +25,29 @@ const segmentsOptions = reactive([
   {
     id: 0,
     label: 'Projects',
-    comp: 'ProjectsContent',
   },
   {
     id: 1,
     label: 'Team',
-    comp: 'TeamContent',
   },
   {
     id: 2,
     label: 'My vacations',
-    comp: 'VacationsContent',
   },
 ]);
 
 const selectedSegment = ref(2);
-const componentsMap = {
-  ProjectsContent,
-  TeamContent,
-  VacationsContent,
-} as const;
+
+const componentsMap = computed(() => {
+  return {
+    0: ProjectsContent,
+    1: TeamContent,
+    2: VacationsContent,
+  };
+});
 
 const currentComponent = computed(
-  () =>
-    componentsMap[
-      segmentsOptions[selectedSegment.value]!.comp as keyof typeof componentsMap
-    ]
+  () => componentsMap.value[selectedSegment.value]
 );
 </script>
 
@@ -77,7 +74,7 @@ const currentComponent = computed(
         })
       "
     >
-      {{ $t('profile.Add Request') }}
+      {{ $t('settings.Add Request') }}
     </Button>
 
     <Dropdown
@@ -89,5 +86,7 @@ const currentComponent = computed(
     />
   </div>
 
-  <component :is="currentComponent" />
+  <KeepAlive>
+    <component :is="currentComponent" />
+  </KeepAlive>
 </template>
