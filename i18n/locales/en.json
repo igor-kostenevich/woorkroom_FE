@@ -41,5 +41,11 @@
     "duration": "Duration",
     "startDay": "Start Day",
     "endDay": "End Day"
+  },
+  "employeesCard": {
+    "backlogTasks": "Backlog Tasks",
+    "tasksInProgress": "Tasks In Progress",
+    "tasksInReview": "Tasks In Review"
   }
+
 }

@@ -33,7 +33,10 @@
     "duration": "Тривалість",
     "startDay": "День початку",
     "endDay": "День завершення"
-
+  },
+  "employeesCard": {
+    "backlogTasks": "Задачі у беклозі",
+    "tasksInProgress": "Задачі в роботі",
+    "tasksInReview": "Задачі на перевірці"
   }
-
 }

@@ -25,6 +25,9 @@ const Assignee = defineAsyncComponent(
 const EntityCardTable = defineAsyncComponent(
   () => import('~/components/projects/EntityCardTable.vue')
 );
+const EmployeesCard = defineAsyncComponent(
+  () => import('~/components/projects/EmployeesCard.vue')
+);
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
@@ -508,6 +511,97 @@ const testCardData = [
       },
     },
   ],
+];
+
+const employeesCardData = [
+  {
+    isBusy: false,
+    progress: 70,
+    userImage: '/images/common/woman.png',
+    fullName: 'Shawn Stone',
+    positionName: 'UI/UX Designer',
+    positionLevel: 2,
+    backlogTasks: 0,
+    tasksInProgress: 16,
+    tasksInReview: 6,
+  },
+  {
+    isBusy: false,
+    progress: 85,
+    userImage: '/images/common/woman.png',
+    fullName: 'Randy Delgado',
+    positionName: 'UI/UX Designer',
+    positionLevel: 1,
+    backlogTasks: 1,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: false,
+    progress: 90,
+    userImage: '/images/common/woman.png',
+    fullName: 'Emily Tyler',
+    positionName: 'Copywriter',
+    positionLevel: 2,
+    backlogTasks: 0,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: false,
+    progress: 80,
+    userImage: '/images/common/woman.png',
+    fullName: 'Louis Castro',
+    positionName: 'Copywriter',
+    positionLevel: 3,
+    backlogTasks: 1,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: false,
+    progress: 60,
+    userImage: '/images/common/woman.png',
+    fullName: 'Millie Harvey',
+    positionName: 'Android Developer',
+    positionLevel: 1,
+    backlogTasks: 1,
+    tasksInProgress: 14,
+    tasksInReview: 3,
+  },
+  {
+    isBusy: true,
+    progress: 40,
+    userImage: '/images/common/woman.png',
+    fullName: 'Ethel Weber',
+    positionName: 'Copywriter',
+    positionLevel: 1,
+    backlogTasks: 0,
+    tasksInProgress: 8,
+    tasksInReview: 6,
+  },
+  {
+    isBusy: false,
+    progress: 95,
+    userImage: '/images/common/woman.png',
+    fullName: 'Charlie Palmer',
+    positionName: 'Copywriter',
+    positionLevel: 3,
+    backlogTasks: 1,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: true,
+    progress: 30,
+    userImage: '/images/common/woman.png',
+    fullName: 'Pearl Sims',
+    positionName: 'Project Manager',
+    positionLevel: 2,
+    backlogTasks: 0,
+    tasksInProgress: 4,
+    tasksInReview: 6,
+  },
 ];
 </script>
 
@@ -1200,5 +1294,17 @@ const testCardData = [
       :cards-data="testCardData"
       :show-action-button="true"
     />
+  </div>
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Employees cards') }}
+    </h3>
+    <div>
+      <EmployeesCard
+        v-for="(element, index) in employeesCardData"
+        :key="index"
+        :data="element"
+      />
+    </div>
   </div>
 </template>
