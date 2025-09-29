@@ -29,39 +29,41 @@ withDefaults(
 </script>
 
 <template>
-  <div>
-    <div>
+  <div class="rounded-3xl bg-white px-2 pb-7 pt-2 shadow-md">
+    <div class="mb-7 flex flex-col items-center rounded-3xl bg-light p-4 pb-6">
       <UserAvatar
         :progress="data.progress"
         size="lg"
         :full-name="data.fullName"
         :image="data.userImage"
+        class="mb-4"
       />
-      <div>
+
+      <div class="mb-1 text-center font-bold text-dark">
         {{ data.fullName }}
       </div>
-      <div>
+      <div class="mb-2 text-center text-sm text-dark">
         {{ data.positionName }}
       </div>
       <div v-if="data.positionLevel">
         <EmployeeLvl :lvl="data.positionLevel" />
       </div>
     </div>
-    <div>
-      <div>
-        <div>
+    <div class="flex items-center justify-between gap-6">
+      <div class="text-center text-sm text-gray-light">
+        <div class="mb-4 text-center text-[26px] font-bold text-dark">
           {{ data.backlogTasks }}
         </div>
         {{ $t('employeesCard.backlogTasks') }}
       </div>
-      <div>
-        <div>
+      <div class="text-center text-sm text-gray-light">
+        <div class="mb-4 text-center text-[26px] font-bold text-dark">
           {{ data.tasksInProgress }}
         </div>
         {{ $t('employeesCard.tasksInProgress') }}
       </div>
-      <div>
-        <div>
+      <div class="text-center text-sm text-gray-light">
+        <div class="mb-4 text-center text-[26px] font-bold text-dark">
           {{ data.tasksInReview }}
         </div>
         {{ $t('employeesCard.tasksInReview') }}

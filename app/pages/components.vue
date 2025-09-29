@@ -1299,7 +1299,7 @@ const employeesCardData = [
     <h3 class="mb-10 text-4xl font-bold text-dark">
       {{ String('Employees cards') }}
     </h3>
-    <div>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(265px,1fr))] gap-7">
       <EmployeesCard
         v-for="(element, index) in employeesCardData"
         :key="index"
