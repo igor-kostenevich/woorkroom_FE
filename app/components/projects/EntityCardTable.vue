@@ -1,7 +1,7 @@
 <template>
-  <div class="overflow-x-visible md:overflow-x-auto 2xl:overflow-x-visible">
+  <div class="md:overflow-x-auto">
     <table
-      class="w-full min-w-0 table-auto border-separate border-spacing-y-4 md:min-w-max 2xl:min-w-0"
+      class="w-full table-auto border-separate border-spacing-y-4 md:min-w-[1400px]"
     >
       <tbody class="flex flex-col gap-5 md:table-row-group">
         <tr

@@ -24,20 +24,11 @@
 </template>
 
 <script setup lang="ts">
+import type { IAssigneeData, IUserData } from '~/types/components/assignee';
+
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
 );
-
-interface IUserData {
-  id: string;
-  userImage?: string;
-  fullName: string;
-}
-interface IAssigneeData {
-  showLabel?: boolean;
-  userAvatarData?: IUserData[];
-  max?: number;
-}
 
 const props = withDefaults(defineProps<IAssigneeData>(), {
   showLabel: true,
