@@ -35,7 +35,8 @@
     "assignees": "Assignees",
     "Duration": "Duration",
     "Start Day": "Start Day",
-    "End Day": "End Day"
+    "End Day": "End Day",
+    "requestType": "Request Type"
   },
   "profile": {
     "name": "Evan Yates",

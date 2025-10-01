@@ -13,15 +13,15 @@ defineProps<{
   showTextArea: boolean;
 }>();
 
-const requestType = reactive([
+const requestTypes = reactive([
   { id: '1', value: 'Vacation' },
   { id: '2', value: 'Sick Leave' },
   { id: '3', value: 'Work remotely' },
 ]);
 
-const selected = ref('Vacation');
-const selectedCalendar = ref(0);
-const TextAreaText = ref('');
+const selectedRequestType = ref('Vacation');
+const selectedCalendarMode = ref(0);
+const commentText = ref('');
 
 const calendarOptions = reactive([
   { id: 0, label: 'Days' },
@@ -39,8 +39,6 @@ const vacationRange = {
 const {
   range,
   daysCount,
-  formattedStart,
-  formattedEnd,
   rangesOverlap,
   validateAndPreparePayload,
 } = useVacationCalendar(vacationRange);
@@ -52,12 +50,12 @@ const emit = defineEmits<{
 function onSubmit() {
   try {
     const payload = validateAndPreparePayload({
-      requestType: selected.value,
-      calendarType: selectedCalendar.value,
+      requestType: selectedRequestType.value,
+      calendarType: selectedCalendarMode.value,
       showTime: showTime.value,
       startTime: startTime.value,
       endTime: endTime.value,
-      comment: TextAreaText.value,
+      comment: commentText.value,
     });
 
     emit('submit', payload);
@@ -69,6 +67,7 @@ function onSubmit() {
 }
 
 defineExpose({ onSubmit });
+
 watch(
   range,
   async (val: any) => {
@@ -77,14 +76,14 @@ watch(
     const start = val.start;
     const end = val.end ?? val.start;
 
-    const overlapped = rangesOverlap({ start, end }, vacationRange);
+    const hasOverlap = rangesOverlap({ start, end }, vacationRange);
 
     await nextTick();
     document
       .querySelectorAll('.vc-red')
       .forEach((el) => el.classList.remove('vc-red'));
 
-    if (overlapped) {
+    if (hasOverlap) {
       const targets = document.querySelectorAll(
         '.vc-day-content.vc-blue, .vc-highlight'
       );
@@ -97,7 +96,7 @@ watch(
 const startTime = ref('5:00');
 const endTime = ref('10:00');
 
-const attrs = ref([
+const highlightAttributes = ref([
   {
     key: 'vacation',
     dates: vacationRange,
@@ -115,10 +114,10 @@ const attrs = ref([
 
       <div class="flex flex-col gap-6 pt-1.5 sm:flex-row sm:pt-0 lg:gap-5">
         <Radio
-          v-for="input in requestType"
+          v-for="input in requestTypes"
           :id="input.id"
           :key="input.id"
-          v-model="selected"
+          v-model="selectedRequestType"
           name="radio-picker"
           class="rounded-lg border-0 sm:border sm:p-3 lg:border-gray-dark"
           :value="input.value"
@@ -129,7 +128,7 @@ const attrs = ref([
 
       <div class="flex justify-center">
         <Segment
-          v-model="selectedCalendar"
+          v-model="selectedCalendarMode"
           class="mt-9 flex-[1_1_auto]"
           :options="calendarOptions"
           query-key="tabCalendar"
@@ -145,7 +144,7 @@ const attrs = ref([
         :locale="{ masks: { weekdays: 'WWW' } }"
         mode="date"
         class="mb-6"
-        :attributes="attrs"
+        :attributes="highlightAttributes"
         trim-weeks
         expanded
       >
@@ -164,6 +163,7 @@ const attrs = ref([
         </template>
       </VDatePicker>
     </div>
+
     <div v-if="showTime" class="mb-5">
       <TimeDuration
         v-model:start="startTime"
@@ -171,53 +171,18 @@ const attrs = ref([
         :label="$t('calendar.Work Period')"
       />
     </div>
-    {{ range }}
-
-    <div>{{ formattedStart }}</div>
-
-    <div>{{ formattedEnd }}</div>
     <TextArea
       v-if="showTextArea"
-      v-model="TextAreaText"
+      v-model="commentText"
       placeholder="Add your comment"
     />
   </div>
 </template>
 
-<style>
+<style >
+
 .vc-day-content {
-  font-size: 16px;
-}
-
-.vc-weeks {
-  padding: 23px 30px 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.vc-header {
-  margin-top: 30px;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: [prev] auto [title] auto [next] auto !important;
-  column-gap: 110px;
-}
-
-.vc-weekdays {
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.vc-weekday {
-  background: #f4f9fd;
-  font-weight: 600;
-  border-radius: 7px;
-}
-
-.vc-day {
-  height: 52px;
+  @apply text-base;
 }
 
 .is-not-in-month * {
@@ -226,53 +191,63 @@ const attrs = ref([
   pointer-events: inherit !important;
 }
 
+.vc-weeks {
+  @apply p-[23px_30px_30px] flex flex-col gap-2;
+}
+
+.vc-header {
+  @apply mt-[30px] grid items-center justify-center gap-x-[110px];
+
+  grid-template-columns: [prev] auto [title] auto [next] auto !important;
+}
+
+.vc-weekdays {
+  @apply gap-[10px] mb-4;
+}
+
+.vc-weekday {
+  @apply bg-[#f4f9fd] font-semibold rounded-[7px];
+}
+
+.vc-day {
+  @apply h-[52px];
+}
+
 .vc-week {
-  font-family: 'Nunito Sans', sans-serif;
+  @apply font-nunito-sans;
 }
 
 .vc-day-content.vc-blue {
-  background: #15c0e6;
-  border-radius: 14px !important;
-  height: 52px;
-  width: 52px;
-  color: white !important;
+  @apply bg-blue rounded-[14px] h-[52px] w-[52px] text-white;
 }
 
 .vc-highlight {
-  height: 52px;
-  background: #15c0e6;
+  @apply h-[52px] bg-blue;
 }
 
 @media (width <= 640px) {
   .vc-highlight vc-highlight-bg-solid {
-    background: none;
-    border: none;
-    height: auto;
+    @apply bg-none border-0 h-auto;
   }
 
   .vc-header {
-    margin-top: 10px;
-    display: flex !important;
-    gap: 170px;
-    margin-bottom: 20px;
+    @apply mt-[10px] flex gap-[170px] mb-[20px];
   }
 
   .vc-title {
-    display: none;
+    @apply hidden;
   }
 
   .vc-day-content.vc-blue {
-    height: auto;
-    width: auto;
+    @apply h-auto w-auto;
   }
 
   .vc-day {
-    height: auto;
-    width: auto;
+    @apply h-auto w-auto;
   }
 
   .vc-weeks {
-    padding: 0;
+    @apply p-0;
   }
 
   .vc-pane {
@@ -280,30 +255,29 @@ const attrs = ref([
   }
 
   .mb-6.vc-container.vc-monthly.vc-blue.vc-light.vc-expanded.vc-bordered {
-    border: none;
+    @apply border-0;
   }
 }
 
 .vc-red {
-  background: #f65160 !important;
+  @apply bg-red !important;
 }
 
-.vc-weeks .vc-week:last-child .vc-day.is-not-in-month:nth-child(n + 8) {
-  display: none;
+.vc-weeks .vc-week:last-child .vc-day.is-not-in-month:nth-child(n+8) {
+  @apply hidden;
 }
 
 .vc-day.is-not-in-month * {
-  color: #9aa3af;
+  @apply text-gray-400;
 }
 
 .vc-day:focus,
 .vc-day-content:focus,
 .vc-focus .vc-day-content {
-  outline: none !important;
-  box-shadow: none !important;
+  @apply outline-none shadow-none;
 }
 
 .vc-highlight-bg-outline {
-  border: none;
+  @apply border-0;
 }
 </style>

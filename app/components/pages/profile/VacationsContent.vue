@@ -4,8 +4,9 @@ const DaysAvailableCard = defineAsyncComponent(() => import('~/components/common
 const EntityCardTable = defineAsyncComponent(() => import('~/components/projects/EntityCardTable.vue'));
 const Text = defineAsyncComponent(() => import('~/components/common/additional/Text.vue'));
 const VacationStatus = defineAsyncComponent(() => import('~/components/pages/vacations/VacationStatus.vue'));
-const VacationIndicator = defineAsyncComponent(() => import('~/components/pages/vacations/VacationIndicator.vue'));
-const cards = [
+const RequestType = defineAsyncComponent(() => import('~/components/common/additional/RequestType.vue'));
+
+const cardsOfDaysAvailable = [
   {
     size: 'xl',
     progress: 80,
@@ -32,10 +33,9 @@ const cards = [
 const vacationsCardData = [
   [
     {
-      componentName: VacationIndicator,
+      componentName: RequestType,
       data: {
-        status:"approved",
-        indicator: 'vacation',
+        requestType:"sick",
       },
     },
     {
@@ -72,7 +72,7 @@ const vacationsCardData = [
 <template>
   <div class="grid  grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-7 mb-12">
     <DaysAvailableCard
-      v-for="(card, index) in cards"
+      v-for="(card, index) in cardsOfDaysAvailable"
       :key="index"
       v-bind="card"
     />
@@ -82,7 +82,7 @@ const vacationsCardData = [
 
   </div>
   <EntityCardTable
-    :first-column-width="270"
+    :first-column-width="250"
     :cards-data="vacationsCardData"
 
   />
