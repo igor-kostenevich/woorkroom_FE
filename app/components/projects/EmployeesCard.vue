@@ -7,8 +7,9 @@ const UserAvatar = defineAsyncComponent(
 const EmployeeLvl = defineAsyncComponent(
   () => import('~/components/pages/employees/EmployeeLvl.vue')
 );
+const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     data?: IEmployeesCardData;
   }>(),
@@ -26,19 +27,30 @@ withDefaults(
     }),
   }
 );
+
+const selectedCardColor = computed(() =>
+  props.data.isBusy ? 'yellow' : undefined
+);
 </script>
 
 <template>
   <div class="rounded-3xl bg-white px-2 pb-7 pt-2 shadow-md">
-    <div class="mb-7 flex flex-col items-center rounded-3xl bg-light p-4 pb-6">
+    <div
+      :class="[
+        'mb-7 flex flex-col items-center rounded-3xl bg-light p-4 pb-6',
+        {
+          'bg-yellow-opacity': data.isBusy,
+        },
+      ]"
+    >
       <UserAvatar
         :progress="data.progress"
         size="lg"
         :full-name="data.fullName"
         :image="data.userImage"
+        :color="selectedCardColor"
         class="mb-4"
       />
-
       <div class="mb-1 text-center font-bold text-dark">
         {{ data.fullName }}
       </div>
@@ -49,7 +61,7 @@ withDefaults(
         <EmployeeLvl :lvl="data.positionLevel" />
       </div>
     </div>
-    <div class="flex items-center justify-between gap-6">
+    <div class="flex items-center justify-between gap-6 px-2">
       <div class="text-center text-sm text-gray-light">
         <div class="mb-4 text-center text-[26px] font-bold text-dark">
           {{ data.backlogTasks }}
@@ -70,4 +82,5 @@ withDefaults(
       </div>
     </div>
   </div>
+  <Icon :size="48" name="sleep-z" class="h-1 w-5 text-yellow" />
 </template>

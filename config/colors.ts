@@ -25,7 +25,10 @@ export const colors = {
     secondary: '#F0F6FB',
   },
   pink: '#DE92EB',
-  yellow: '#FDC748',
+  yellow: {
+    DEFAULT: '#FDC748',
+    opacity: '#FDC74824',
+  },
   purple: {
     DEFAULT: '#C418E6',
     opacity: '#C418E61C',
