@@ -39,7 +39,7 @@ const props = defineProps<IProjectCard>();
       </div>
     </div>
 
-    <div class="py-2 pl-0 lg:pl-8 xl:py-5">
+    <div class="py-3 pl-0 lg:pl-8 xl:py-5">
       <div class="mb-5 font-bold lg:pt-1">{{ $t('Project Data') }}</div>
 
       <div class="flex flex-wrap items-start gap-x-[30px] lg:gap-x-[60px]">

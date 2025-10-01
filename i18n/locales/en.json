@@ -18,17 +18,24 @@
     "pending": "Pending"
   },
   "My Profile": "My Profile",
+  "My Requests": "My Requests",
   "Loading": "Loading...",
   "noResults": "No results found",
+  "indicator": {
+    "sick": "Sick leave",
+    "remote": "Work remotely",
+    "vacation": "Vacation"
+  },
   "additional": {
-    "text": {
-      "gender": "Gender",
-      "birthday": "Birthday",
-      "age": "Age"
-    },
+    "gender": "Gender",
+    "birthday": "Birthday",
+    "age": "Full age",
     "position": "Position",
     "priority": "Priority",
-    "assignees": "Assignees"
+    "assignees": "Assignees",
+    "Duration": "Duration",
+    "Start Day": "Start Day",
+    "End Day": "End Day"
   },
   "profile": {
     "name": "Evan Yates",
@@ -82,8 +89,18 @@
     "Send Request": "Send Request",
     "From": "From",
     "To":"To",
-    "Work Period": "Time for Vacation"
-
-
+    "Work Period": "Time for Vacation",
+    "assignees": "Assignees",
+    "vacations": "Vacation",
+    "sickLeave": "Sick Leave",
+    "remotely": "Remote work",
+    "estimate": "Estimate",
+    "spentTime": "Spent Time",
+    "requestType": "Request Type",
+    "taskName": "Task Name",
+    "duration": "Duration",
+    "startDay": "Start Day",
+    "endDay": "End Day"
   }
+
 }

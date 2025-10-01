@@ -1,3 +1,89 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const DaysAvailableCard = defineAsyncComponent(() => import('~/components/common/DaysAvailableCard.vue'));
 
-<template>1</template>
+const EntityCardTable = defineAsyncComponent(() => import('~/components/projects/EntityCardTable.vue'));
+const Text = defineAsyncComponent(() => import('~/components/common/additional/Text.vue'));
+const VacationStatus = defineAsyncComponent(() => import('~/components/pages/vacations/VacationStatus.vue'));
+const VacationIndicator = defineAsyncComponent(() => import('~/components/pages/vacations/VacationIndicator.vue'));
+const cards = [
+  {
+    size: 'xl',
+    progress: 80,
+    color: 'blue',
+    title: 'Vacation',
+    label: '12/16 days available',
+  },
+  {
+    size: 'xl',
+    progress: 50,
+    color: 'yellow',
+    title: 'Sick Leave',
+    label: '5/10 days available',
+  },
+  {
+    size: 'xl',
+    progress: 30,
+    color: 'red',
+    title: 'Remote Work',
+    label: '3/12 days available',
+  },
+];
+
+const vacationsCardData = [
+  [
+    {
+      componentName: VacationIndicator,
+      data: {
+        status:"approved",
+        indicator: 'vacation',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.Duration',
+        text: '3 days',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.Start Day',
+        text: 'Sep 13, 2020',
+      },
+    },
+    {
+      componentName: Text,
+      data: {
+        label: 'additional.End Day',
+        text: 'Sep 16, 2020',
+      },
+    },
+    {
+      componentName: VacationStatus,
+      data: {
+        status: 'pending',
+      },
+    },
+  ],
+];
+</script>
+
+<template>
+  <div class="grid  grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-7 mb-12">
+    <DaysAvailableCard
+      v-for="(card, index) in cards"
+      :key="index"
+      v-bind="card"
+    />
+  </div>
+  <div>
+    <h2 class="font-bold text-xl ">{{$t('My Requests')}}</h2>
+
+  </div>
+  <EntityCardTable
+    :first-column-width="270"
+    :cards-data="vacationsCardData"
+
+  />
+</template>

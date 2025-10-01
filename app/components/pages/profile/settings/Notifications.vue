@@ -24,8 +24,6 @@ const isChecked = ref(true);
 </script>
 
 <template>
-  <h2 class="mb-5 text-lg font-bold">{{ $t('settings.Notifications') }}</h2>
-
   <div>
     <div class="flex flex-col gap-4">
       <div

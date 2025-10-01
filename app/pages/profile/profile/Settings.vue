@@ -46,41 +46,17 @@ const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
 type AccordionItem = {
   title: string;
   icon?: string;
-  info: string | InfoConfig;
+  info: Component;
 };
-const accordionItems: AccordionItem[] = [
-  {
-    title: 'What is your refund policy?',
-    info: 'Refunds are processed within 5–7 business days after approval.',
-  },
-  {
-    title: 'Try free',
-    info: {
-      is: Button,
-      props: { color: 'primary', size: 'md', iconBefore: 'plus' },
-      children: 'Start',
-    },
-  },
-  {
-    title: 'Do you offer support?',
-    info: 'We provide email and chat support on business days, 9:00–18:00.',
-    icon: 'notifications',
-  },
-  {
-    title: 'Is there a trial period?',
-    info: 'There is a 14-day free trial with full functionality.',
-    icon: 'support',
-  },
-  {
-    title: 'How do I cancel?',
-    info: 'Go to Billing → Manage → Cancel subscription. Your access remains until the end of the billing period.',
-    icon: 'support',
-  },
-  {
-    title: 'Is my data secure?',
-    info: 'We use HTTPS, daily backups, and role-based access controls.',
-    icon: 'support',
-  },
+
+const settingsItems: AccordionItem[] = [
+  { title: 'Account', icon: 'account', info: Account },
+  { title: 'Notifications', icon: 'notifications', info: Notifications },
+  { title: 'My Company', icon: 'company', info: MyCompany },
+  { title: 'Connected Apps', icon: 'apps', info: ConnectedApps },
+  { title: 'Payments', icon: 'card', info: Payments },
+  { title: 'Confidentiality', icon: 'lock', info: Confidentiality },
+  { title: 'Safety', icon: 'safety', info: Safety },
 ];
 </script>
 
@@ -125,8 +101,8 @@ const accordionItems: AccordionItem[] = [
       </div>
     </div>
 
-    <div class="grid gap-8 md:grid-cols-2 lg:hidden">
-      <Accordion :items="accordionItems" />
+    <div class=" lg:hidden">
+      <Accordion :items="settingsItems" />
     </div>
   </div>
 </template>

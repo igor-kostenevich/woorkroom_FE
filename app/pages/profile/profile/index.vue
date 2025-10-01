@@ -55,6 +55,15 @@ const currentComponent = computed(
   <div
     class="mb-6 flex flex-col items-center justify-between gap-2 lg:flex-row"
   >
+    <div class="block lg:hidden self-baseline">
+      <Dropdown
+        v-if="currentComponent === ProjectsContent"
+        v-model="ddIndexDefault"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Chose Projects"
+      />
+    </div>
     <Segment
       v-model="selectedSegment"
       class="max-w-md"
@@ -74,16 +83,19 @@ const currentComponent = computed(
         })
       "
     >
-      {{ $t('settings.Add Request') }}
+      {{ $t('profile.Add Request') }}
     </Button>
 
-    <Dropdown
-      v-if="currentComponent === ProjectsContent"
-      v-model="ddIndexDefault"
-      :options="ddOptions"
-      label-field="label"
-      placeholder="Chose Projects"
-    />
+    <div  v-if="currentComponent === ProjectsContent" class="hidden lg:block "    >
+      <Dropdown
+
+        v-model="ddIndexDefault"
+        :options="ddOptions"
+        label-field="label"
+        placeholder="Chose Projects"
+
+      />
+    </div>
   </div>
 
   <KeepAlive>

@@ -17,14 +17,22 @@
   "Loading": "Завантаження...",
   "noResults": "Результатів не знайдено",
   "additional": {
-    "text": {
-      "gender": "Стать",
-      "birthday": "День народження",
-      "age": "Вік"
-    },
+    "gender": "Стать",
+    "birthday": "День народження",
+    "age": "Повний вік",
     "position": "Посада",
     "priority": "Пріоритет",
-    "assignees": "Виконавці"
+    "assignees": "Виконавці",
+    "vacations": "Відпустка",
+    "sickLeave": "Лікарняний",
+    "remotely": "Віддалена робота",
+    "estimate": "Оцінка",
+    "spentTime": "Витрачений час",
+    "requestType": "Тип запиту",
+    "taskName": "Назва завдання",
+    "duration": "Тривалість",
+    "startDay": "День початку",
+    "endDay": "День завершення"
 
   }
 
