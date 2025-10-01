@@ -1187,7 +1187,7 @@ const testCardData = [
       />
       <Priority priority="high" />
       <Assignee :user-avatar-data="userAvatarData" :max="4" />
-      <RequestType show-label />
+      <RequestType show-label request-type="vacation" />
     </div>
   </div>
 
