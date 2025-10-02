@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IAssigneeData } from '~/types/components/assignees';
+import type { IAssigneeData } from '~/types/components/assignee';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
