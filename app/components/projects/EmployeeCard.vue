@@ -37,7 +37,7 @@ const selectedCardColor = computed(() =>
   <div class="rounded-3xl bg-white px-2 pb-7 pt-2 shadow-md">
     <div
       :class="[
-        'mb-7 flex flex-col items-center rounded-3xl bg-light p-4 pb-6',
+        'relative mb-7 flex flex-col items-center rounded-3xl bg-light p-4 pb-6',
         {
           'bg-yellow-opacity': data.isBusy,
         },
@@ -60,6 +60,12 @@ const selectedCardColor = computed(() =>
       <div v-if="data.positionLevel">
         <EmployeeLvl :lvl="data.positionLevel" />
       </div>
+      <Icon
+        v-if="data.isBusy"
+        :size="131"
+        name="sleepy-z"
+        class="absolute -top-7 text-yellow"
+      />
     </div>
     <div class="flex items-center justify-between gap-6 px-2">
       <div class="text-center text-sm text-gray-light">
@@ -82,5 +88,4 @@ const selectedCardColor = computed(() =>
       </div>
     </div>
   </div>
-  <Icon :size="48" name="sleep-z" class="h-1 w-5 text-yellow" />
 </template>

@@ -26,7 +26,7 @@ const EntityCardTable = defineAsyncComponent(
   () => import('~/components/projects/EntityCardTable.vue')
 );
 const EmployeesCard = defineAsyncComponent(
-  () => import('~/components/projects/EmployeesCard.vue')
+  () => import('~/components/projects/EmployeeCard.vue')
 );
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
