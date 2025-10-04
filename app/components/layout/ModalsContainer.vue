@@ -49,6 +49,9 @@ type ModalName = keyof typeof modals;
 // Modals list
 const modals = {
   Example: defineAsyncComponent(() => import('../modals/Example/index.vue')),
+  AddEmployees: defineAsyncComponent(
+    () => import('~/components/modals/AddEmployees/index.vue')
+  ),
 };
 
 watch(

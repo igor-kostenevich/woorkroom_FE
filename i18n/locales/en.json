@@ -46,6 +46,10 @@
     "backlogTasks": "Backlog Tasks",
     "tasksInProgress": "Tasks In Progress",
     "tasksInReview": "Tasks In Review"
-  }
+  },
+  "addEmployee": "Add Employee",
+  "membersEmail": "Member’s Email",
+  "approve": "Approve",
+  "addAnotherMember": "Add another Member"
 
 }

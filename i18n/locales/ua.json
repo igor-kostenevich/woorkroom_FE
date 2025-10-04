@@ -38,5 +38,10 @@
     "backlogTasks": "Задачі у беклозі",
     "tasksInProgress": "Задачі в роботі",
     "tasksInReview": "Задачі на перевірці"
-  }
+  },
+  "addEmployee": "Додати працівника",
+  "membersEmail": "Електронна пошта учасника",
+  "approve": "Підтвердити",
+  "addAnotherMember": "Додати ще одного учасника"
+
 }
