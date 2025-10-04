@@ -1,6 +1,5 @@
 <template>
   <Tab default-tab>
-    <!-- 🟢This slot is optional -->
     <template #header>
       <h1>{{ $t('profile.Add Request') }}</h1>
     </template>
@@ -12,8 +11,6 @@
         @submit="handleSubmit"
       />
     </div>
-
-    <!-- 🟢This slot is optional -->
     <template #footer>
       <Button
         color="accent"
@@ -35,7 +32,7 @@ import Tab from '~/components/layout/Modal/Tab.vue';
 import useModal from '~/composables/useModal';
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const CalendarRequest = defineAsyncComponent(
-  () => import('~/components/common/CalendarRequest.vue')
+  () => import('~/components/common/calendar.vue')
 );
 
 interface IModalProps {
@@ -53,17 +50,22 @@ function handleSubmit(payload: any) {
   lastPayload.value = payload;
 }
 
-const calendarRef = ref<any>(null);
+const calendarRef = useTemplateRef('calendarRef');
 
 function submitForm() {
   if (!calendarRef.value) return;
 
-  const ok = calendarRef.value.onSubmit();
-  if (!ok) {
-    console.warn('Validation failed,');
-    return;
+  try {
+    const ok = calendarRef.value.onSubmit();
+
+    if (!ok) {
+      console.warn('Validation failed');
+      return;
+    }
+
+    hideModal();
+  } catch (err) {
+    console.error('error', err);
   }
-  console.warn(lastPayload.value);
-  hideModal();
 }
 </script>

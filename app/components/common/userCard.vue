@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import type { TeamMemberCard } from '~/types/profile/TeamMemberCard';
 
-const UserAvatar = defineAsyncComponent(() => import('~/components/common/UserAvatar.vue'));
-const EmployeeLvl = defineAsyncComponent(() => import('~/components/pages/employees/EmployeeLvl.vue'));
+const UserAvatar = defineAsyncComponent(
+  () => import('~/components/common/UserAvatar.vue')
+);
+const EmployeeLvl = defineAsyncComponent(
+  () => import('~/components/pages/employees/EmployeeLvl.vue')
+);
 
 const props = defineProps<TeamMemberCard>();
 </script>

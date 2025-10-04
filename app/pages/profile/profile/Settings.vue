@@ -32,13 +32,25 @@ type SettingsPage = {
 };
 
 const settingsPages: SettingsPage[] = [
-  { name: 'Account', component: Account, icon: 'account' },
-  { name: 'Notifications', component: Notifications, icon: 'notifications' },
-  { name: 'My Company', component: MyCompany, icon: 'company' },
-  { name: 'Connected Apps', component: ConnectedApps, icon: 'apps' },
-  { name: 'Payments', component: Payments, icon: 'card' },
-  { name: 'Confidentiality', component: Confidentiality, icon: 'lock' },
-  { name: 'Safety', component: Safety, icon: 'safety' },
+  { name: $t('settings.Account'), component: Account, icon: 'account' },
+  {
+    name: $t('settings.Notifications'),
+    component: Notifications,
+    icon: 'notifications',
+  },
+  { name: $t('settings.MyCompany'), component: MyCompany, icon: 'company' },
+  {
+    name: $t('settings.ConnectedApps'),
+    component: ConnectedApps,
+    icon: 'apps',
+  },
+  { name: $t('settings.Payments'), component: Payments, icon: 'card' },
+  {
+    name: $t('settings.Confidentiality'),
+    component: Confidentiality,
+    icon: 'lock',
+  },
+  { name: $t('settings.Safety'), component: Safety, icon: 'safety' },
 ];
 
 const activePage = ref<(typeof settingsPages)[number]>(settingsPages[0]!);
@@ -101,7 +113,7 @@ const settingsItems: AccordionItem[] = [
       </div>
     </div>
 
-    <div class=" lg:hidden">
+    <div class="lg:hidden">
       <Accordion :items="settingsItems" />
     </div>
   </div>

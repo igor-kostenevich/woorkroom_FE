@@ -2,21 +2,21 @@
 const Switch = defineAsyncComponent(() => import('@/UIKit/Switch.vue'));
 const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
 
-const switches = reactive([
+const switches = ref([
   {
     title: 'settings.Issue Activity',
     text: 'settings.SendMailText',
-    model: ref(true),
+    model: true,
   },
   {
     title: 'settings.Tracking Activity',
     text: 'settings.TrackedTask',
-    model: ref(false),
+    model: false,
   },
   {
     title: 'settings.New Comments',
     text: 'settings.SendComments',
-    model: ref(false),
+    model: false,
   },
 ]);
 

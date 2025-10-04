@@ -13,10 +13,12 @@ defineProps<{
   showTextArea: boolean;
 }>();
 
+const route = useRoute();
+
 const requestTypes = reactive([
-  { id: '1', value: 'Vacation' },
-  { id: '2', value: 'Sick Leave' },
-  { id: '3', value: 'Work remotely' },
+  { id: '1', value: $t('indicator.vacation') },
+  { id: '2', value: $t('indicator.sick') },
+  { id: '3', value: $t('indicator.remote') },
 ]);
 
 const selectedRequestType = ref('Vacation');
@@ -24,11 +26,10 @@ const selectedCalendarMode = ref(0);
 const commentText = ref('');
 
 const calendarOptions = reactive([
-  { id: 0, label: 'Days' },
-  { id: 1, label: 'Hours' },
+  { id: 0, label: $t('calendar.Days') },
+  { id: 1, label: $t('calendar.Hours') },
 ]);
 
-const route = useRoute();
 const showTime = computed(() => route.query.tabCalendar === '1');
 
 const vacationRange = {
@@ -36,12 +37,8 @@ const vacationRange = {
   end: new Date(2025, 8, 19),
 };
 
-const {
-  range,
-  daysCount,
-  rangesOverlap,
-  validateAndPreparePayload,
-} = useVacationCalendar(vacationRange);
+const { range, daysCount, rangesOverlap, validateAndPreparePayload } =
+  useVacationCalendar(vacationRange);
 
 const emit = defineEmits<{
   (e: 'submit', payload: any): void;
@@ -72,7 +69,7 @@ watch(
   range,
   async (val: any) => {
     if (!val?.start) return;
-
+    // TODO: need refactor
     const start = val.start;
     const end = val.end ?? val.start;
 
@@ -158,7 +155,7 @@ const highlightAttributes = ref([
 
         <template #day-popover>
           <div class="px-2 py-2 text-sm text-red">
-            {{ String(`You have ${daysCount} days of Vacation left`) }}
+            {{ $t('vacation.daysLeft', { count: daysCount }) }}
           </div>
         </template>
       </VDatePicker>
@@ -174,110 +171,11 @@ const highlightAttributes = ref([
     <TextArea
       v-if="showTextArea"
       v-model="commentText"
-      placeholder="Add your comment"
+      :placeholder="$t('calendar.addComment')"
     />
   </div>
 </template>
 
-<style >
-
-.vc-day-content {
-  @apply text-base;
-}
-
-.is-not-in-month * {
-  color: gray;
-  opacity: 1 !important;
-  pointer-events: inherit !important;
-}
-
-.vc-weeks {
-  @apply p-[23px_30px_30px] flex flex-col gap-2;
-}
-
-.vc-header {
-  @apply mt-[30px] grid items-center justify-center gap-x-[110px];
-
-  grid-template-columns: [prev] auto [title] auto [next] auto !important;
-}
-
-.vc-weekdays {
-  @apply gap-[10px] mb-4;
-}
-
-.vc-weekday {
-  @apply bg-[#f4f9fd] font-semibold rounded-[7px];
-}
-
-.vc-day {
-  @apply h-[52px];
-}
-
-.vc-week {
-  @apply font-nunito-sans;
-}
-
-.vc-day-content.vc-blue {
-  @apply bg-blue rounded-[14px] h-[52px] w-[52px] text-white;
-}
-
-.vc-highlight {
-  @apply h-[52px] bg-blue;
-}
-
-@media (width <= 640px) {
-  .vc-highlight vc-highlight-bg-solid {
-    @apply bg-none border-0 h-auto;
-  }
-
-  .vc-header {
-    @apply mt-[10px] flex gap-[170px] mb-[20px];
-  }
-
-  .vc-title {
-    @apply hidden;
-  }
-
-  .vc-day-content.vc-blue {
-    @apply h-auto w-auto;
-  }
-
-  .vc-day {
-    @apply h-auto w-auto;
-  }
-
-  .vc-weeks {
-    @apply p-0;
-  }
-
-  .vc-pane {
-    min-width: auto;
-  }
-
-  .mb-6.vc-container.vc-monthly.vc-blue.vc-light.vc-expanded.vc-bordered {
-    @apply border-0;
-  }
-}
-
-.vc-red {
-  @apply bg-red !important;
-}
-
-.vc-weeks .vc-week:last-child .vc-day.is-not-in-month:nth-child(n+8) {
-  @apply hidden;
-}
-
-.vc-day.is-not-in-month * {
-  @apply text-gray-400;
-}
-
-.vc-day:focus,
-.vc-day-content:focus,
-.vc-focus .vc-day-content {
-  @apply outline-none shadow-none;
-}
-
-.vc-highlight-bg-outline {
-  @apply border-0;
-}
+<style>
+@import 'assets/styles/calendar.pcss';
 </style>

@@ -46,7 +46,7 @@ const duration = computed(() => {
 <template>
   <div class="mb-6 flex gap-x-7">
     <Input
-      placeholder="9:00 AM"
+      :placeholder="$t('calendar.startPlaceholder')"
       icon="time-outlined"
       :model-value="props.start"
       @update:model-value="emit('update:start', $event)"
@@ -55,7 +55,7 @@ const duration = computed(() => {
     </Input>
 
     <Input
-      placeholder="1:00 PM"
+      :placeholder="$t('calendar.endPlaceholder')"
       icon="time-outlined"
       :model-value="props.end"
       @update:model-value="emit('update:end', $event)"

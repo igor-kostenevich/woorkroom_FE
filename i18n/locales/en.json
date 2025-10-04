@@ -82,7 +82,9 @@
     "TrackedTask": "Send me notifications when someone’ve tracked time in tasks",
     "SendMailText": "Send me email notifications for issue activity",
     "send": "Don't send me notifications after 9:00 PM",
-    "edit": "Edit"
+    "edit": "Edit",
+    "MyCompany": "My Company",
+    "ConnectedApps": "Connected Apps"
   },
   "calendar": {
     "Add Request": "Add Request",
@@ -90,6 +92,8 @@
     "Send Request": "Send Request",
     "From": "From",
     "To":"To",
+    "startPlaceholder": "9:00 AM",
+    "endPlaceholder": "1:00 PM",
     "Work Period": "Time for Vacation",
     "assignees": "Assignees",
     "vacations": "Vacation",
@@ -101,7 +105,21 @@
     "taskName": "Task Name",
     "duration": "Duration",
     "startDay": "Start Day",
-    "endDay": "End Day"
-  }
+    "endDay": "End Day",
+    "Days": "Days",
+    "Hours": "Hours",
+    "addComment": "Add your comment"
+  },
+  "vacation": {
+    "daysLeft": "You have {count} days of Vacation left"
+  },
+  "validation": {
 
+    "required": "Required",
+    "min2chars": "≥ 2 chars",
+    "invalidEmail": "Invalid email",
+    "invalidPhone": "Invalid phone",
+    "invalidUsername": "Invalid username",
+    "pastDate": "Date must be in the past"
+  }
 }
