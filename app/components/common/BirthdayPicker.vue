@@ -1,25 +1,18 @@
 <script setup>
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+
+import { useFormatters } from '@/composables/useFormatters';
+
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 
 const MAX_DATE = new Date();
 const MIN_DATE = new Date(1920, 0, 1);
 
 const props = defineProps({
-  modelValue: {
-    type: Date,
-    default: null,
-  },
-
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  readonly: {
-    type: Boolean,
-    default: false,
-  },
+  modelValue: Date,
+  placeholder: String,
+  disabled: Boolean,
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -29,13 +22,7 @@ const date = computed({
   set: (val) => emit('update:modelValue', val),
 });
 
-const formatDate = (d) => {
-  return d.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-};
+const { formatDate } = useFormatters('en-US');
 </script>
 <template>
   <div class="flex flex-col gap-2">
@@ -52,7 +39,7 @@ const formatDate = (d) => {
       :prevent-min-max-navigation="true"
       :light="true"
       :format="formatDate"
-      :disabled="readonly"
+      :disabled="disabled"
       :placeholder="placeholder"
       class="dp__theme_light relative"
     >

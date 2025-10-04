@@ -130,7 +130,7 @@ const toggleEdit = async () => {
       <div class="flex flex-col gap-4 pt-3">
         <Input
           v-model="profile.position"
-          :placeholder="$t('placeholders.position')"
+          :placeholder="$t('profile.placeholders.position')"
           :readonly="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Position') }} </template>
@@ -141,7 +141,7 @@ const toggleEdit = async () => {
 
         <Input
           v-model="profile.company"
-          :placeholder="$t('placeholders.company')"
+          :placeholder="$t('profile.placeholders.company')"
           :readonly="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Company') }} </template>
@@ -152,7 +152,7 @@ const toggleEdit = async () => {
 
         <Input
           v-model="profile.location"
-          :placeholder="$t('placeholders.location')"
+          :placeholder="$t('profile.placeholders.location')"
           icon="location"
           :readonly="!isEditing"
         >
@@ -164,8 +164,8 @@ const toggleEdit = async () => {
 
         <BirthdayPicker
           v-model="profile.dateOfBirth"
-          :placeholder-date="$t('placeholders.birthday')"
-          :readonly="!isEditing"
+          :placeholder-date="$t('profile.placeholders.birthday')"
+          :disabled="!isEditing"
         >
           <template #birth> {{ $t('profile.Birthday Date') }}</template>
         </BirthdayPicker>
@@ -177,7 +177,7 @@ const toggleEdit = async () => {
           <div class="flex flex-col gap-4">
             <Input
               v-model="profile.email"
-              :placeholder="$t('placeholders.email')"
+              :placeholder="$t('profile.placeholders.email')"
               :readonly="!isEditing"
             >
               <template #topTextLeft
@@ -190,7 +190,7 @@ const toggleEdit = async () => {
 
             <Input
               v-model="profile.phone"
-              :placeholder="$t('placeholders.phone')"
+              :placeholder="$t('profile.placeholders.phone')"
               :readonly="!isEditing"
             >
               <template #topTextLeft
