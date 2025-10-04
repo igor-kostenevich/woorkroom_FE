@@ -50,6 +50,7 @@
           )
         }}
       </p>
+
       <Button @click="openSubTab(1, { data: 1 })">
         {{ String('Open tab') }}
       </Button>
