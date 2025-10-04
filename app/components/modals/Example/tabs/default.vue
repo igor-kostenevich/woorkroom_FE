@@ -51,13 +51,9 @@
         }}
       </p>
 
-
-      
-
       <Button @click="openSubTab(1, { data: 1 })">
         {{ String('Open tab') }}
-      </Button>      
-
+      </Button>
     </div>
 
     <!-- 🟢This slot is optional -->

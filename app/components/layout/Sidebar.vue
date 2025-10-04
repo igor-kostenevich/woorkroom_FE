@@ -1,10 +1,7 @@
 <template>
   <aside
     class="sticky top-[var(--aside-top)] h-[calc(100dvh_-_var(--aside-top)_-_var(--aside-bottom))]"
-    style="
-
-    --aside-top: calc(var(--header-h, 0px) + 20px);
-     --aside-bottom: 24px"
+    style="--aside-top: calc(var(--header-h, 0px) + 20px); --aside-bottom: 24px"
   >
     <div
       class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl bg-white px-4 py-10 shadow-base"
@@ -33,7 +30,11 @@
       <div
         class="relative mb-12 mt-20 rounded-3xl bg-primary-opacity px-5 py-6 pt-24"
       >
-
+        <img
+          src="/images/common/woman.png"
+          class="absolute -top-12 h-32 w-36"
+          alt="woman"
+        />
         <Button icon-before="support" fullwidth>{{ $t('Support') }}</Button>
       </div>
 

@@ -23,34 +23,49 @@ const profile = reactive({
 
 const rules = computed(() => ({
   position: {
-    required: helpers.withMessage('Required', validators.required),
-    minLength: helpers.withMessage('≥ 2 chars', validators.minLength(2)),
+    required: helpers.withMessage(
+      $t('validation.required'),
+      validators.required
+    ),
+    minLength: helpers.withMessage(
+      $t('validation.min2chars'),
+      validators.minLength(2)
+    ),
   },
   company: {
-    required: helpers.withMessage('Required', validators.required),
+    required: helpers.withMessage(
+      $t('validation.required'),
+      validators.required
+    ),
   },
   location: {
-    required: helpers.withMessage('Required', validators.required),
+    required: helpers.withMessage(
+      $t('validation.required'),
+      validators.required
+    ),
   },
   dateOfBirth: {
     past: helpers.withMessage(
-      'Date must be in the past',
+      $t('validation.pastDate'),
       (v: Date) => v instanceof Date && v.getTime() < Date.now()
     ),
   },
   email: {
-    required: helpers.withMessage('Requred', validators.required),
-    email: helpers.withMessage('Invalid email', validators.email),
+    required: helpers.withMessage(
+      $t('validation.required'),
+      validators.required
+    ),
+    email: helpers.withMessage($t('validation.invalidEmail'), validators.email),
   },
   phone: {
     phone: helpers.withMessage(
-      'Invalid phone',
+      $t('validation.invalidPhone'),
       (v: string) => typeof v === 'string' && /^[+()\d-]{7,20}$/.test(v)
     ),
   },
   telegram: {
     tg: helpers.withMessage(
-      'Invalid username',
+      $t('validation.invalidUsername'),
       (v: string) => !v || /^@[a-zA-Z0-9_]{5,32}$/.test(v)
     ),
   },
@@ -115,7 +130,7 @@ const toggleEdit = async () => {
       <div class="flex flex-col gap-4 pt-3">
         <Input
           v-model="profile.position"
-          placeholder="UI/UX Designer"
+          :placeholder="$t('placeholders.position')"
           :readonly="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Position') }} </template>
@@ -126,7 +141,7 @@ const toggleEdit = async () => {
 
         <Input
           v-model="profile.company"
-          placeholder="Cadabra"
+          :placeholder="$t('placeholders.company')"
           :readonly="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Company') }} </template>
@@ -137,7 +152,7 @@ const toggleEdit = async () => {
 
         <Input
           v-model="profile.location"
-          placeholder="NYC, New York, USA"
+          :placeholder="$t('placeholders.location')"
           icon="location"
           :readonly="!isEditing"
         >
@@ -149,7 +164,7 @@ const toggleEdit = async () => {
 
         <BirthdayPicker
           v-model="profile.dateOfBirth"
-          placeholder-date="May 19, 1996"
+          :placeholder-date="$t('placeholders.birthday')"
           :readonly="!isEditing"
         >
           <template #birth> {{ $t('profile.Birthday Date') }}</template>
@@ -162,7 +177,7 @@ const toggleEdit = async () => {
           <div class="flex flex-col gap-4">
             <Input
               v-model="profile.email"
-              placeholder="evanyates@gmail.com"
+              :placeholder="$t('placeholders.email')"
               :readonly="!isEditing"
             >
               <template #topTextLeft
@@ -175,7 +190,7 @@ const toggleEdit = async () => {
 
             <Input
               v-model="profile.phone"
-              placeholder="+1 675 346 23-10"
+              :placeholder="$t('placeholders.phone')"
               :readonly="!isEditing"
             >
               <template #topTextLeft

@@ -1,10 +1,20 @@
 <script setup lang="ts">
-const DaysAvailableCard = defineAsyncComponent(() => import('~/components/common/DaysAvailableCard.vue'));
+const DaysAvailableCard = defineAsyncComponent(
+  () => import('~/components/common/DaysAvailableCard.vue')
+);
 
-const EntityCardTable = defineAsyncComponent(() => import('~/components/projects/EntityCardTable.vue'));
-const Text = defineAsyncComponent(() => import('~/components/common/additional/Text.vue'));
-const VacationStatus = defineAsyncComponent(() => import('~/components/pages/vacations/VacationStatus.vue'));
-const RequestType = defineAsyncComponent(() => import('~/components/common/additional/RequestType.vue'));
+const EntityCardTable = defineAsyncComponent(
+  () => import('~/components/projects/EntityCardTable.vue')
+);
+const Text = defineAsyncComponent(
+  () => import('~/components/common/additional/Text.vue')
+);
+const VacationStatus = defineAsyncComponent(
+  () => import('~/components/pages/vacations/VacationStatus.vue')
+);
+const RequestType = defineAsyncComponent(
+  () => import('~/components/common/additional/RequestType.vue')
+);
 
 const cardsOfDaysAvailable = [
   {
@@ -35,7 +45,7 @@ const vacationsCardData = [
     {
       componentName: RequestType,
       data: {
-        requestType:"sick",
+        requestType: 'sick',
       },
     },
     {
@@ -70,20 +80,15 @@ const vacationsCardData = [
 </script>
 
 <template>
-  <div class="grid  grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-7 mb-12">
+  <div class="mb-12 grid grid-cols-1 gap-7 lg:grid-cols-2 xl:grid-cols-3">
     <DaysAvailableCard
       v-for="(card, index) in cardsOfDaysAvailable"
       :key="index"
       v-bind="card"
     />
   </div>
-  <div>
-    <h2 class="font-bold text-xl ">{{$t('My Requests')}}</h2>
 
-  </div>
-  <EntityCardTable
-    :first-column-width="250"
-    :cards-data="vacationsCardData"
+  <h2 class="text-xl font-bold">{{ $t('My Requests') }}</h2>
 
-  />
+  <EntityCardTable :first-column-width="250" :cards-data="vacationsCardData" />
 </template>

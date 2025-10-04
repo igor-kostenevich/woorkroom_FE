@@ -55,7 +55,7 @@ const currentComponent = computed(
   <div
     class="mb-6 flex flex-col items-center justify-between gap-2 lg:flex-row"
   >
-    <div class="block lg:hidden self-baseline">
+    <div class="block self-baseline lg:hidden">
       <Dropdown
         v-if="currentComponent === ProjectsContent"
         v-model="ddIndexDefault"
@@ -66,7 +66,7 @@ const currentComponent = computed(
     </div>
     <Segment
       v-model="selectedSegment"
-      class="max-w-md"
+      class="flex-[0_1_43%]"
       :options="segmentsOptions"
       query-key="tabNavigation"
     />
@@ -86,14 +86,12 @@ const currentComponent = computed(
       {{ $t('profile.Add Request') }}
     </Button>
 
-    <div  v-if="currentComponent === ProjectsContent" class="hidden lg:block "    >
+    <div v-if="currentComponent === ProjectsContent" class="hidden lg:block">
       <Dropdown
-
         v-model="ddIndexDefault"
         :options="ddOptions"
         label-field="label"
         placeholder="Chose Projects"
-
       />
     </div>
   </div>

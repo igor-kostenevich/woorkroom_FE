@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { IProgressProps } from '~/types/components/IProgressProps';
+import type { ProgressProps } from '~/types/components/ProgressProps';
 const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 
-withDefaults(defineProps<IProgressProps>(), {
+withDefaults(defineProps<ProgressProps>(), {
   size: 'md',
   progress: 0,
   color: 'blue',
@@ -12,10 +12,9 @@ withDefaults(defineProps<IProgressProps>(), {
 </script>
 
 <template>
-  <div class="bg-white rounded-3xl  p-6 shadow-base">
+  <div class="rounded-3xl bg-white p-6 shadow-base">
     <Progress :size="size" :progress="progress" :color="color">12</Progress>
-    <div class="text-lg font-bold mt-4">{{ title }}</div>
-
-    <div class="mt-1 text-gray-light">{{label}}</div>
+    <div class="mt-4 text-lg font-bold">{{ title }}</div>
+    <div class="mt-1 text-gray-light">{{ label }}</div>
   </div>
 </template>
