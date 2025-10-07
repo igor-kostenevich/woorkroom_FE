@@ -14,9 +14,9 @@ const props = defineProps<IProjectCard>();
 
 <template>
   <div
-    class="relative flex flex-col rounded-3xl bg-white pl-6 shadow-base lg:grid lg:grid-cols-2"
+    class="relative flex flex-col rounded-3xl bg-white shadow-base lg:grid lg:grid-cols-2"
   >
-    <div class="border-gray-muted py-5 pr-5 lg:border-r lg:pr-8">
+    <div class="border-gray-muted py-5 pl-6 pr-5 lg:border-r lg:pr-8">
       <div class="mb-[22px] flex gap-4">
         <img :src="props.imageUrl" alt="project image" class="h-12 w-12" />
 
@@ -35,21 +35,27 @@ const props = defineProps<IProjectCard>();
           <span class="text-sm text-gray">{{ props.createdAt }}</span>
         </div>
 
-        <PriorityBadge :priority="props.priority" />
+        <PriorityBadge :show-label="false" :priority="props.priority" />
       </div>
     </div>
 
-    <div class="py-3 pl-0 lg:pl-8 xl:py-5">
-      <div class="mb-5 font-bold lg:pt-1">{{ $t('Project Data') }}</div>
+    <div class="py-3 pl-6 lg:pl-8 xl:py-5">
+      <div class="mb-5 font-bold lg:pt-1">{{ $t('profile.Project Data') }}</div>
 
-      <div class="flex flex-wrap items-start gap-x-[30px] lg:gap-x-[60px]">
+      <div
+        class="flex flex-wrap items-start justify-between gap-x-[30px] pr-5 lg:gap-x-[60px] lg:pr-[50px]"
+      >
         <div class="flex flex-col gap-1.5">
-          <span class="text-sm text-gray-light">{{ $t('All tasks') }}</span>
+          <span class="text-sm text-gray-light">{{
+            $t('profile.All tasks')
+          }}</span>
           <div class="font-bold">{{ props.allTasks }}</div>
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <span class="text-sm text-gray-light">{{ $t('Active tasks') }}</span>
+          <span class="text-sm text-gray-light">{{
+            $t('profile.Active tasks')
+          }}</span>
           <div class="font-bold">{{ props.activeTasks }}</div>
         </div>
 

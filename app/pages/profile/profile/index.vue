@@ -91,7 +91,7 @@ const currentComponent = computed(
         v-model="ddIndexDefault"
         :options="ddOptions"
         label-field="label"
-        placeholder="Chose Projects"
+        placeholder="Current Projects"
       />
     </div>
   </div>

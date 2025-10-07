@@ -12,7 +12,7 @@ const props = defineProps<TeamMemberCard>();
 </script>
 
 <template>
-  <div class="flex flex-col items-center rounded-3xl bg-white py-4 shadow-base">
+  <div class="flex flex-col items-center rounded-3xl bg-white py-5 shadow-base">
     <UserAvatar
       color="primary"
       :progress="50"

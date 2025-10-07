@@ -90,5 +90,9 @@ const vacationsCardData = [
 
   <h2 class="text-xl font-bold">{{ $t('My Requests') }}</h2>
 
-  <EntityCardTable :first-column-width="250" :cards-data="vacationsCardData" />
+  <EntityCardTable
+    :first-column-width="250"
+    :cards-data="vacationsCardData"
+    :show-action-button="false"
+  />
 </template>

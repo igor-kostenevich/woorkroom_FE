@@ -15,6 +15,6 @@ withDefaults(defineProps<ProgressProps>(), {
   <div class="rounded-3xl bg-white p-6 shadow-base">
     <Progress :size="size" :progress="progress" :color="color">12</Progress>
     <div class="mt-4 text-lg font-bold">{{ title }}</div>
-    <div class="mt-1 text-gray-light">{{ label }}</div>
+    <div class="mt-1 text-sm text-gray-light">{{ label }}</div>
   </div>
 </template>

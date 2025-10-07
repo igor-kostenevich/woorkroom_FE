@@ -91,7 +91,7 @@ const toggleEdit = async () => {
 
 <template>
   <div class="flex justify-between">
-    <h1 class="mb-7 text-4xl font-bold">{{ $t('My Profile') }}</h1>
+    <h1 class="text-4xl font-bold">{{ $t('My Profile') }}</h1>
     <Button
       color="neutral"
       size="md"
@@ -112,7 +112,7 @@ const toggleEdit = async () => {
         <Button
           color="accent"
           size="md"
-          icon-before="edit"
+          :icon-before="isEditing ? 'checked' : 'edit'"
           class="self-baseline px-[10px] py-2.5"
           @click="toggleEdit"
         />
@@ -131,7 +131,7 @@ const toggleEdit = async () => {
         <Input
           v-model="profile.position"
           :placeholder="$t('profile.placeholders.position')"
-          :readonly="!isEditing"
+          :disabled="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Position') }} </template>
           <template v-if="validationErrors.position.message" #errorMessage>
@@ -142,7 +142,7 @@ const toggleEdit = async () => {
         <Input
           v-model="profile.company"
           :placeholder="$t('profile.placeholders.company')"
-          :readonly="!isEditing"
+          :disabled="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Company') }} </template>
           <template v-if="validationErrors.company.message" #errorMessage>
@@ -154,7 +154,7 @@ const toggleEdit = async () => {
           v-model="profile.location"
           :placeholder="$t('profile.placeholders.location')"
           icon="location"
-          :readonly="!isEditing"
+          :disabled="!isEditing"
         >
           <template #topTextLeft>{{ $t('profile.Location') }} </template>
           <template v-if="validationErrors.location.message" #errorMessage>
@@ -178,11 +178,9 @@ const toggleEdit = async () => {
             <Input
               v-model="profile.email"
               :placeholder="$t('profile.placeholders.email')"
-              :readonly="!isEditing"
+              :disabled="!isEditing"
             >
-              <template #topTextLeft
-                >{{ $t('profile.placeholders.email') }}
-              </template>
+              <template #topTextLeft>{{ $t('profile.Email') }} </template>
               <template v-if="validationErrors.email?.message" #errorMessage>
                 {{ validationErrors.email.message }}
               </template>
@@ -191,10 +189,10 @@ const toggleEdit = async () => {
             <Input
               v-model="profile.phone"
               :placeholder="$t('profile.placeholders.phone')"
-              :readonly="!isEditing"
+              :disabled="!isEditing"
             >
               <template #topTextLeft
-                >{{ $t('profile.placeholders.phone') }}
+                >{{ $t('profile.Mobile Number') }}
               </template>
               <template v-if="validationErrors.phone?.message" #errorMessage>
                 {{ validationErrors.phone.message }}
@@ -204,11 +202,9 @@ const toggleEdit = async () => {
             <Input
               v-model="profile.telegram"
               placeholder="@Evan2256"
-              :readonly="!isEditing"
+              :disabled="!isEditing"
             >
-              <template #topTextLeft
-                >{{ $t('profile.placeholders.telegram') }}
-              </template>
+              <template #topTextLeft>{{ $t('profile.Telegram') }} </template>
               <template v-if="validationErrors.telegram?.message" #errorMessage>
                 {{ validationErrors.telegram.message }}
               </template>

@@ -9,6 +9,7 @@
         ref="calendarRef"
         :show-text-area="showTextArea"
         @submit="handleSubmit"
+        @validity="isSubmitDisabled = !$event"
       />
     </div>
     <template #footer>
@@ -16,11 +17,11 @@
         color="accent"
         size="md"
         icon-before="comment"
-        class="self-baseline px-[10px] py-2.5"
+        class="self-center px-[10px] py-2.5"
         @click="showTextArea = !showTextArea"
       />
 
-      <Button @click="submitForm">
+      <Button :disabled="isSubmitDisabled" @click="submitForm">
         {{ $t('calendar.Send Request') }}
       </Button>
     </template>
@@ -46,6 +47,7 @@ const lastPayload = ref(null);
 
 const showTextArea = ref(false);
 
+const isSubmitDisabled = ref(true);
 function handleSubmit(payload: any) {
   lastPayload.value = payload;
 }

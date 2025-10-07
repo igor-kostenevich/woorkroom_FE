@@ -26,7 +26,11 @@ const { formatDate } = useFormatters('en-US');
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <span v-if="$slots.birth" class="text-sm font-bold leading-6 text-gray">
+    <span
+      v-if="$slots.birth"
+      :class="{ 'pointer-events-none opacity-40': disabled }"
+      class="text-sm font-bold leading-6 text-gray"
+    >
       <slot name="birth" />
     </span>
     <VueDatePicker
@@ -34,13 +38,16 @@ const { formatDate } = useFormatters('en-US');
       :enable-time-picker="false"
       :max-date="MAX_DATE"
       :min-date="MIN_DATE"
-      :teleport="false"
       :year-range="[1920, new Date().getFullYear()]"
       :prevent-min-max-navigation="true"
       :light="true"
       :format="formatDate"
-      :disabled="disabled"
       :placeholder="placeholder"
+      :class="[
+        disabled
+          ? 'pointer-events-none border-gray-secondary opacity-40'
+          : 'border-gray-dark transition-colors hover:border-gray',
+      ]"
       class="dp__theme_light relative"
     >
       <template #input-icon>

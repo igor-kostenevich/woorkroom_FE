@@ -42,6 +42,7 @@ const { range, daysCount, rangesOverlap, validateAndPreparePayload } =
 
 const emit = defineEmits<{
   (e: 'submit', payload: any): void;
+  (e: 'validity', isValid: boolean): void;
 }>();
 
 function onSubmit() {
@@ -68,6 +69,7 @@ defineExpose({ onSubmit });
 watch(
   range,
   async (val: any) => {
+    emit('validity', !!val?.start);
     if (!val?.start) return;
     // TODO: need refactor
     const start = val.start;
@@ -105,11 +107,13 @@ const highlightAttributes = ref([
 <template>
   <div class="bg-white">
     <div class="mb-7">
-      <h3 class="pb-2 text-sm font-bold text-gray">
+      <h3 class="mb-2 text-sm font-bold text-gray">
         {{ $t('calendar.Request Type') }}
       </h3>
 
-      <div class="flex flex-col gap-6 pt-1.5 sm:flex-row sm:pt-0 lg:gap-5">
+      <div
+        class="flex flex-col justify-between gap-6 pt-1.5 sm:flex-row sm:pt-0 lg:gap-5"
+      >
         <Radio
           v-for="input in requestTypes"
           :id="input.id"
