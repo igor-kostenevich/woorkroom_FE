@@ -91,7 +91,8 @@ const currentComponent = computed(
         v-model="ddIndexDefault"
         :options="ddOptions"
         label-field="label"
-        placeholder="Current Projects"
+        :placeholder="$t('profile.placeholders.current projects')"
+        hide-clear-btn
       />
     </div>
   </div>

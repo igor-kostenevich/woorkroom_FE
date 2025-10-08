@@ -90,7 +90,7 @@ const toggleEdit = async () => {
 </script>
 
 <template>
-  <div class="flex justify-between">
+  <div class="mb-7 flex justify-between">
     <h1 class="text-4xl font-bold">{{ $t('My Profile') }}</h1>
     <Button
       color="neutral"

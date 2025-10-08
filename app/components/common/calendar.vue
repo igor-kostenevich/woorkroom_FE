@@ -120,7 +120,7 @@ const highlightAttributes = ref([
           :key="input.id"
           v-model="selectedRequestType"
           name="radio-picker"
-          class="rounded-lg border-0 sm:border sm:p-3 lg:border-gray-dark"
+          class="rounded-lg border-0 sm:border sm:px-4 sm:py-3 lg:border-gray-dark"
           :value="input.value"
         >
           {{ input.value }}
