@@ -25,6 +25,7 @@ const isChecked = ref(true);
 
 <template>
   <div>
+    <h3 class="mb-5 text-lg font-bold">{{ $t('settings.Notifications') }}</h3>
     <div class="flex flex-col gap-4">
       <div
         v-for="(item, index) in switches"
@@ -32,7 +33,7 @@ const isChecked = ref(true);
         class="flex items-center justify-between rounded-2xl bg-light px-5 py-4"
       >
         <div>
-          <div class="text-lg font-bold">{{ $t(item.title) }}</div>
+          <div class="mb-1 font-bold">{{ $t(item.title) }}</div>
           <div class="text-sm text-gray">{{ $t(item.text) }}</div>
         </div>
 

@@ -6,9 +6,7 @@ const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 const BirthdayPicker = defineAsyncComponent(
   () => import('~/components/common/BirthdayPicker.vue')
 );
-const PageLayout = defineAsyncComponent(
-  () => import('~/components/common/PageLayout.vue')
-);
+
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 
 const profile = reactive({
@@ -64,6 +62,16 @@ const rules = computed(() => ({
     ),
   },
   telegram: {
+    minLength: helpers.withMessage(
+      $t('validation.min2chars'),
+      validators.minLength(2)
+    ),
+
+    maxLength: helpers.withMessage(
+      $t('validation.min2chars'),
+      validators.maxLength(32)
+    ),
+
     tg: helpers.withMessage(
       $t('validation.invalidUsername'),
       (v: string) => !v || /^@[a-zA-Z0-9_]{5,32}$/.test(v)
@@ -90,18 +98,10 @@ const toggleEdit = async () => {
 </script>
 
 <template>
-  <div class="mb-7 flex justify-between">
-    <h1 class="text-4xl font-bold">{{ $t('My Profile') }}</h1>
-    <Button
-      color="neutral"
-      size="md"
-      to="/profile/profile/settings"
-      icon-before="settings"
-      class="self-baseline px-[10px] py-2.5"
-    />
-  </div>
-  <PageLayout>
-    <template #sidebar-header>
+  <aside
+    class="grid grid-rows-[auto_minmax(0,1fr)] rounded-3xl bg-white shadow-base"
+  >
+    <div class="border-b border-gray-muted p-6 pb-8">
       <div class="mb-4 flex justify-between">
         <UserAvatar
           :progress="60"
@@ -122,9 +122,9 @@ const toggleEdit = async () => {
         {{ $t('profile.name') }}
       </h2>
       <h3 class="text-sm">{{ $t('profile.position') }}</h3>
-    </template>
+    </div>
 
-    <template #sidebar-content>
+    <div class="px-6 pb-10 pt-7">
       <h3 class="text-lg font-bold">{{ $t('profile.Main info') }}</h3>
 
       <div class="flex flex-col gap-4 pt-3">
@@ -212,10 +212,6 @@ const toggleEdit = async () => {
           </div>
         </div>
       </div>
-    </template>
-
-    <template #content>
-      <NuxtPage />
-    </template>
-  </PageLayout>
+    </div>
+  </aside>
 </template>
