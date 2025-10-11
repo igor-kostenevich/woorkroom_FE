@@ -21,9 +21,9 @@ const props = withDefaults(
       fullName: '',
       positionName: '',
       positionLevel: 1,
-      backlogTasks: 0,
-      tasksInProgress: 0,
-      tasksInReview: 0,
+      backlogTasksCount: 0,
+      tasksInProgressCount: 0,
+      tasksInReviewCount: 0,
     }),
   }
 );
@@ -70,19 +70,19 @@ const selectedCardColor = computed(() =>
     <div class="flex items-center justify-between gap-6 px-2">
       <div class="text-center text-sm text-gray-light">
         <div class="mb-4 text-center text-[26px] font-bold text-dark">
-          {{ data.backlogTasks }}
+          {{ data.backlogTasksCount }}
         </div>
         {{ $t('employeesCard.backlogTasks') }}
       </div>
       <div class="text-center text-sm text-gray-light">
         <div class="mb-4 text-center text-[26px] font-bold text-dark">
-          {{ data.tasksInProgress }}
+          {{ data.tasksInProgressCount }}
         </div>
         {{ $t('employeesCard.tasksInProgress') }}
       </div>
       <div class="text-center text-sm text-gray-light">
         <div class="mb-4 text-center text-[26px] font-bold text-dark">
-          {{ data.tasksInReview }}
+          {{ data.tasksInReviewCount }}
         </div>
         {{ $t('employeesCard.tasksInReview') }}
       </div>

@@ -181,9 +181,9 @@ const employeesCardData = [
     fullName: 'Shawn Stone',
     positionName: 'UI/UX Designer',
     positionLevel: 2,
-    backlogTasks: 0,
-    tasksInProgress: 16,
-    tasksInReview: 6,
+    backlogTasksCount: 0,
+    tasksInProgressCount: 16,
+    tasksInReviewCount: 6,
   },
   {
     isBusy: false,
@@ -192,9 +192,9 @@ const employeesCardData = [
     fullName: 'Randy Delgado',
     positionName: 'UI/UX Designer',
     positionLevel: 1,
-    backlogTasks: 1,
-    tasksInProgress: 20,
-    tasksInReview: 2,
+    backlogTasksCount: 1,
+    tasksInProgressCount: 20,
+    tasksInReviewCount: 2,
   },
   {
     isBusy: false,
@@ -203,9 +203,9 @@ const employeesCardData = [
     fullName: 'Emily Tyler',
     positionName: 'Copywriter',
     positionLevel: 2,
-    backlogTasks: 0,
-    tasksInProgress: 20,
-    tasksInReview: 2,
+    backlogTasksCount: 0,
+    tasksInProgressCount: 20,
+    tasksInReviewCount: 2,
   },
   {
     isBusy: false,
@@ -214,9 +214,9 @@ const employeesCardData = [
     fullName: 'Louis Castro',
     positionName: 'Copywriter',
     positionLevel: 3,
-    backlogTasks: 1,
-    tasksInProgress: 20,
-    tasksInReview: 2,
+    backlogTasksCount: 1,
+    tasksInProgressCount: 20,
+    tasksInReviewCount: 2,
   },
   {
     isBusy: false,
@@ -225,9 +225,9 @@ const employeesCardData = [
     fullName: 'Millie Harvey',
     positionName: 'Android Developer',
     positionLevel: 1,
-    backlogTasks: 1,
-    tasksInProgress: 14,
-    tasksInReview: 3,
+    backlogTasksCount: 1,
+    tasksInProgressCount: 14,
+    tasksInReviewCount: 3,
   },
   {
     isBusy: true,
@@ -236,9 +236,9 @@ const employeesCardData = [
     fullName: 'Ethel Weber',
     positionName: 'Copywriter',
     positionLevel: 1,
-    backlogTasks: 0,
-    tasksInProgress: 8,
-    tasksInReview: 6,
+    backlogTasksCount: 0,
+    tasksInProgressCount: 8,
+    tasksInReviewCount: 6,
   },
   {
     isBusy: false,
@@ -247,9 +247,9 @@ const employeesCardData = [
     fullName: 'Charlie Palmer',
     positionName: 'Copywriter',
     positionLevel: 3,
-    backlogTasks: 1,
-    tasksInProgress: 20,
-    tasksInReview: 2,
+    backlogTasksCount: 1,
+    tasksInProgressCount: 20,
+    tasksInReviewCount: 2,
   },
   {
     isBusy: true,
@@ -258,9 +258,9 @@ const employeesCardData = [
     fullName: 'Pearl Sims',
     positionName: 'Project Manager',
     positionLevel: 2,
-    backlogTasks: 0,
-    tasksInProgress: 4,
-    tasksInReview: 6,
+    backlogTasksCount: 0,
+    tasksInProgressCount: 4,
+    tasksInReviewCount: 6,
   },
 ];
 
@@ -286,7 +286,7 @@ const { showModal } = useModal();
     class="mb-4 flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
   >
     <h1 class="text-4xl font-bold text-dark">
-      {{ $t('Employees') + `(${employeesNum})` }}
+      {{ $t('Employees', { count: employeesNum }) }}
     </h1>
     <Segment
       v-model="selectedSegment"

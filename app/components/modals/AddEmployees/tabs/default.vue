@@ -12,7 +12,7 @@
       />
 
       <div class="mb-6">
-        <div class="mb-2 text-sm font-bold leading-[171%] text-gray">
+        <div class="mb-2 text-sm font-bold leading-relaxed text-gray">
           {{ $t('membersEmail') }}
         </div>
         <div v-for="(member, index) in membersEmail" :key="index" class="mb-5">

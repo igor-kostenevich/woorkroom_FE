@@ -3,7 +3,7 @@
   "Projects": "Projects",
   "Calendar": "Calendar",
   "Vacations": "Vacations",
-  "Employees": "Employees",
+  "Employees": "Employees {count}",
   "Messenger": "Messenger",
   "Info Portal": "Info Portal",
   "Logout": "Logout",
@@ -51,5 +51,4 @@
   "membersEmail": "Member’s Email",
   "approve": "Approve",
   "addAnotherMember": "Add another Member"
-
 }

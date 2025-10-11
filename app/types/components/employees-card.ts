@@ -7,7 +7,7 @@ export interface IEmployeesCardData {
   fullName?: string;
   positionName?: string;
   positionLevel?: EmployeeLevel;
-  backlogTasks?: number;
-  tasksInProgress?: number;
-  tasksInReview?: number;
+  backlogTasksCount?: number;
+  tasksInProgressCount?: number;
+  tasksInReviewCount?: number;
 }
