@@ -125,7 +125,7 @@ const settingsItems: AccordionItem[] = [
                 <li v-for="page in settingsPages" :key="page.name" class="pr-2">
                   <button
                     :class="[
-                      'relative flex w-full items-center gap-4 rounded-xl px-2 py-2.5 text-left font-semibold transition-colors',
+                      'relative flex w-full items-center gap-4 rounded-xl px-2 py-3.5 text-left font-semibold transition-colors',
                       activePage.name === page.name ? 'bg-light' : 'text-gray',
                     ]"
                     @click="activePage = page"
