@@ -121,8 +121,8 @@ const settingsItems: AccordionItem[] = [
             <div
               class="-mt-1 min-h-screen min-w-[265px] rounded-3xl bg-white shadow-base"
             >
-              <ul class="space-y-4 py-9 pl-5 pr-2">
-                <li v-for="page in settingsPages" :key="page.name" class="pr-2">
+              <ul class="space-y-1 py-9 pl-2 pr-3">
+                <li v-for="page in settingsPages" :key="page.name">
                   <button
                     :class="[
                       'relative flex w-full items-center gap-4 rounded-xl px-2 py-3.5 text-left font-semibold transition-colors',
@@ -141,7 +141,7 @@ const settingsItems: AccordionItem[] = [
 
                     <span
                       v-if="activePage.name === page.name"
-                      class="absolute -right-[16px] top-0 h-full w-[4px] rounded-full bg-primary"
+                      class="absolute -right-[12px] top-0 h-full w-[4px] rounded-full bg-primary"
                     />
                   </button>
                 </li>
