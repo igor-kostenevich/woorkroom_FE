@@ -1,7 +1,12 @@
 <template>
-  <div :class="['relative self-center', sizeClasses]">
+  <div
+    :class="[
+      'relative self-center',
+      props.progress ? sizeClasses : sizeClassesWithoutProgress,
+    ]"
+  >
     <svg
-      v-if="props.progress"
+      v-if="progress"
       class="absolute left-0 top-0"
       :width="size"
       :height="size"
@@ -51,7 +56,8 @@ const sizeVariations = {
   lg: 58,
   xl: 72,
 } as const;
-const size = sizeVariations[props.size];
+type SizeKey = keyof typeof sizeVariations;
+const size = sizeVariations[(props.size as SizeKey) || 'md'];
 
 const radius = (size - 2) / 2;
 const circumference = 2 * Math.PI * radius;
@@ -64,6 +70,12 @@ const sizeClasses = computed(() => ({
   'h-[58px] w-[58px]': props.size === 'lg',
   'h-[72px] w-[72px]': props.size === 'xl',
 }));
+const sizeClassesWithoutProgress = computed(() => ({
+  'h- w-6': props.size === 'sm',
+  'h-10 w-10': props.size === 'md',
+  'h-[50px] w-[50px]': props.size === 'lg',
+  'h-[64px] w-[64px]': props.size === 'xl',
+}));
 
 const strokeClasses = {
   primary: 'stroke-primary',
@@ -72,8 +84,9 @@ const strokeClasses = {
   red: 'stroke-red',
   violet: 'stroke-purple',
 } as const;
+type ColorKey = keyof typeof strokeClasses;
 const selectedStrokeColor = computed(
-  () => strokeClasses[props.color ?? 'primary']
+  () => strokeClasses[(props.color as ColorKey) || 'primary']
 );
 
 const textClasses = {
@@ -83,5 +96,7 @@ const textClasses = {
   red: 'text-red text-xl font-extrabold',
   violet: 'text-purple text-xl font-extrabold',
 } as const;
-const selectedTextClasses = computed(() => textClasses[props.color ?? 'blue']);
+const selectedTextClasses = computed(
+  () => textClasses[(props.color as ColorKey) || 'blue']
+);
 </script>

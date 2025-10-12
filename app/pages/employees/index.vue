@@ -283,10 +283,10 @@ const { showModal } = useModal();
 
 <template>
   <div
-    class="mb-4 flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
+    class="mb-7 flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
   >
     <h1 class="text-4xl font-bold text-dark">
-      {{ $t('Employees', { count: employeesNum }) }}
+      {{ $t('EmployeesNum', { count: employeesNum }) }}
     </h1>
     <Segment
       v-model="selectedSegment"

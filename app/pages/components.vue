@@ -28,7 +28,9 @@ const EntityCardTable = defineAsyncComponent(
 const EmployeesCard = defineAsyncComponent(
   () => import('~/components/projects/EmployeeCard.vue')
 );
-const DaysAvailableCard = defineAsyncComponent(()=>import('~/components/common/DaysAvailableCard.vue'))
+const DaysAvailableCard = defineAsyncComponent(
+  () => import('~/components/common/DaysAvailableCard.vue')
+);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -1273,7 +1275,7 @@ const employeesCardData = [
       {{ String('Additional components for cards') }}
     </h3>
     <div class="flex gap-12">
-      <Text :label="$t('additional.text.gender')" :text="String('Male')" />
+      <Text label="additional.gender" :text="String('Male')" />
       <Position position-name="UI/UX Designer" :position-level="2" />
       <UserInfo
         user-image="/images/common/woman.png"
@@ -1283,7 +1285,7 @@ const employeesCardData = [
       />
       <Priority priority="high" />
       <Assignee :user-avatar-data="userAvatarData" :max="4" />
-      <RequestType show-label />
+      <RequestType show-label request-type="remote" />
     </div>
   </div>
 
@@ -1311,7 +1313,9 @@ const employeesCardData = [
   </div>
 
   <div class="mb-24 mt-32 max-w-[265px]">
-    <h3 class="mb-10 text-4xl font-bold text-dark">{{String('DaysAvailableCard')}}</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('DaysAvailableCard') }}
+    </h3>
     <DaysAvailableCard
       size="xl"
       :progress="80"
