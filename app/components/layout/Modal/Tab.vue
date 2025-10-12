@@ -39,7 +39,7 @@
     <slot :modal-tab-body-ref="modalTabBodyRef" />
   </div>
 
-  <div v-if="$slots.footer" class="flex items-center justify-end gap-4">
+  <div v-if="$slots.footer" class="flex items-center justify-between gap-4">
     <slot name="footer" />
   </div>
 </template>

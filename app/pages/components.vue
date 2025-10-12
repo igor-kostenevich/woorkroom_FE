@@ -28,6 +28,8 @@ const EntityCardTable = defineAsyncComponent(
 const EmployeesCard = defineAsyncComponent(
   () => import('~/components/projects/EmployeeCard.vue')
 );
+const DaysAvailableCard = defineAsyncComponent(()=>import('~/components/common/DaysAvailableCard.vue'))
+
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
@@ -1306,5 +1308,16 @@ const employeesCardData = [
         :data="element"
       />
     </div>
+  </div>
+
+  <div class="mb-24 mt-32 max-w-[265px]">
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{String('DaysAvailableCard')}}</h3>
+    <DaysAvailableCard
+      size="xl"
+      :progress="80"
+      color="blue"
+      title="Vacation"
+      label="12/16 days availible"
+    />
   </div>
 </template>

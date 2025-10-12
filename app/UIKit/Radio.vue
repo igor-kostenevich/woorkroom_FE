@@ -1,7 +1,7 @@
 <template>
   <label
     :for="props.id"
-    class="flex w-max items-center gap-4"
+    class="flex w-max items-center gap-3"
     :class="disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'"
   >
     <span
@@ -24,7 +24,7 @@
       @change="emit('update:modelValue', props.value)"
     />
 
-    <span v-if="$slots.default" class="text-gray">
+    <span v-if="$slots.default">
       <slot />
     </span>
   </label>
