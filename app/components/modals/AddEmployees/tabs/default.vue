@@ -49,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO: NEED REFACTORING AND OPTIMIZATION
 import Tab from '~/components/layout/Modal/Tab.vue';
 import useModal from '~/composables/useModal';
 import useValidation, {
