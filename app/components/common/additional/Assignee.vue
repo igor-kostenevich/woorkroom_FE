@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IAssigneeData, IUserData } from '~/types/components/assignee';
+import type { IAssigneeData } from '~/types/components/assignee';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
@@ -36,10 +36,12 @@ const props = withDefaults(defineProps<IAssigneeData>(), {
   max: 3,
 });
 
-const visibleUsers = computed<IUserData[]>(() =>
+// TODO: Improve types
+const visibleUsers = computed<any[]>(() =>
   props.userAvatarData.slice(0, props.max)
 );
 
+// TODO: Improve types
 const restUsers = computed<number>(() =>
   Math.max(0, props.userAvatarData.length - props.max)
 );

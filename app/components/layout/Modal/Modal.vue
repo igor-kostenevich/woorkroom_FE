@@ -1,6 +1,6 @@
 <template>
   <div
-    class="width-[calc(100vw-32px)] fixed left-1/2 top-1/2 flex max-h-[calc(100dvh-32px)] w-full -translate-x-1/2 -translate-y-1/2 flex-col gap-7 overflow-hidden rounded-3xl bg-white p-14"
+    class="width-[calc(100vw-32px)] fixed left-1/2 top-1/2 flex max-h-[calc(100dvh-32px)] w-full -translate-x-1/2 -translate-y-1/2 flex-col gap-7 overflow-hidden rounded-3xl bg-white p-6 sm:p-14"
     :style="{
       maxWidth: hasMobileMenu
         ? 'auto'

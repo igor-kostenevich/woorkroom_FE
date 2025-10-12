@@ -22,9 +22,9 @@ const Priority = defineAsyncComponent(
 const Assignee = defineAsyncComponent(
   () => import('~/components/common/additional/Assignee.vue')
 );
-const EntityCardTable = defineAsyncComponent(
-  () => import('~/components/projects/EntityCardTable.vue')
-);
+const EntityCardTable = defineAsyncComponent(() => import('~/components/projects/EntityCardTable.vue'));
+const DaysAvailableCard = defineAsyncComponent(()=>import('~/components/common/DaysAvailableCard.vue'))
+
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
@@ -61,7 +61,7 @@ definePageMeta({
 
 const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
-const buttonColorVariants = ['primary', 'neutral'] as const;
+const buttonColorVariants = ['primary', 'neutral', 'accent'] as const;
 const selected = ref('item1');
 const inputVariants = reactive([
   {
@@ -1199,6 +1199,17 @@ const testCardData = [
       :first-column-width="360"
       :cards-data="testCardData"
       :show-action-button="true"
+    />
+  </div>
+
+  <div class="mb-24 mt-32 max-w-[265px]">
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{String('DaysAvailableCard')}}</h3>
+    <DaysAvailableCard
+      size="xl"
+      :progress="80"
+      color="blue"
+      title="Vacation"
+      label="12/16 days availible"
     />
   </div>
 </template>
