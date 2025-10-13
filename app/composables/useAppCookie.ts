@@ -21,13 +21,13 @@ export const useAppCookie = () => {
       path: '/',
       sameSite: isProd ? 'none' : 'lax',
       secure: isProd,
-    });
+    }) as Ref<string | null>;
 
     cookie.value = `${value}${DIVIDER}${new Date().getTime()}`;
   }
 
   function getCookie(cookieName: string, isObject?: boolean) {
-    const cookie = useCookie<string | null>(cookieName);
+    const cookie = useCookie<string | null>(cookieName) as Ref<string | null>;
     const [value, date] = cookie.value ? cookie.value.split(DIVIDER) : [];
     if (isObject) {
       const dataObj: { value: string | undefined; date?: number } = { value };
@@ -39,7 +39,7 @@ export const useAppCookie = () => {
   }
 
   function removeCookie(cookieName: string) {
-    const cookie = useCookie(cookieName);
+    const cookie = useCookie(cookieName) as Ref<string | null>;
     cookie.value = null;
   }
 
