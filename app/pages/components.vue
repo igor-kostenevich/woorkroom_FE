@@ -22,8 +22,15 @@ const Priority = defineAsyncComponent(
 const Assignee = defineAsyncComponent(
   () => import('~/components/common/additional/Assignee.vue')
 );
-const EntityCardTable = defineAsyncComponent(() => import('~/components/projects/EntityCardTable.vue'));
-const DaysAvailableCard = defineAsyncComponent(()=>import('~/components/common/DaysAvailableCard.vue'))
+const EntityCardTable = defineAsyncComponent(
+  () => import('~/components/projects/EntityCardTable.vue')
+);
+const EmployeesCard = defineAsyncComponent(
+  () => import('~/components/projects/EmployeeCard.vue')
+);
+const DaysAvailableCard = defineAsyncComponent(
+  () => import('~/components/common/DaysAvailableCard.vue')
+);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -61,7 +68,7 @@ definePageMeta({
 
 const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
-const buttonColorVariants = ['primary', 'neutral', 'accent'] as const;
+const buttonColorVariants = ['primary', 'neutral'] as const;
 const selected = ref('item1');
 const inputVariants = reactive([
   {
@@ -508,6 +515,97 @@ const testCardData = [
       },
     },
   ],
+];
+
+const employeesCardData = [
+  {
+    isBusy: false,
+    progress: 70,
+    userImage: '/images/common/woman.png',
+    fullName: 'Shawn Stone',
+    positionName: 'UI/UX Designer',
+    positionLevel: 2,
+    backlogTasks: 0,
+    tasksInProgress: 16,
+    tasksInReview: 6,
+  },
+  {
+    isBusy: false,
+    progress: 85,
+    userImage: '/images/common/woman.png',
+    fullName: 'Randy Delgado',
+    positionName: 'UI/UX Designer',
+    positionLevel: 1,
+    backlogTasks: 1,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: false,
+    progress: 90,
+    userImage: '/images/common/woman.png',
+    fullName: 'Emily Tyler',
+    positionName: 'Copywriter',
+    positionLevel: 2,
+    backlogTasks: 0,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: false,
+    progress: 80,
+    userImage: '/images/common/woman.png',
+    fullName: 'Louis Castro',
+    positionName: 'Copywriter',
+    positionLevel: 3,
+    backlogTasks: 1,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: false,
+    progress: 60,
+    userImage: '/images/common/woman.png',
+    fullName: 'Millie Harvey',
+    positionName: 'Android Developer',
+    positionLevel: 1,
+    backlogTasks: 1,
+    tasksInProgress: 14,
+    tasksInReview: 3,
+  },
+  {
+    isBusy: true,
+    progress: 40,
+    userImage: '/images/common/woman.png',
+    fullName: 'Ethel Weber',
+    positionName: 'Copywriter',
+    positionLevel: 1,
+    backlogTasks: 0,
+    tasksInProgress: 8,
+    tasksInReview: 6,
+  },
+  {
+    isBusy: false,
+    progress: 95,
+    userImage: '/images/common/woman.png',
+    fullName: 'Charlie Palmer',
+    positionName: 'Copywriter',
+    positionLevel: 3,
+    backlogTasks: 1,
+    tasksInProgress: 20,
+    tasksInReview: 2,
+  },
+  {
+    isBusy: true,
+    progress: 30,
+    userImage: '/images/common/woman.png',
+    fullName: 'Pearl Sims',
+    positionName: 'Project Manager',
+    positionLevel: 2,
+    backlogTasks: 0,
+    tasksInProgress: 4,
+    tasksInReview: 6,
+  },
 ];
 </script>
 
@@ -1177,7 +1275,7 @@ const testCardData = [
       {{ String('Additional components for cards') }}
     </h3>
     <div class="flex gap-12">
-      <Text :label="$t('additional.text.gender')" :text="String('Male')" />
+      <Text label="additional.gender" :text="String('Male')" />
       <Position position-name="UI/UX Designer" :position-level="2" />
       <UserInfo
         user-image="/images/common/woman.png"
@@ -1187,7 +1285,7 @@ const testCardData = [
       />
       <Priority priority="high" />
       <Assignee :user-avatar-data="userAvatarData" :max="4" />
-      <RequestType show-label request-type="vacation" />
+      <RequestType show-label request-type="remote" />
     </div>
   </div>
 
@@ -1201,9 +1299,23 @@ const testCardData = [
       :show-action-button="true"
     />
   </div>
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('Employees cards') }}
+    </h3>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(265px,1fr))] gap-7">
+      <EmployeesCard
+        v-for="(element, index) in employeesCardData"
+        :key="index"
+        :data="element"
+      />
+    </div>
+  </div>
 
   <div class="mb-24 mt-32 max-w-[265px]">
-    <h3 class="mb-10 text-4xl font-bold text-dark">{{String('DaysAvailableCard')}}</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('DaysAvailableCard') }}
+    </h3>
     <DaysAvailableCard
       size="xl"
       :progress="80"

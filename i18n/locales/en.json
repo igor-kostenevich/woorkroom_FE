@@ -123,5 +123,15 @@
     "invalidPhone": "Invalid phone",
     "invalidUsername": "Invalid username",
     "pastDate": "Date must be in the past"
-  }
+  },
+  "employeesCard": {
+    "backlogTasks": "Backlog Tasks",
+    "tasksInProgress": "Tasks In Progress",
+    "tasksInReview": "Tasks In Review"
+  },
+  "addEmployee": "Add Employee",
+  "membersEmail": "Member’s Email",
+  "approve": "Approve",
+  "addAnotherMember": "Add another Member",
+  "EmployeesNum": "Employees ({count})"
 }

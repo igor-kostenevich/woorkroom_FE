@@ -1,9 +1,11 @@
 <template>
   <div class="overflow-x-visible md:overflow-x-auto 2xl:overflow-x-visible">
     <table
-      class="w-full min-w-0 table-auto border-separate border-spacing-y-4 md:min-w-max 2xl:min-w-0"
+      class="md: -my-4 w-full min-w-0 table-auto border-separate border-spacing-y-4 md:min-w-max 2xl:min-w-0"
     >
-      <tbody class="flex flex-col gap-5 md:table-row-group">
+      <tbody
+        class="flex flex-col gap-5 md:table-row-group md:flex-row md:gap-0"
+      >
         <tr
           v-for="(card, index) in cardsData"
           :key="index"
