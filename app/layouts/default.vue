@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-1">
+  <div class="flex flex-1 p-5">
     <Sidebar hydrate-on-idle />
     <main id="js-content" class="flex flex-1 flex-col overflow-x-auto">
       <Header hydrate-on-idle />

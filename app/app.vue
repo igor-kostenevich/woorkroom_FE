@@ -1,7 +1,7 @@
 <template>
   <IconSymbols />
 
-  <div class="flex min-h-screen flex-col bg-light p-5">
+  <div class="flex min-h-screen flex-col bg-light">
     <div class="flex flex-1 flex-col">
       <NuxtLayout>
         <NuxtPage />
