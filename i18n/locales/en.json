@@ -116,12 +116,12 @@
     "daysLeft": "You have {count} days of Vacation left"
   },
   "validation": {
-
     "required": "Required",
     "min2chars": "≥ 2 chars",
     "invalidEmail": "Invalid email",
     "invalidPhone": "Invalid phone",
     "invalidUsername": "Invalid username",
     "pastDate": "Date must be in the past"
-  }
+  },
+  "Soon": "Soon"
 }

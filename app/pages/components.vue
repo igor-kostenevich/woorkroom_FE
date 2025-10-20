@@ -33,7 +33,6 @@ const DaysAvailableCard = defineAsyncComponent(
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
-const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const Dropdown = defineAsyncComponent(() => import('@/UIKit/Dropdown.vue'));
@@ -168,44 +167,6 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
-const selectedSegment1 = ref(0);
-const selectedSegment2 = ref(0);
-const selectedSegment3 = ref(0);
-
-const segmentsOptions1 = ref([
-  {
-    id: 1234,
-    label: 'List',
-  },
-  {
-    id: 116414,
-    label: 'Activity',
-  },
-]);
-const segmentsOptions2 = ref([
-  {
-    id: 1346141,
-    label: 'Employees’ vacations',
-  },
-  {
-    id: 134,
-    label: 'Calendar',
-  },
-]);
-const segmentsOptions3 = ref([
-  {
-    id: 1346,
-    label: 'Projects',
-  },
-  {
-    id: 456,
-    label: 'Team',
-  },
-  {
-    id: 548,
-    label: 'My vacations',
-  },
-]);
 
 interface User {
   id: number;
@@ -668,31 +629,6 @@ const testCardData = [
       <Switch v-model="isDisabledSwitch">
         <span class="text-gray"> {{ String('Switched off') }} </span>
       </Switch>
-    </div>
-  </div>
-  <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">
-      {{ String('Segmented Controls') }}
-    </h3>
-    <div class="flex flex-col gap-8">
-      <Segment
-        v-model="selectedSegment1"
-        class="max-w-80"
-        :options="segmentsOptions1"
-        query-key="tabList"
-      />
-      <Segment
-        v-model="selectedSegment2"
-        class="max-w-sm"
-        :options="segmentsOptions2"
-        query-key="tabVacations"
-      />
-      <Segment
-        v-model="selectedSegment3"
-        class="max-w-md"
-        :options="segmentsOptions3"
-        query-key="tabProjects"
-      />
     </div>
   </div>
 
