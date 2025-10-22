@@ -17,7 +17,7 @@ const UserInfo = defineAsyncComponent(
   () => import('~/components/common/additional/UserInfo.vue')
 );
 
-const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
+const Tabs = defineAsyncComponent(() => import('@/UIKit/Tabs.vue'));
 
 const testCardData = [
   [
@@ -266,17 +266,8 @@ const employeesCardData = [
 
 const employeesNum = computed(() => testCardData.length);
 
-const selectedSegment = ref(0);
-const segmentsOptions = ref([
-  {
-    id: 0,
-    label: 'List',
-  },
-  {
-    id: 1,
-    label: 'Activity',
-  },
-]);
+const activeTab = ref(0);
+const tabOptions = ref([{ title: 'List' }, { title: 'Activity' }]);
 
 const { showModal } = useModal();
 </script>
@@ -288,12 +279,7 @@ const { showModal } = useModal();
     <h1 class="text-4xl font-bold text-dark">
       {{ $t('EmployeesNum', { count: employeesNum }) }}
     </h1>
-    <Segment
-      v-model="selectedSegment"
-      class="min-w-52 flex-1 md:max-w-80"
-      :options="segmentsOptions"
-      query-key="tabList"
-    />
+    <Tabs v-model="activeTab" :tabs="tabOptions" class="w-full max-w-[310px]" />
     <div class="flex gap-6">
       <Button
         color="neutral"
@@ -323,7 +309,7 @@ const { showModal } = useModal();
   </div>
   <div>
     <EntityCardTable
-      v-if="selectedSegment === 0"
+      v-if="activeTab === 0"
       :first-column-width="360"
       :cards-data="testCardData"
       :show-action-button="true"
