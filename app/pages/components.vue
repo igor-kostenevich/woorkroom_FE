@@ -25,9 +25,6 @@ const Assignee = defineAsyncComponent(
 const EntityCardTable = defineAsyncComponent(
   () => import('~/components/projects/EntityCardTable.vue')
 );
-const EmployeesCard = defineAsyncComponent(
-  () => import('~/components/projects/EmployeeCard.vue')
-);
 const DaysAvailableCard = defineAsyncComponent(
   () => import('~/components/common/DaysAvailableCard.vue')
 );
@@ -68,7 +65,7 @@ definePageMeta({
 
 const colorList = flattenColors(colors);
 const buttonSizes = ['md', 'lg'] as const;
-const buttonColorVariants = ['primary', 'neutral'] as const;
+const buttonColorVariants = ['primary', 'neutral', 'accent'] as const;
 const selected = ref('item1');
 const inputVariants = reactive([
   {
@@ -170,44 +167,6 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
-const selectedSegment1 = ref(0);
-const selectedSegment2 = ref(0);
-const selectedSegment3 = ref(0);
-
-const segmentsOptions1 = ref([
-  {
-    id: 1234,
-    label: 'List',
-  },
-  {
-    id: 116414,
-    label: 'Activity',
-  },
-]);
-const segmentsOptions2 = ref([
-  {
-    id: 1346141,
-    label: 'Employees’ vacations',
-  },
-  {
-    id: 134,
-    label: 'Calendar',
-  },
-]);
-const segmentsOptions3 = ref([
-  {
-    id: 1346,
-    label: 'Projects',
-  },
-  {
-    id: 456,
-    label: 'Team',
-  },
-  {
-    id: 548,
-    label: 'My vacations',
-  },
-]);
 
 interface User {
   id: number;
@@ -309,8 +268,25 @@ const accordionItems: AccordionItem[] = [
   },
 ];
 
+// === TABS ===
+const tabsDemo = ref([
+  { title: 'Overview', name: 'overview', icon: 'info' },
+  { title: 'Details', name: 'details', icon: 'info' },
+  { title: 'Settings', name: 'settings', icon: 'settings' },
+  { title: 'Coming soon', name: false, soon: true, disabled: true },
+]);
+const tabsSimpleDemo = ref([
+  { title: 'List' },
+  { title: 'Board' },
+  { title: 'Timeline' },
+]);
+const activeTab = ref(0);
+const activeTab2 = ref(0);
+
+// === MODALS ===
 const { showModal } = useModal();
 
+// === LISTS ===
 const userAvatarData = [
   {
     id: '1',
@@ -744,31 +720,6 @@ const employeesCardData = [
       <Switch v-model="isDisabledSwitch">
         <span class="text-gray"> {{ String('Switched off') }} </span>
       </Switch>
-    </div>
-  </div>
-  <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">
-      {{ String('Segmented Controls') }}
-    </h3>
-    <div class="flex flex-col gap-8">
-      <Segment
-        v-model="selectedSegment1"
-        class="max-w-80"
-        :options="segmentsOptions1"
-        query-key="tabList"
-      />
-      <Segment
-        v-model="selectedSegment2"
-        class="max-w-sm"
-        :options="segmentsOptions2"
-        query-key="tabVacations"
-      />
-      <Segment
-        v-model="selectedSegment3"
-        class="max-w-md"
-        :options="segmentsOptions3"
-        query-key="tabProjects"
-      />
     </div>
   </div>
 
@@ -1299,18 +1250,6 @@ const employeesCardData = [
       :show-action-button="true"
     />
   </div>
-  <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">
-      {{ String('Employees cards') }}
-    </h3>
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(265px,1fr))] gap-7">
-      <EmployeesCard
-        v-for="(element, index) in employeesCardData"
-        :key="index"
-        :data="element"
-      />
-    </div>
-  </div>
 
   <div class="mb-24 mt-32 max-w-[265px]">
     <h3 class="mb-10 text-4xl font-bold text-dark">
@@ -1323,5 +1262,20 @@ const employeesCardData = [
       title="Vacation"
       label="12/16 days availible"
     />
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{ String('Tabs') }}</h3>
+
+    <div class="flex flex-col gap-8">
+      <Tabs v-model="activeTab" :tabs="tabsDemo" />
+      <Tabs v-model="activeTab2" :tabs="tabsSimpleDemo" class="max-w-[362px]" />
+      <div class="text-gray">
+        {{ String('Active tab:') }}
+        <span class="font-mono text-dark">{{
+          tabsDemo[activeTab]?.title
+        }}</span>
+      </div>
+    </div>
   </div>
 </template>
