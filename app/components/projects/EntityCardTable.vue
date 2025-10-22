@@ -31,7 +31,12 @@
           </td>
           <td v-if="showActionButton" class="rounded-r-3xl md:px-7 md:py-5">
             <div class="absolute right-6 top-6 flex justify-end md:static">
-              <Button color="neutral" size="md" icon-before="more" />
+              <Button
+                color="accent"
+                size="md"
+                icon-before="more"
+                class="w-11"
+              />
             </div>
           </td>
         </tr>

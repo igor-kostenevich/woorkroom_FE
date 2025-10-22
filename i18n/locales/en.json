@@ -133,5 +133,6 @@
   "membersEmail": "Member’s Email",
   "approve": "Approve",
   "addAnotherMember": "Add another Member",
-  "EmployeesNum": "Employees ({count})"
+  "EmployeesNum": "Employees ({count})",
+  "Email": "Email"
 }

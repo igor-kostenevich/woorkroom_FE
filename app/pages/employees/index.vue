@@ -309,7 +309,6 @@ const { showModal } = useModal();
         @click="
           showModal({
             name: 'AddEmployees',
-            data: { tab: 0 },
           })
         "
       >

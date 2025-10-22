@@ -3,27 +3,31 @@
     <template #header>
       <h1>{{ $t('addEmployee') }}</h1>
     </template>
-
     <div class="tab-content">
       <img
         src="/images/employees/woman-at-laptop.png"
         alt="Woman working on a laptop at a desk"
-        class="mb-7"
+        class="mb-7 hidden md:inline"
       />
-
       <div class="mb-6">
         <div class="mb-2 text-sm font-bold leading-relaxed text-gray">
           {{ $t('membersEmail') }}
         </div>
         <div v-for="(member, index) in membersEmail" :key="index" class="mb-5">
           <Input
-            ref="inputRefs"
+            ref="inputsRefs"
             v-model="member.email"
-            placeholder="Email"
-            @blur="onEmailBlur(member.email)"
+            :placeholder="$t('Email')"
+            :disabled="membersEmail.length - 1 > index"
           >
-            <template v-if="validationErrors.email?.hasError" #errorMessage>
-              {{ validationErrors.email?.message }}
+            <template
+              v-if="
+                validationErrors.email.message &&
+                membersEmail.length - 1 === index
+              "
+              #errorMessage
+            >
+              {{ validationErrors.email.message }}
             </template>
           </Input>
         </div>
@@ -34,6 +38,7 @@
         size="md"
         icon-before="plus"
         class="text-primary"
+        :disabled="membersEmail[membersEmail.length - 1].email === ''"
         @click="addEmployee"
       >
         {{ $t('addAnotherMember') }}
@@ -41,7 +46,7 @@
     </div>
 
     <template #footer>
-      <Button @click="onApprove">
+      <Button class="ml-auto" @click="onApprove">
         {{ $t('approve') }}
       </Button>
     </template>
@@ -49,73 +54,48 @@
 </template>
 
 <script setup lang="ts">
-// TODO: NEED REFACTORING AND OPTIMIZATION
 import Tab from '~/components/layout/Modal/Tab.vue';
-import useModal from '~/composables/useModal';
-import useValidation, {
-  validators,
-  helpers,
-} from '~/composables/useValidation';
 
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
-
 const { hideModal } = useModal();
-
-interface Member {
-  email: string;
-}
-const form = reactive<Member>({ email: '' });
-
-interface IModalProps {
-  data?: object;
-}
-defineProps<IModalProps>();
 
 const rules = {
   email: {
-    required: helpers.withMessage('Email is required', validators.required),
-    email: helpers.withMessage('Invalid email', validators.email),
+    required: helpers.withMessage(
+      $t('validation.required'),
+      validators.required
+    ),
+    email: helpers.withMessage($t('validation.invalidEmail'), validators.email),
   },
 };
-const { validateField, validationErrors } = useValidation(form, rules);
 
-const membersEmail = ref<Member[]>([{ email: '' }]);
+const inputsRefs = ref([]);
+const membersEmail = reactive([{ email: '' }]);
+const form = computed(
+  () => membersEmail[membersEmail.length - 1] ?? { email: '' }
+);
+const { validationErrors, validateField } = useValidation(form, rules);
 
-const inputRefs = ref<any[]>([]);
-
-const onEmailBlur = async (value: string) => {
-  form.email = value;
-  await validateField('email');
+const inputFocus = () => {
+  const last = inputsRefs.value[membersEmail.length - 1];
+  if (last?.focus) last.focus();
+  else last?.$el?.querySelector?.('input')?.focus();
 };
 
 const addEmployee = async () => {
-  const last = membersEmail.value.at(-1);
-  const email = last?.email.trim() ?? '';
-  if (!email) return;
-
-  form.email = email;
-  const ok = await validateField('email');
-  if (!ok) return;
-
-  membersEmail.value.push({ email: '' });
-
+  const isValid = await validateField('email');
+  if (isValid) membersEmail.push({ email: '' });
   await nextTick();
-  const newIndex = membersEmail.value.length - 1;
-  const el = inputRefs.value[newIndex];
-  if (el?.focus) {
-    el.focus();
-  } else {
-    el?.$el?.querySelector('input')?.focus();
-  }
+  inputFocus();
 };
 
 const onApprove = async () => {
-  const last = membersEmail.value.at(-1);
-  const email = last?.email.trim() ?? '';
-  form.email = email;
-  const ok = email.length > 0 && (await validateField('email'));
-  if (!ok) return;
-  await hideModal();
+  const isValid = await validateField('email');
+  if (isValid) await hideModal();
+  if (!isValid) {
+    await nextTick();
+    inputFocus();
+  }
 };
 </script>
