@@ -123,7 +123,31 @@
     "invalidEmail": "Invalid email",
     "invalidPhone": "Invalid phone",
     "invalidUsername": "Invalid username",
-    "pastDate": "Date must be in the past"
+    "pastDate": "Date must be in the past",
+    "minLength": "minLength",
+    "onlyDigits": "onlyDigits"
+  },
+  "register": {
+    "Step": "Step",
+    "Valid your phone": "Valid your phone",
+    "Email Address": "Email Address",
+    "Create Password": "Create Password",
+    "Mobile Number": "Mobile Number",
+    "code": "Send a code",
+    "Code from SMS": "Code from SMS",
+    "smsSent": "SMS was sent to your number {phone}\nIt will be valid for {time}",
+    "next":"Next Step",
+    "phoneVerified": " ✅ Your phone was verified",
+    "previous": "Previous",
+    "Tell about yourself":"Tell about yourself",
+    "service": "Why will you use the service?",
+    "best":"What describes you best?",
+    "Company Name": "Company’s Name",
+    "it": "IT and programming",
+    "Your Companys Name": "Your Company’s Name",
+    "team": "How many people in your team?",
+    "direction": "Business Direction"
+
   }
 
 }
