@@ -135,5 +135,10 @@
   "addAnotherMember": "Add another Member",
   "Employees count": "Employees ({count})",
   "Email": "Email",
+  "tabs": {
+    "projects": "Projects",
+    "team": "Team",
+    "myVacations": "My vacations"
+  },
   "Soon": "Soon"
 }
