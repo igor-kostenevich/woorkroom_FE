@@ -123,5 +123,11 @@
     "invalidPhone": "Invalid phone",
     "invalidUsername": "Invalid username",
     "pastDate": "Date must be in the past"
-  }
+  },
+  "auth": {
+    "slogan": "Your place to work Plan. Create. Control.",
+    "signIn": "Sign In to Woorkroom"
+  },
+  "email": "Email Address",
+  "password": "Password"
 }
