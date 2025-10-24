@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
+const Tabs = defineAsyncComponent(() => import('~/UIKit/Tabs.vue'));
+
 const ProjectsContent = defineAsyncComponent(
   () => import('~/components/pages/profile/ProjectsContent.vue')
 );
@@ -24,22 +25,13 @@ const projectOption = [
   { label: 'Closed Projects' },
 ];
 
-const segmentsOptions = reactive([
-  {
-    id: 0,
-    label: 'Projects',
-  },
-  {
-    id: 1,
-    label: 'Team',
-  },
-  {
-    id: 2,
-    label: 'My vacations',
-  },
-]);
+const activeTab = ref(0);
 
-const selectedSegment = ref(0);
+const tabsOption = ref([
+  { title: 'Projects' },
+  { title: 'Team' },
+  { title: 'My vacations' },
+]);
 
 const componentsMap = computed(() => {
   return {
@@ -49,9 +41,7 @@ const componentsMap = computed(() => {
   };
 });
 
-const currentComponent = computed(
-  () => componentsMap.value[+selectedSegment.value]
-);
+const currentComponent = computed(() => componentsMap.value[+activeTab.value]);
 </script>
 
 <template>
@@ -80,12 +70,8 @@ const currentComponent = computed(
               :placeholder="$t('profile.placeholders.current projects')"
             />
           </div>
-          <Segment
-            v-model="selectedSegment"
-            class="flex-[0_1_43%]"
-            :options="segmentsOptions"
-            query-key="tabNavigation"
-          />
+
+          <Tabs v-model="activeTab" :tabs="tabsOption" class="flex-[0_1_43%]" />
 
           <Button
             v-if="currentComponent === VacationsContent"

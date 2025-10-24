@@ -3,17 +3,14 @@ import { DatePicker as VDatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
 const TimeDuration = defineAsyncComponent(() => import('./RequestTime.vue'));
-
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
-const Segment = defineAsyncComponent(() => import('~/UIKit/Segment.vue'));
+const Tabs = defineAsyncComponent(() => import('~/UIKit/Tabs.vue'));
 const TextArea = defineAsyncComponent(() => import('~/UIKit/Textarea.vue'));
 
 defineProps<{
   showTextArea: boolean;
 }>();
-
-const route = useRoute();
 
 const requestTypes = reactive([
   { id: '1', value: $t('indicator.vacation') },
@@ -26,11 +23,11 @@ const selectedCalendarMode = ref(0);
 const commentText = ref('');
 
 const calendarOptions = reactive([
-  { id: 0, label: $t('calendar.Days') },
-  { id: 1, label: $t('calendar.Hours') },
+  { id: 0, title: $t('calendar.Days') },
+  { id: 1, title: $t('calendar.Hours') },
 ]);
 
-const showTime = computed(() => route.query.tabCalendar === '1');
+const showTime = computed(() => selectedCalendarMode.value === 1);
 
 const vacationRange = {
   start: new Date(2025, 8, 16),
@@ -58,8 +55,7 @@ function onSubmit() {
 
     emit('submit', payload);
     return true;
-  } catch (err) {
-    console.error(err);
+  } catch {
     return false;
   }
 }
@@ -128,11 +124,10 @@ const highlightAttributes = ref([
       </div>
 
       <div class="flex justify-center">
-        <Segment
+        <Tabs
           v-model="selectedCalendarMode"
+          :tabs="calendarOptions"
           class="mt-9 flex-[1_1_auto]"
-          :options="calendarOptions"
-          query-key="tabCalendar"
         />
       </div>
     </div>
