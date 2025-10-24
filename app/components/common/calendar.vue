@@ -23,8 +23,8 @@ const selectedCalendarMode = ref(0);
 const commentText = ref('');
 
 const calendarOptions = reactive([
-  { id: 0, title: $t('calendar.Days') },
-  { id: 1, title: $t('calendar.Hours') },
+  { title: $t('calendar.Days') },
+  { title: $t('calendar.Hours') },
 ]);
 
 const showTime = computed(() => selectedCalendarMode.value === 1);

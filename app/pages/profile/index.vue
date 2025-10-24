@@ -28,9 +28,9 @@ const projectOption = [
 const activeTab = ref(0);
 
 const tabsOption = ref([
-  { title: 'Projects' },
-  { title: 'Team' },
-  { title: 'My vacations' },
+  { title: $t('tabs.projects') },
+  { title: $t('tabs.team') },
+  { title: $t('tabs.myVacations') },
 ]);
 
 const componentsMap = computed(() => {
