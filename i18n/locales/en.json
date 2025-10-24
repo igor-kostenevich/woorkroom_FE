@@ -123,5 +123,10 @@
     "invalidUsername": "Invalid username",
     "pastDate": "Date must be in the past"
   },
+  "tabs": {
+    "projects": "Projects",
+    "team": "Team",
+    "myVacations": "My vacations"
+  },
   "Soon": "Soon"
 }
