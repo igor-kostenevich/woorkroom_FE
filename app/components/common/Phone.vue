@@ -31,7 +31,7 @@ onMounted(async () => {
       return { label: `(${dial})`, value: dial, cca2: item.cca2 };
     });
 
-  const uaIndex = countries.value.findIndex((c) => c.value === '+380');
+  const uaIndex = countries.value.findIndex((c: Country) => c.value === '+380');
   selectedDialIndex.value = uaIndex !== -1 ? uaIndex : 0;
 
   emit('update:dial', countries.value[selectedDialIndex.value]?.value || '');
@@ -39,7 +39,7 @@ onMounted(async () => {
 
 watch(
   phoneLocal,
-  (v) => emit('update:modelValue', (v || '').replace(/\D/g, '')),
+  (v: string) => emit('update:modelValue', (v || '').replace(/\D/g, '')),
   { immediate: true }
 );
 </script>
