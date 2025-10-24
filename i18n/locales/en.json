@@ -133,7 +133,7 @@
   "membersEmail": "Member’s Email",
   "approve": "Approve",
   "addAnotherMember": "Add another Member",
-  "EmployeesNum": "Employees ({count})",
+  "Employees count": "Employees ({count})",
   "Email": "Email",
   "Soon": "Soon"
 }

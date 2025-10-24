@@ -264,7 +264,7 @@ const employeesCardData = [
   },
 ];
 
-const employeesNum = computed(() => testCardData.length);
+const employeesCount = computed(() => testCardData.length);
 
 const activeTab = ref(0);
 const tabOptions = ref([{ title: 'List' }, { title: 'Activity' }]);
@@ -277,7 +277,7 @@ const { showModal } = useModal();
     class="mb-7 flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
   >
     <h1 class="text-4xl font-bold text-dark">
-      {{ $t('EmployeesNum', { count: employeesNum }) }}
+      {{ $t('Employees count', { count: employeesCount }) }}
     </h1>
     <Tabs v-model="activeTab" :tabs="tabOptions" class="w-full max-w-[310px]" />
     <div class="flex gap-6">
