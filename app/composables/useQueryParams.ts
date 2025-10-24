@@ -32,8 +32,10 @@ export const useQueryParam = createSharedComposable(() => {
 
   watch(
     () => route.query,
-    (query) => {
-      state.queries = state.queries.filter((queryKey) => query?.[queryKey]);
+    (query: Record<string, any>) => {
+      state.queries = state.queries.filter(
+        (queryKey: string) => query?.[queryKey]
+      );
     },
     { deep: true }
   );

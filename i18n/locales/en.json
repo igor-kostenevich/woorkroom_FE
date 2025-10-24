@@ -124,10 +124,18 @@
     "invalidUsername": "Invalid username",
     "pastDate": "Date must be in the past"
   },
+  "tabs": {
+    "projects": "Projects",
+    "team": "Team",
+    "myVacations": "My vacations"
+  },
+  "Soon": "Soon",
   "auth": {
     "slogan": "Your place to work Plan. Create. Control.",
     "signIn": "Sign In to Woorkroom"
   },
   "email": "Email Address",
   "password": "Password"
+  }
+
 }

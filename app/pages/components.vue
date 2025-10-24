@@ -6,6 +6,7 @@ import RequestType from '~/components/common/additional/RequestType.vue';
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
 );
+const Tabs = defineAsyncComponent(() => import('@/UIKit/Tabs.vue'));
 const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 const Text = defineAsyncComponent(
   () => import('~/components/common/additional/Text.vue')
@@ -22,13 +23,16 @@ const Priority = defineAsyncComponent(
 const Assignee = defineAsyncComponent(
   () => import('~/components/common/additional/Assignee.vue')
 );
-const EntityCardTable = defineAsyncComponent(() => import('~/components/projects/EntityCardTable.vue'));
-const DaysAvailableCard = defineAsyncComponent(()=>import('~/components/common/DaysAvailableCard.vue'))
+const EntityCardTable = defineAsyncComponent(
+  () => import('~/components/projects/EntityCardTable.vue')
+);
+const DaysAvailableCard = defineAsyncComponent(
+  () => import('~/components/common/DaysAvailableCard.vue')
+);
 
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
-const Segment = defineAsyncComponent(() => import('@/UIKit/Segment.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const Dropdown = defineAsyncComponent(() => import('@/UIKit/Dropdown.vue'));
@@ -163,44 +167,6 @@ function flattenColors(
     return [{ name: prefix ? `${prefix}.${key}` : key, value: val }];
   });
 }
-const selectedSegment1 = ref(0);
-const selectedSegment2 = ref(0);
-const selectedSegment3 = ref(0);
-
-const segmentsOptions1 = ref([
-  {
-    id: 1234,
-    label: 'List',
-  },
-  {
-    id: 116414,
-    label: 'Activity',
-  },
-]);
-const segmentsOptions2 = ref([
-  {
-    id: 1346141,
-    label: 'Employees’ vacations',
-  },
-  {
-    id: 134,
-    label: 'Calendar',
-  },
-]);
-const segmentsOptions3 = ref([
-  {
-    id: 1346,
-    label: 'Projects',
-  },
-  {
-    id: 456,
-    label: 'Team',
-  },
-  {
-    id: 548,
-    label: 'My vacations',
-  },
-]);
 
 interface User {
   id: number;
@@ -302,8 +268,25 @@ const accordionItems: AccordionItem[] = [
   },
 ];
 
+// === TABS ===
+const tabsDemo = ref([
+  { title: 'Overview', name: 'overview', icon: 'info' },
+  { title: 'Details', name: 'details', icon: 'info' },
+  { title: 'Settings', name: 'settings', icon: 'settings' },
+  { title: 'Coming soon', name: false, soon: true, disabled: true },
+]);
+const tabsSimpleDemo = ref([
+  { title: 'List' },
+  { title: 'Board' },
+  { title: 'Timeline' },
+]);
+const activeTab = ref(0);
+const activeTab2 = ref(0);
+
+// === MODALS ===
 const { showModal } = useModal();
 
+// === LISTS ===
 const userAvatarData = [
   {
     id: '1',
@@ -646,31 +629,6 @@ const testCardData = [
       <Switch v-model="isDisabledSwitch">
         <span class="text-gray"> {{ String('Switched off') }} </span>
       </Switch>
-    </div>
-  </div>
-  <div class="mb-24 mt-32">
-    <h3 class="mb-10 text-4xl font-bold text-dark">
-      {{ String('Segmented Controls') }}
-    </h3>
-    <div class="flex flex-col gap-8">
-      <Segment
-        v-model="selectedSegment1"
-        class="max-w-80"
-        :options="segmentsOptions1"
-        query-key="tabList"
-      />
-      <Segment
-        v-model="selectedSegment2"
-        class="max-w-sm"
-        :options="segmentsOptions2"
-        query-key="tabVacations"
-      />
-      <Segment
-        v-model="selectedSegment3"
-        class="max-w-md"
-        :options="segmentsOptions3"
-        query-key="tabProjects"
-      />
     </div>
   </div>
 
@@ -1203,7 +1161,9 @@ const testCardData = [
   </div>
 
   <div class="mb-24 mt-32 max-w-[265px]">
-    <h3 class="mb-10 text-4xl font-bold text-dark">{{String('DaysAvailableCard')}}</h3>
+    <h3 class="mb-10 text-4xl font-bold text-dark">
+      {{ String('DaysAvailableCard') }}
+    </h3>
     <DaysAvailableCard
       size="xl"
       :progress="80"
@@ -1211,5 +1171,20 @@ const testCardData = [
       title="Vacation"
       label="12/16 days availible"
     />
+  </div>
+
+  <div class="mb-24 mt-32">
+    <h3 class="mb-10 text-4xl font-bold text-dark">{{ String('Tabs') }}</h3>
+
+    <div class="flex flex-col gap-8">
+      <Tabs v-model="activeTab" :tabs="tabsDemo" />
+      <Tabs v-model="activeTab2" :tabs="tabsSimpleDemo" class="max-w-[362px]" />
+      <div class="text-gray">
+        {{ String('Active tab:') }}
+        <span class="font-mono text-dark">{{
+          tabsDemo[activeTab]?.title
+        }}</span>
+      </div>
+    </div>
   </div>
 </template>
