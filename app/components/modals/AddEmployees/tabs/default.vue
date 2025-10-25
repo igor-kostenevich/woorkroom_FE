@@ -10,9 +10,6 @@
         class="mb-7 hidden md:inline"
       />
       <div class="mb-6">
-        <div class="mb-2 text-sm font-bold leading-relaxed text-gray">
-          {{ $t('membersEmail') }}
-        </div>
         <div v-for="(member, index) in membersEmail" :key="index" class="mb-5">
           <Input
             ref="inputsRefs"
@@ -20,6 +17,9 @@
             :placeholder="$t('Email')"
             :disabled="membersEmail.length - 1 > index"
           >
+            <template v-if="index === 0" #topTextLeft>{{
+              $t('membersEmail')
+            }}</template>
             <template
               v-if="
                 validationErrors.email.message &&
@@ -32,17 +32,13 @@
           </Input>
         </div>
       </div>
-
-      <Button
-        color="neutral"
-        size="md"
-        icon-before="plus"
-        class="text-primary"
+      <LinkButton
         :disabled="membersEmail[membersEmail.length - 1].email === ''"
+        icon-before="plus"
         @click="addEmployee"
       >
         {{ $t('addAnotherMember') }}
-      </Button>
+      </LinkButton>
     </div>
 
     <template #footer>
@@ -58,6 +54,7 @@ import Tab from '~/components/layout/Modal/Tab.vue';
 
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
+const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 const { hideModal } = useModal();
 
 const rules = {
