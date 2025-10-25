@@ -6,7 +6,6 @@ import RequestType from '~/components/common/additional/RequestType.vue';
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
 );
-const Tabs = defineAsyncComponent(() => import('@/UIKit/Tabs.vue'));
 const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 const Text = defineAsyncComponent(
   () => import('~/components/common/additional/Text.vue')
@@ -33,6 +32,7 @@ const DaysAvailableCard = defineAsyncComponent(
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
+const Tabs = defineAsyncComponent(() => import('@/UIKit/Tabs.vue'));
 const Textarea = defineAsyncComponent(() => import('@/UIKit/Textarea.vue'));
 const Radio = defineAsyncComponent(() => import('@/UIKit/Radio.vue'));
 const Dropdown = defineAsyncComponent(() => import('@/UIKit/Dropdown.vue'));
@@ -1135,7 +1135,7 @@ const testCardData = [
       {{ String('Additional components for cards') }}
     </h3>
     <div class="flex gap-12">
-      <Text :label="$t('additional.text.gender')" :text="String('Male')" />
+      <Text label="additional.gender" :text="String('Male')" />
       <Position position-name="UI/UX Designer" :position-level="2" />
       <UserInfo
         user-image="/images/common/woman.png"
@@ -1145,7 +1145,7 @@ const testCardData = [
       />
       <Priority priority="high" />
       <Assignee :user-avatar-data="userAvatarData" :max="4" />
-      <RequestType show-label request-type="vacation" />
+      <RequestType show-label request-type="remote" />
     </div>
   </div>
 
