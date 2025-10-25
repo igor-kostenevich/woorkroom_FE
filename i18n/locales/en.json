@@ -132,10 +132,11 @@
   "Soon": "Soon",
   "auth": {
     "slogan": "Your place to work Plan. Create. Control.",
-    "signIn": "Sign In to Woorkroom"
+    "signInWoorkroom": "Sign In to Woorkroom",
+    "signIn": "Sign In"
   },
   "email": "Email Address",
-  "password": "Password"
-  }
-
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password?"
 }

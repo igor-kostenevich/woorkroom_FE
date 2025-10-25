@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import Icon from '~/UIKit/Icon.vue';
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
+const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
+const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 
+const isChecked1 = ref(false);
 definePageMeta({
   layout: 'auth',
 });
@@ -32,9 +35,9 @@ definePageMeta({
       class="h-full min-h-[calc(100vh-120px)] w-1/2 rounded-r-3xl bg-white px-[138px] py-28"
     >
       <h2 class="mb-8 text-center text-[22px] font-bold text-dark">
-        {{ $t('auth.signIn') }}
+        {{ $t('auth.signInWoorkroom') }}
       </h2>
-      <div>
+      <div class="mb-9">
         <div class="mb-7">
           <Input placeholder="youremail@gmail.com">
             <template #topTextLeft>{{ $t('email') }}</template>
@@ -52,8 +55,22 @@ definePageMeta({
           </Input>
         </div>
       </div>
-      <div />
-      <div />
+      <div class="mb-12 flex justify-between gap-8">
+        <div class="flex items-center gap-4">
+          <Checkbox v-model="isChecked1" />
+          <div class="text-gray">{{ $t('rememberMe') }}</div>
+        </div>
+        <div>
+          <Button class="text-gray">
+            {{ $t('forgotPassword') }}
+          </Button>
+        </div>
+      </div>
+      <div>
+        <Button color="primary" icon-after="arrow-right">
+          {{ $t('auth.signIn') }}
+        </Button>
+      </div>
     </div>
   </div>
 </template>
