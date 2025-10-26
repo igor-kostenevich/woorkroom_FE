@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>{{ String('sfd') }}</div>
+  <div>{{ $t('register.done') }}</div>
 </template>

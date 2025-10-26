@@ -149,11 +149,13 @@
     "it": "IT and programming",
     "Your Companys Name": "Your Company’s Name",
     "team": "How many people are in your team?",
-    "direction": "Business Direction"
-  }
+    "direction": "Business Direction",
+    "done": "You are successfully registered!"
 
-    "pastDate": "Date must be in the past"
   },
+
+  "pastDate": "Date must be in the past",
+
   "employeesCard": {
     "backlogTasks": "Backlog Tasks",
     "tasksInProgress": "Tasks In Progress",
