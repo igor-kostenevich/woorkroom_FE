@@ -139,5 +139,8 @@
   "email": "Email Address",
   "password": "Password",
   "rememberMe": "Remember me",
-  "forgotPassword": "Forgot Password?"
+  "forgotPassword": "Forgot Password?",
+  "restorePassword": "Restore password",
+  "haveAccount": "You have an account?"
+
 }
