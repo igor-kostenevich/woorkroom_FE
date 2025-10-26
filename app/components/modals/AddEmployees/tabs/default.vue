@@ -51,10 +51,10 @@
 
 <script setup lang="ts">
 import Tab from '~/components/layout/Modal/Tab.vue';
-
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
+
 const { hideModal } = useModal();
 
 const rules = {
@@ -67,32 +67,9 @@ const rules = {
   },
 };
 
-const inputsRefs = ref([]);
-const membersEmail = reactive([{ email: '' }]);
-const form = computed(
-  () => membersEmail[membersEmail.length - 1] ?? { email: '' }
-);
-const { validationErrors, validateField } = useValidation(form, rules);
+const { inputsRefs, membersEmail, validationErrors, add, approve } =
+  useEmailList(rules);
 
-const inputFocus = () => {
-  const last = inputsRefs.value[membersEmail.length - 1];
-  if (last?.focus) last.focus();
-  else last?.$el?.querySelector?.('input')?.focus();
-};
-
-const addEmployee = async () => {
-  const isValid = await validateField('email');
-  if (isValid) membersEmail.push({ email: '' });
-  await nextTick();
-  inputFocus();
-};
-
-const onApprove = async () => {
-  const isValid = await validateField('email');
-  if (isValid) await hideModal();
-  if (!isValid) {
-    await nextTick();
-    inputFocus();
-  }
-};
+const addEmployee = add;
+const onApprove = () => approve(hideModal);
 </script>
