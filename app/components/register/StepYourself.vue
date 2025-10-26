@@ -71,12 +71,12 @@ watchEffect(() => {
       </div>
     </div>
 
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between gap-2">
       <div class="text-sm font-bold text-gray">
         {{ $t('register.best') }}
       </div>
 
-      <div class="flex items-center gap-9">
+      <div class="flex items-center gap-4 sm:gap-9">
         <Radio
           v-for="i in yesOrNo"
           :id="i.id"

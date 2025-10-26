@@ -27,12 +27,14 @@ const phoneForApi = computed(
 );
 
 const verifyPhone = async () => {
+  if (isCounting.value) return;
   await sendOtp(phoneForApi.value, props.validateField);
 };
 const isVerifed = ref(true);
 watch(
   () => payload.value.smsCode,
   async (code: string) => {
+    if (isVerifed.value === false) return;
     if (code.length === 4) {
       const res = await auth.verifyPhoneOtp(phoneForApi.value, code);
       if (res.ok) {
@@ -46,7 +48,7 @@ watch(
 );
 
 onMounted(() => {
-  const cookie = getCookie('payload');
+  const cookie = getCookie('register_payload');
   if (cookie) {
     const parsed = JSON.parse(cookie);
     if (parsed.phoneToken) {
@@ -57,8 +59,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mx-auto flex min-w-[403px] max-w-[403px] flex-col">
-    <div v-if="isVerifed" class="mb-12 border-b border-gray-muted">
+  <div>
+    <div v-if="isVerifed" class="mb-8 border-b border-gray-muted sm:mb-12">
       <Phone
         v-model="payload.phone"
         v-model:dial="payload.dial"

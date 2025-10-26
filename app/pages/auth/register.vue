@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { IRegisterPayload } from '~/types/register/registerPayload';
+
 const StepPhone = defineAsyncComponent(
   () => import('~/components/register/StepPhone.vue')
 );
@@ -11,6 +13,10 @@ const StepCompany = defineAsyncComponent(
 const Invite = defineAsyncComponent(
   () => import('~/components/register/InviteStep.vue')
 );
+
+const StepSuccess = defineAsyncComponent(
+  () => import('~/components/register/StepSuccess.vue')
+);
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 
@@ -21,26 +27,32 @@ definePageMeta({
 const steps = reactive([
   {
     key: 'phone',
-    label: 'Valid your phone',
-    component: StepPhone,
+    label: 'register.Valid your phone',
+    component: markRaw(StepPhone),
     done: false,
   },
   {
     key: 'yourself',
-    label: 'Tell about yourself',
-    component: StepYourself,
+    label: 'register.Tell about yourself',
+    component: markRaw(StepYourself),
     done: false,
   },
   {
     key: 'company',
-    label: 'Tell about your company',
-    component: StepCompany,
+    label: 'register.Tell about your company',
+    component: markRaw(StepCompany),
     done: false,
   },
   {
     key: 'invite',
-    label: 'Invite Team Members',
-    component: Invite,
+    label: 'register.Invite Team Members',
+    component: markRaw(Invite),
+    done: false,
+  },
+  {
+    key: 'success',
+    label: 'register.Registration completed',
+    component: markRaw(StepSuccess),
     done: false,
   },
 ]);
@@ -50,7 +62,7 @@ const currentLabel = computed(() => steps[currentIndex.value].label);
 
 const { setCookie, getCookie } = useAppCookie();
 
-const payload = reactive({
+const payload = reactive<IRegisterPayload>({
   email: '',
   password: '',
   firstName: '',
@@ -70,6 +82,14 @@ const payload = reactive({
   },
   invites: [''],
 });
+
+watch(
+  payload,
+  (newVal: IRegisterPayload) => {
+    setCookie('register_payload', JSON.stringify(toRaw(newVal)));
+  },
+  { deep: true }
+);
 
 onMounted(() => {
   const saved = getCookie('register_payload');
@@ -121,7 +141,6 @@ const { validationErrors, validateForm, validateField } = useValidation(
 const nextStep = async () => {
   const isValid = await validateForm();
   if (!isValid) return;
-  setCookie('register_payload', JSON.stringify(payload));
 
   steps[currentIndex.value].done = true;
   if (currentIndex.value < steps.length - 1) currentIndex.value++;
@@ -136,10 +155,20 @@ const prevStep = () => {
 </script>
 
 <template>
-  <div class="flex h-full min-h-[calc(100vh-40px)] gap-7">
-    <aside class="inline-flex min-w-[346px] rounded-3xl bg-primary">
-      <div class="px-10 pt-[60px]">
-        <Icon name="white-logo" :size="50" class="mb-[60px]" />
+  <div
+    class="mb-[37px] mt-[60px] flex items-center justify-center gap-4 lg:hidden"
+  >
+    <Icon name="logo" :size="40" class="text-primary" />
+    <span class="text-xl font-bold text-primary">{{
+      String('Woorkroom')
+    }}</span>
+  </div>
+  <div
+    class="flex h-full flex-col gap-5 sm:min-h-[calc(100vh-40px)] sm:flex-row sm:gap-7"
+  >
+    <aside class="hidden min-w-[346px] rounded-3xl bg-primary lg:inline-flex">
+      <div class="px-10 pb-4 pt-[60px]">
+        <Icon name="logo" :size="50" class="mb-[60px] text-white" />
         <div class="mb-12 text-4xl font-bold text-white">
           {{ $t('Get started') }}
         </div>
@@ -189,16 +218,16 @@ const prevStep = () => {
     </aside>
 
     <div
-      class="flex w-full flex-col rounded-3xl bg-white pt-[75px] shadow-base"
+      class="flex w-full flex-col rounded-3xl bg-white px-5 pt-7 shadow-base lg:pt-[75px]"
     >
       <div class="mb-1.5 text-center text-sm font-bold uppercase text-primary">
         {{ $t('register.Step') }} {{ currentIndex + 1 }}/{{ steps.length }}
       </div>
       <div class="mb-8 text-center text-[22px] font-bold">
-        {{ currentLabel }}
+        {{ $t(currentLabel) }}
       </div>
       <div
-        class="mx-auto flex min-w-[403px] max-w-[403px] flex-auto flex-col pb-5"
+        class="mx-auto flex min-w-[100%] flex-auto flex-col pb-10 lg:min-w-[403px]"
       >
         <component
           :is="currentStep"
@@ -209,7 +238,9 @@ const prevStep = () => {
         />
       </div>
 
-      <div class="flex justify-between border-t border-gray-muted px-10 py-6">
+      <div
+        class="hidden justify-between border-t border-gray-muted px-10 py-6 sm:flex"
+      >
         <Button
           v-if="currentIndex > 0"
           icon-before="arrow-left"
@@ -223,6 +254,20 @@ const prevStep = () => {
           {{ $t('register.next') }}
         </Button>
       </div>
+    </div>
+    <div class="flex justify-between sm:hidden">
+      <Button
+        v-if="currentIndex > 0"
+        icon-before="arrow-left"
+        color="secondary"
+        @click="prevStep"
+      >
+        {{ $t('register.previous') }}
+      </Button>
+
+      <Button class="ml-auto" icon-after="arrow-right" @click="nextStep">
+        {{ $t('register.next') }}
+      </Button>
     </div>
   </div>
 </template>
