@@ -37,11 +37,13 @@
         ref="input"
         v-model="value"
         v-bind="$attrs"
-        class="h-full w-full rounded-[14px] border-none px-4 pr-20 text-sm leading-6 placeholder-gray outline-none"
+        class="h-full w-full rounded-[14px] border-none px-4 text-sm leading-6 placeholder-gray outline-none"
         :class="[
           {
             'text-gray': !isFocused && !$slots.errorMessage,
             'text-dark': isFocused && !$slots.errorMessage && !disabled,
+            'pr-10': !hideClearBtn,
+            'pr-16': icon && !hideClearBtn,
           },
         ]"
         :type="computedType"
@@ -61,7 +63,7 @@
       />
 
       <div
-        class="absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-2.5"
+        class="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-1.5"
       >
         <button
           v-if="value && !hideClearBtn && !disabled && !readonly"

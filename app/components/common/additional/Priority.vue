@@ -13,8 +13,10 @@
 <script setup lang="ts">
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 
+type PriorityLevel = 'low' | 'medium' | 'high';
+
 interface IPriorityData {
-  priority?: 'low' | 'medium' | 'high';
+  priority?: PriorityLevel;
   showLabel?: boolean;
 }
 const props = withDefaults(defineProps<IPriorityData>(), {
@@ -22,7 +24,10 @@ const props = withDefaults(defineProps<IPriorityData>(), {
   showLabel: true,
 });
 
-const MAP = {
+const MAP: Record<
+  PriorityLevel,
+  { icon: string; color: string; class: string }
+> = {
   low: {
     icon: 'arrow-down',
     color: 'text-green-vivid',
@@ -32,7 +37,11 @@ const MAP = {
   high: { icon: 'arrow-up', color: 'text-red', class: '' },
 } as const;
 
-const iconName = computed(() => MAP[props.priority].icon);
-const colors = computed<string>(() => MAP[props.priority].color);
-const iconClass = computed<string>(() => MAP[props.priority].class);
+const iconName = computed(() => MAP[props.priority as PriorityLevel].icon);
+const colors = computed<string>(
+  () => MAP[props.priority as PriorityLevel].color
+);
+const iconClass = computed<string>(
+  () => MAP[props.priority as PriorityLevel].class
+);
 </script>

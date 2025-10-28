@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IEntityCardTable } from '~/types/components/entity-card-table';
+import type { IEntityCardTable } from '~/types/components/entityCardTable';
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 
 withDefaults(defineProps<IEntityCardTable>(), {

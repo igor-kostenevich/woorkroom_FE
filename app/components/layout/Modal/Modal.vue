@@ -73,7 +73,7 @@ provide<IModalProvider>('modal', {
 
 watch(
   () => data,
-  (val) => {
+  (val: Record<string, any> | undefined) => {
     if (val?.tab) {
       openSubTab(val.tab);
     }

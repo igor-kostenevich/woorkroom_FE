@@ -1,5 +1,5 @@
-import type { TEmployeeLvl } from '~/types/employees/EmployeeLvl';
-import type { IUserAvatar } from '~/types/components/user-avatar';
+import type { TEmployeeLvl } from '~/types/employees/employeeLvl';
+import type { IUserAvatar } from '~/types/components/userAvatar';
 
 export interface TeamMemberCard {
   level: TEmployeeLvl;
