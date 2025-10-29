@@ -1,10 +1,5 @@
 <script setup lang="ts">
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
-const router = useRouter();
-
-const goHome = () => {
-  router.push('/');
-};
 </script>
 
 <template>
@@ -20,7 +15,7 @@ const goHome = () => {
         {{ $t('register.done') }}
       </div>
 
-      <Button icon-after="arrow-right" @click="goHome">
+      <Button icon-after="arrow-right" to="/">
         {{ $t('register.start') }}
       </Button>
     </div>
