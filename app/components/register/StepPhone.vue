@@ -30,18 +30,19 @@ const verifyPhone = async () => {
   if (isCounting.value) return;
   await sendOtp(phoneForApi.value, props.validateField);
 };
-const isVerifed = ref(true);
+const isVerified = ref(true);
+
 watch(
   () => payload.value.smsCode,
   async (code: string) => {
-    if (isVerifed.value === false) return;
+    if (isVerified.value === false) return;
     if (code.length === 4) {
       const res = await auth.verifyPhoneOtp(phoneForApi.value, code);
       if (res.ok) {
         payload.value.phoneToken = res.phoneToken;
         alert($t('register.phoneVerified'));
         smsRef.value.resetCode();
-        isVerifed.value = false;
+        isVerified.value = false;
       }
     }
   }
@@ -52,7 +53,7 @@ onMounted(() => {
   if (cookie) {
     const parsed = JSON.parse(cookie);
     if (parsed.phoneToken) {
-      isVerifed.value = false;
+      isVerified.value = false;
     }
   }
 });
@@ -60,7 +61,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <div v-if="isVerifed" class="mb-8 border-b border-gray-muted sm:mb-12">
+    <div v-if="isVerified" class="mb-8 border-b border-gray-muted sm:mb-12">
       <Phone
         v-model="payload.phone"
         v-model:dial="payload.dial"

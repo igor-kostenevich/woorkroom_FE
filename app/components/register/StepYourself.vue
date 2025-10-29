@@ -1,12 +1,14 @@
 <script setup lang="ts">
 const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
+const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 
-const selectedPurpose = ref('');
-const selectedPersona = ref('');
-const selectedYesNo = ref('Yes');
-
+const { useDropdownSync } = useAuth();
 const payload = defineModel<any>();
+
+const props = defineProps<{
+  validationErrors?: Record<string, { message?: string }>;
+}>();
 
 const purposes = [
   { label: 'Work', value: 'work' },
@@ -31,18 +33,44 @@ const yesOrNo = [
   { id: '2', value: 'No' },
 ];
 
-watchEffect(() => {
-  const purposeOption = purposes[selectedPurpose.value];
-  const personaOption = personas[selectedPersona.value];
+const { selected: selectedPurpose } = useDropdownSync(
+  computed({
+    get: () => payload.value.onboarding.purpose,
+    set: (v: string) => (payload.value.onboarding.purpose = v),
+  }),
+  purposes
+);
 
-  payload.value.onboarding.purpose = purposeOption?.value || '';
-  payload.value.onboarding.persona = personaOption?.value || '';
-  payload.value.onboarding.extraYesNo = selectedYesNo.value;
+const { selected: selectedPersona } = useDropdownSync(
+  computed({
+    get: () => payload.value.onboarding.persona,
+    set: (v: string) => (payload.value.onboarding.persona = v),
+  }),
+  personas
+);
+
+const selectedYesNo = ref(payload.value.onboarding.extraYesNo ? 'Yes' : 'No');
+
+watch(selectedYesNo, (val: string) => {
+  payload.value.onboarding.extraYesNo = val === 'Yes';
 });
 </script>
 
 <template>
-  <div class="">
+  <div>
+    <div class="mb-6">
+      <Input v-model="payload.firstName" :placeholder="$t('register.name')">
+        <template #topTextLeft>{{ $t('register.type name') }}</template>
+
+        <template
+          v-if="props.validationErrors?.firstName?.message"
+          #errorMessage
+        >
+          {{ props.validationErrors.firstName.message }}
+        </template>
+      </Input>
+    </div>
+
     <div class="mb-6">
       <div class="mb-2 text-sm font-bold text-gray">
         {{ $t('register.service') }}
@@ -75,7 +103,6 @@ watchEffect(() => {
       <div class="text-sm font-bold text-gray">
         {{ $t('register.best') }}
       </div>
-
       <div class="flex items-center gap-4 sm:gap-9">
         <Radio
           v-for="i in yesOrNo"

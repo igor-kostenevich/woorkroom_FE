@@ -35,6 +35,26 @@ export function useAuth() {
       return false;
     }
   };
+  const useDropdownSync = <T extends { value: string }>(
+    payloadField: Ref<string>,
+    options: T[]
+  ) => {
+    const selected = ref<string | number>('');
+
+    onMounted(() => {
+      const index = options.findIndex(
+        (opt) => opt.value === payloadField.value
+      );
+      selected.value = index !== -1 ? index : '';
+    });
+
+    watch(selected, (val) => {
+      const selectedValue = typeof val === 'number' ? options[val]?.value : val;
+      payloadField.value = selectedValue;
+    });
+
+    return { selected };
+  };
 
   return {
     showSmsInfo,
@@ -42,5 +62,6 @@ export function useAuth() {
     isCounting,
     time,
     sendOtp,
+    useDropdownSync,
   };
 }

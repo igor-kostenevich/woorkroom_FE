@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import type { IRegisterPayload } from '~/types/register/registerPayload';
+import { useUserStore } from '~/stores/user';
+
+const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
+const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
+const LinkButton = defineAsyncComponent(() => import('~/UIKit/LinkButton.vue'));
 
 const StepPhone = defineAsyncComponent(
   () => import('~/components/register/StepPhone.vue')
@@ -13,125 +18,128 @@ const StepCompany = defineAsyncComponent(
 const Invite = defineAsyncComponent(
   () => import('~/components/register/InviteStep.vue')
 );
-
 const StepSuccess = defineAsyncComponent(
   () => import('~/components/register/StepSuccess.vue')
 );
-const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
-const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 
-definePageMeta({
-  layout: 'auth',
-});
+definePageMeta({ layout: 'auth' });
+
+const { setCookie, getCookie } = useAppCookie();
+const userStore = useUserStore();
 
 const steps = reactive([
   {
     key: 'phone',
     label: 'register.Valid your phone',
     component: markRaw(StepPhone),
-    done: false,
   },
   {
     key: 'yourself',
     label: 'register.Tell about yourself',
     component: markRaw(StepYourself),
-    done: false,
   },
   {
     key: 'company',
     label: 'register.Tell about your company',
     component: markRaw(StepCompany),
-    done: false,
   },
   {
     key: 'invite',
     label: 'register.Invite Team Members',
     component: markRaw(Invite),
-    done: false,
   },
   {
     key: 'success',
     label: 'register.Registration completed',
     component: markRaw(StepSuccess),
-    done: false,
   },
 ]);
-const currentIndex = ref(0);
-const currentStep = computed(() => steps[currentIndex.value].component);
-const currentLabel = computed(() => steps[currentIndex.value].label);
 
-const { setCookie, getCookie } = useAppCookie();
+const currentIndex = ref(0);
+const currentKey = computed(() => steps[currentIndex.value].key);
+const currentStepComponent = computed(
+  () => steps[currentIndex.value].component
+);
+const currentLabelComponent = computed(() => steps[currentIndex.value].label);
 
 const payload = reactive<IRegisterPayload>({
   email: '',
   password: '',
+
   firstName: '',
   phone: '',
   dial: '',
   smsCode: '',
   phoneToken: '',
-  onboarding: {
-    purpose: '',
-    persona: '',
-    extraYesNo: false,
-  },
-  company: {
-    name: '',
-    direction: '',
-    teamSize: '',
-  },
+  onboarding: { purpose: '', persona: '', extraYesNo: false },
+  company: { name: '', direction: '', teamSize: '' },
   invites: [''],
 });
 
-watch(
-  payload,
-  (newVal: IRegisterPayload) => {
-    setCookie('register_payload', JSON.stringify(toRaw(newVal)));
-  },
-  { deep: true }
-);
-
 onMounted(() => {
   const saved = getCookie('register_payload');
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    Object.assign(payload, parsed);
+  if (!saved) return;
+
+  const parsed = JSON.parse(saved);
+
+  for (const key in parsed) {
+    if (typeof parsed[key] === 'object' && parsed[key] !== null) {
+      Object.assign(payload[key], parsed[key]);
+    } else {
+      payload[key] = parsed[key];
+    }
   }
 });
 
-const rules = computed(() => ({
-  email: {
-    required: helpers.withMessage(
-      $t('validation.required'),
-      validators.required
-    ),
-    email: helpers.withMessage($t('validation.invalidEmail'), validators.email),
-  },
-  password: {
-    required: helpers.withMessage(
-      $t('validation.required'),
-      validators.required
-    ),
-    minLength: helpers.withMessage(
-      $t('validation.minLength', { min: 6 }),
-      validators.minLength(6)
-    ),
-  },
+const rulesByStep: Record<string, any> = {
   phone: {
-    minLength: helpers.withMessage(
-      $t('validation.invalidPhone'),
-      validators.minLength(9)
-    ),
-    maxLength: helpers.withMessage(
-      $t('validation.invalidPhone'),
-      validators.maxLength(12)
-    ),
-    digits: helpers.withMessage(
-      $t('validation.onlyDigits'),
-      (v: string) => v === '' || /^[0-9]+$/.test(v)
-    ),
+    email: {
+      required: helpers.withMessage(
+        $t('validation.required'),
+        validators.required
+      ),
+      email: helpers.withMessage(
+        $t('validation.invalidEmail'),
+        validators.email
+      ),
+    },
+    password: {
+      required: helpers.withMessage(
+        $t('validation.required'),
+        validators.required
+      ),
+      minLength: helpers.withMessage(
+        $t('validation.minLength', { min: 6 }),
+        validators.minLength(6)
+      ),
+    },
+    phone: {
+      minLength: helpers.withMessage(
+        $t('validation.invalidPhone'),
+        validators.minLength(9)
+      ),
+      maxLength: helpers.withMessage(
+        $t('validation.invalidPhone'),
+        validators.maxLength(12)
+      ),
+      digits: helpers.withMessage(
+        $t('validation.onlyDigits'),
+        (v: string) => v === '' || /^[0-9]+$/.test(v)
+      ),
+    },
   },
-}));
+  yourself: {
+    firstName: {
+      required: helpers.withMessage(
+        $t('validation.required'),
+        validators.required
+      ),
+    },
+  },
+  company: {},
+};
+
+const rules = computed(() => rulesByStep[currentKey.value] || {});
 
 const { validationErrors, validateForm, validateField } = useValidation(
   payload,
@@ -142,16 +150,42 @@ const nextStep = async () => {
   const isValid = await validateForm();
   if (!isValid) return;
 
-  steps[currentIndex.value].done = true;
   if (currentIndex.value < steps.length - 1) currentIndex.value++;
 };
 
 const prevStep = () => {
   if (currentIndex.value > 0) {
     currentIndex.value--;
-    steps[currentIndex.value].done = false;
   }
 };
+
+const submitRegistration = async () => {
+  const isValid = await validateForm();
+  if (!isValid) return;
+
+  await userStore.register(payload);
+
+  Object.assign(payload, {
+    email: '',
+    password: '',
+    firstName: '',
+    phone: '',
+    dial: '',
+    smsCode: '',
+    phoneToken: '',
+    onboarding: { purpose: '', persona: '', extraYesNo: false },
+    company: { name: '', direction: '', teamSize: '' },
+    invites: [''],
+  });
+
+  setCookie('register_payload', '');
+  steps[currentIndex.value].done = true;
+  currentIndex.value++;
+};
+
+watch(payload, () => setCookie('register_payload', JSON.stringify(payload)), {
+  deep: true,
+});
 </script>
 
 <template>
@@ -186,16 +220,17 @@ const prevStep = () => {
                   i === currentIndex
                     ? 'border-white bg-white/30'
                     : 'border-white/60',
-                  s.done ? 'bg-white text-primary' : '',
+                  i < currentIndex ? 'bg-white text-primary' : '',
                 ]"
               >
                 <Icon
-                  v-if="s.done"
+                  v-if="i < currentIndex"
                   name="checked"
                   :size="14"
                   class="text-primary"
                 />
               </span>
+
               <span
                 v-if="i < steps.length - 1"
                 :class="[
@@ -224,50 +259,53 @@ const prevStep = () => {
         {{ $t('register.Step') }} {{ currentIndex + 1 }}/{{ steps.length }}
       </div>
       <div class="mb-8 text-center text-[22px] font-bold">
-        {{ $t(currentLabel) }}
+        {{ $t(currentLabelComponent) }}
       </div>
       <div
         class="mx-auto flex min-w-[100%] flex-auto flex-col pb-10 lg:min-w-[403px]"
       >
         <component
-          :is="currentStep"
+          :is="currentStepComponent"
           v-model="payload"
           :validation-errors="validationErrors"
           :validate-field="validateField"
+          :rules="rules"
           class="flex-auto"
         />
       </div>
 
       <div
+        v-if="currentIndex < steps.length - 1"
         class="hidden justify-between border-t border-gray-muted px-10 py-6 sm:flex"
       >
-        <Button
+        <LinkButton
           v-if="currentIndex > 0"
+          color="text-primary"
+          class="inline-flex gap-4"
           icon-before="arrow-left"
-          color="secondary"
           @click="prevStep"
         >
           {{ $t('register.previous') }}
+        </LinkButton>
+
+        <Button
+          v-if="currentIndex === steps.length - 2"
+          class="ml-auto"
+          icon-after="arrow-right"
+          @click="submitRegistration"
+        >
+          {{ $t('register.register') }}
         </Button>
 
-        <Button class="ml-auto" icon-after="arrow-right" @click="nextStep">
+        <Button
+          v-else
+          class="ml-auto"
+          icon-after="arrow-right"
+          @click="nextStep"
+        >
           {{ $t('register.next') }}
         </Button>
       </div>
-    </div>
-    <div class="flex justify-between sm:hidden">
-      <Button
-        v-if="currentIndex > 0"
-        icon-before="arrow-left"
-        color="secondary"
-        @click="prevStep"
-      >
-        {{ $t('register.previous') }}
-      </Button>
-
-      <Button class="ml-auto" icon-after="arrow-right" @click="nextStep">
-        {{ $t('register.next') }}
-      </Button>
     </div>
   </div>
 </template>

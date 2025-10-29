@@ -1,9 +1,8 @@
 <script setup lang="ts">
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
+const { useDropdownSync } = useAuth();
 
-const selectedDirection = ref('');
-const selectedTeam = ref('1');
 const payload = defineModel<any>();
 
 const businessDirections = [
@@ -25,12 +24,18 @@ const teamSizes = [
   { label: '101 - 500', value: '101-500' },
 ];
 
-watchEffect(() => {
-  const businessOption = businessDirections[selectedDirection.value];
+const { selected: selectedDirection } = useDropdownSync(
+  computed({
+    get: () => payload.value.company.direction,
+    set: (v: string) => (payload.value.company.direction = v),
+  }),
+  businessDirections
+);
 
-  payload.value.company.name = payload.value.company.name || '';
-  payload.value.company.direction = businessOption?.value || '';
-  payload.value.company.teamSize = selectedTeam.value;
+const selectedTeam = ref(payload.value.company.teamSize || '1');
+
+watch(selectedTeam, (team: string) => {
+  payload.value.company.teamSize = team;
 });
 </script>
 
@@ -65,7 +70,7 @@ watchEffect(() => {
         {{ $t('register.team') }}
       </div>
 
-      <div class="grid grid-cols-4 gap-4">
+      <div class="grid grid-cols-3 gap-4 sm:grid-cols-4">
         <div
           v-for="size in teamSizes"
           :key="size.value"

@@ -10,8 +10,13 @@ export const useUserStore = defineStore('user', () => {
     return await post('/auth/phone/verify', { phone, code });
   };
 
+  const register = async (payload: any) => {
+    return await post('/auth/register', payload);
+  };
+
   return {
     requestPhoneOtp,
     verifyPhoneOtp,
+    register,
   };
 });

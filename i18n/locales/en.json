@@ -129,7 +129,7 @@
   },
   "register": {
     "Step": "Step",
-    "Valid your phone": "Validate your phone",
+    "Valid your phone": "Valid your phone",
     "Email Address": "Email Address",
     "Create Password": "Create Password",
     "Mobile Number": "Mobile Number",
@@ -150,7 +150,11 @@
     "Your Companys Name": "Your Company’s Name",
     "team": "How many people are in your team?",
     "direction": "Business Direction",
-    "done": "You are successfully registered!"
+    "done": "You are successfully registered!",
+    "start": "Let's Start",
+    "register": "register",
+    "name": "Oscar",
+    "type name": "Type your name"
 
   },
 
