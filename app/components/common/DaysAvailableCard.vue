@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { ProgressProps } from '~/types/components/ProgressProps';
+import type { ProgressProps } from '~/types/components/progress';
 const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
 
 withDefaults(defineProps<ProgressProps>(), {
   size: 'md',
   progress: 0,
   color: 'blue',
-  title: '',
-  label: '',
 });
 </script>
 

@@ -116,6 +116,7 @@
     "daysLeft": "You have {count} days of Vacation left"
   },
   "validation": {
+
     "required": "Required",
     "min2chars": "≥ 2 chars",
     "invalidEmail": "Invalid email",
@@ -124,6 +125,17 @@
     "pastDate": "Date must be in the past",
     "minLength": "Minimum 8 characters"
   },
+  "employeesCard": {
+    "backlogTasks": "Backlog Tasks",
+    "tasksInProgress": "Tasks In Progress",
+    "tasksInReview": "Tasks In Review"
+  },
+  "addEmployee": "Add Employee",
+  "membersEmail": "Member’s Email",
+  "approve": "Approve",
+  "addAnotherMember": "Add another Member",
+  "Employees count": "Employees ({count})",
+  "Email": "Email",
   "tabs": {
     "projects": "Projects",
     "team": "Team",

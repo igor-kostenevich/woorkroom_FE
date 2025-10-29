@@ -49,12 +49,17 @@ type ModalName = keyof typeof modals;
 // Modals list
 const modals = {
   Example: defineAsyncComponent(() => import('../modals/Example/index.vue')),
-  AddRequest:defineAsyncComponent(()=>import('~/components/modals/AddRequest/index.vue'))
+  AddRequest: defineAsyncComponent(
+    () => import('~/components/modals/AddRequest/index.vue')
+  ),
+  AddEmployees: defineAsyncComponent(
+    () => import('~/components/modals/AddEmployees/index.vue')
+  ),
 };
 
 watch(
   () => openedModals.value,
-  (val) => {
+  (val: typeof openedModals.value) => {
     isLocked.value = !!val.length;
   },
   { deep: true, immediate: true }
@@ -62,9 +67,10 @@ watch(
 
 watch(
   () => route.path,
-  (newPath, oldPath) => {
+  (newPath: string, oldPath: string) => {
     const closeWhenRouteChanges = openedModals.value.some(
-      (m) => m.options.closeWhenRouteChanges
+      (m: { options: { closeWhenRouteChanges?: boolean } }) =>
+        m.options.closeWhenRouteChanges
     );
     if (
       openedModals.value.length &&

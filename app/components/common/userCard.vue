@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TeamMemberCard } from '~/types/profile/TeamMemberCard';
+import type { TeamMemberCard } from '~/types/profile/teamMemberCard';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')

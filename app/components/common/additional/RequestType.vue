@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TLeaveType } from '~/types/vacations/VacationIndicator';
+import type { TLeaveType } from '~/types/vacations/vacationIndicator';
 
 const props = withDefaults(
   defineProps<{
