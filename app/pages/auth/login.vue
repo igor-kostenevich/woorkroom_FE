@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import Icon from '~/UIKit/Icon.vue';
+import useAuth from '~/composables/useAuth';
 
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Checkbox = defineAsyncComponent(() => import('@/UIKit/CheckBox.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
+
+const { signIn } = useAuth();
 
 definePageMeta({
   layout: 'auth',
@@ -39,7 +42,10 @@ const rules = {
 const { validationErrors, validateForm } = useValidation(form, rules);
 
 const loginValidation = async () => {
-  await validateForm();
+  const isValid = await validateForm();
+  if (isValid) {
+    await signIn(form.value);
+  }
 };
 </script>
 
@@ -106,7 +112,7 @@ const loginValidation = async () => {
         </div>
         <div class="mb-11 flex justify-between gap-7 md:mb-12 lg:mb-9 xl:mb-12">
           <div class="flex items-center gap-4">
-            <Checkbox v-model="rememberUser" />
+            <Checkbox id="checkbox" v-model="rememberUser" />
             <div class="text-gray">{{ $t('rememberMe') }}</div>
           </div>
           <div>
