@@ -238,7 +238,7 @@ type TDropdownOption = {
 
 type TDropDownListProps = {
   options?: TDropdownOption[];
-  modelValue?: number | null;
+  modelValue?: string | number | null;
   size?: 'lg' | 'md';
   placement?:
     | 'top'
@@ -284,7 +284,7 @@ const props = withDefaults(defineProps<TDropDownListProps>(), {
 const { isAppFullyLoaded, isMobile } = useApp();
 const slots = useSlots();
 
-const value = defineModel<number | null>();
+const value = defineModel<string | number | null>();
 const observer = ref<IntersectionObserver | null>(null);
 const dropdown = useTemplateRef<HTMLElement>('dropdown');
 const dropdownContent = useTemplateRef<HTMLElement>('dropdownContent');
@@ -487,7 +487,7 @@ function onSelectOption(option?: TDropdownOption) {
 
 const sizeClasses = computed(() => {
   return {
-    trigger: 'h-[48px] py-1.5',
+    trigger: 'h-[46px] py-1.5',
     panel: isDropdownOpened.value
       ? isMobile.value
         ? 'rounded-tr-[14px] rounded-tl-[14px]'

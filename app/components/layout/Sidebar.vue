@@ -9,7 +9,7 @@
     <div
       class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl bg-white px-4 py-10 shadow-base"
     >
-      <Icon name="logo" class="ml-2" :size="50" />
+      <Icon name="logo" class="ml-2 text-primary" :size="50" />
 
       <nav class="mt-10 min-h-0 flex-1 overflow-y-auto">
         <ul class="space-y-4">
