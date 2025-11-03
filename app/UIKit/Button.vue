@@ -52,7 +52,6 @@ const props = withDefaults(defineProps<TButtonProps>(), {
   size: 'md',
   color: 'primary',
   external: false,
-
   iconSize: 24,
   disabled: false,
   loading: false,

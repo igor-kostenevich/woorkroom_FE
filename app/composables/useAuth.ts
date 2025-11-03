@@ -1,4 +1,3 @@
-// composables/useAuth.ts
 import { useUserStore } from '@/stores/user';
 import { useCountdown } from '@vueuse/core';
 
@@ -17,7 +16,7 @@ export function useAuth() {
   const isCounting = computed(() => isActive.value && remaining.value > 0);
 
   const sendOtp = async (
-    phoneForApi: string,
+    phone: string,
     validateField?: (key: string) => Promise<boolean>
   ) => {
     if (isCounting.value) return false;
@@ -26,35 +25,48 @@ export function useAuth() {
     if (!ok) return false;
 
     try {
-      await auth.requestPhoneOtp(phoneForApi);
+      const res = await auth.requestPhoneOtp(phone);
+      const ttl = res?.ttl;
       showSmsInfo.value = true;
-      start(90);
+      start(ttl);
       return true;
     } catch {
       showSmsInfo.value = false;
       return false;
     }
   };
-  const useDropdownSync = <T extends { value: string }>(
+
+  function useDropdownSync<T extends { value: string }>(
     payloadField: Ref<string>,
     options: T[]
-  ) => {
-    const selected = ref<string | number>('');
+  ) {
+    const selected = computed<number | ''>({
+      get() {
+        const index = options.findIndex(
+          (opt) => opt.value === payloadField.value
+        );
+        return index !== -1 ? index : '';
+      },
+      set(val) {
+        if (typeof val === 'number') {
+          payloadField.value = options[val]?.value ?? '';
+        } else if (typeof val === 'string') {
+          payloadField.value = val;
+        }
+      },
+    });
 
     onMounted(() => {
       const index = options.findIndex(
         (opt) => opt.value === payloadField.value
       );
-      selected.value = index !== -1 ? index : '';
-    });
-
-    watch(selected, (val) => {
-      const selectedValue = typeof val === 'number' ? options[val]?.value : val;
-      payloadField.value = selectedValue;
+      if (index !== -1) {
+        payloadField.value = options[index]?.value ?? '';
+      }
     });
 
     return { selected };
-  };
+  }
 
   return {
     showSmsInfo,

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { useCountries } from '~/composables/useCountries';
+
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
-
-type Country = { label: string; value: string; cca2: string };
 
 const props = defineProps<{
   modelValue: string;
@@ -14,27 +14,14 @@ const emit = defineEmits<{
   (e: 'update:modelValue' | 'update:dial', v: string): void;
 }>();
 
-const countries = ref<Country[]>([]);
-const selectedDialIndex = ref<number>(0);
+const { countries, selectedDialIndex } = useCountries();
+
 const phoneLocal = ref<string>(props.modelValue ?? '');
 
-onMounted(async () => {
-  const res = await fetch(
-    'https://restcountries.com/v3.1/all?fields=name,cca2,idd'
-  );
-  const data = await res.json();
-
-  countries.value = data
-    .filter((item: any) => item?.idd?.root)
-    .map((item: any) => {
-      const dial = `${item.idd.root}${item.idd.suffixes?.[0] || ''}`;
-      return { label: `(${dial})`, value: dial, cca2: item.cca2 };
-    });
-
-  const uaIndex = countries.value.findIndex((c: Country) => c.value === '+380');
-  selectedDialIndex.value = uaIndex !== -1 ? uaIndex : 0;
-
-  emit('update:dial', countries.value[selectedDialIndex.value]?.value || '');
+watchEffect(() => {
+  if (countries.value.length) {
+    emit('update:dial', countries.value[selectedDialIndex.value]?.value || '');
+  }
 });
 
 watch(

@@ -11,26 +11,26 @@ const props = defineProps<{
 }>();
 
 const purposes = [
-  { label: 'Work', value: 'work' },
-  { label: 'Personal use', value: 'personal' },
-  { label: 'Education', value: 'education' },
-  { label: 'Team collaboration', value: 'team' },
-  { label: 'Business growth', value: 'business' },
-  { label: 'Other', value: 'other' },
+  { label: $t('register.purpose.work'), value: 'work' },
+  { label: $t('register.purpose.personal'), value: 'personal' },
+  { label: $t('register.purpose.education'), value: 'education' },
+  { label: $t('register.purpose.team'), value: 'team' },
+  { label: $t('register.purpose.business'), value: 'business' },
+  { label: $t('register.purpose.other'), value: 'other' },
 ];
 
 const personas = [
-  { label: 'Business Owner', value: 'owner' },
-  { label: 'Team Lead', value: 'lead' },
-  { label: 'Employee', value: 'employee' },
-  { label: 'Freelancer', value: 'freelancer' },
-  { label: 'Student', value: 'student' },
-  { label: 'Other', value: 'other' },
+  { label: $t('register.persona.owner'), value: 'owner' },
+  { label: $t('register.persona.lead'), value: 'lead' },
+  { label: $t('register.persona.employee'), value: 'employee' },
+  { label: $t('register.persona.freelancer'), value: 'freelancer' },
+  { label: $t('register.persona.student'), value: 'student' },
+  { label: $t('register.persona.other'), value: 'other' },
 ];
 
-const yesOrNo = [
-  { id: '1', value: 'Yes' },
-  { id: '2', value: 'No' },
+const confirmationOptions = [
+  { id: '1', value: $t('register.yes') },
+  { id: '2', value: $t('register.no') },
 ];
 
 const { selected: selectedPurpose } = useDropdownSync(
@@ -49,10 +49,12 @@ const { selected: selectedPersona } = useDropdownSync(
   personas
 );
 
-const selectedYesNo = ref(payload.value.onboarding.extraYesNo ? 'Yes' : 'No');
+const selectedConfirmation = ref(
+  payload.value.onboarding.extraYesNo ? $t('register.yes') : $t('register.no')
+);
 
-watch(selectedYesNo, (val: string) => {
-  payload.value.onboarding.extraYesNo = val === 'Yes';
+watch(selectedConfirmation, (val: string) => {
+  payload.value.onboarding.extraYesNo = val === $t('register.yes');
 });
 </script>
 
@@ -60,7 +62,7 @@ watch(selectedYesNo, (val: string) => {
   <div>
     <div class="mb-6">
       <Input v-model="payload.firstName" :placeholder="$t('register.name')">
-        <template #topTextLeft>{{ $t('register.type name') }}</template>
+        <template #topTextLeft>{{ $t('register.typeName') }}</template>
 
         <template
           v-if="props.validationErrors?.firstName?.message"
@@ -79,7 +81,7 @@ watch(selectedYesNo, (val: string) => {
         <Dropdown
           v-model="selectedPurpose"
           :options="purposes"
-          placeholder="Work"
+          :placeholder="$t('register.purpose.work')"
           :fullwidth="true"
         />
       </div>
@@ -93,7 +95,7 @@ watch(selectedYesNo, (val: string) => {
         <Dropdown
           v-model="selectedPersona"
           :options="personas"
-          placeholder="Business Owner"
+          :placeholder="$t('register.persona.owner')"
           :fullwidth="true"
         />
       </div>
@@ -101,14 +103,14 @@ watch(selectedYesNo, (val: string) => {
 
     <div class="flex items-center justify-between gap-2">
       <div class="text-sm font-bold text-gray">
-        {{ $t('register.best') }}
+        {{ $t('register.confirmQuestion') }}
       </div>
       <div class="flex items-center gap-4 sm:gap-9">
         <Radio
-          v-for="i in yesOrNo"
+          v-for="i in confirmationOptions"
           :id="i.id"
           :key="i.id"
-          v-model="selectedYesNo"
+          v-model="selectedConfirmation"
           name="radio-choice"
           :value="i.value"
           class="flex items-center gap-2"
