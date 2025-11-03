@@ -65,7 +65,6 @@ const currentLabelComponent = computed(() => steps[currentIndex.value].label);
 const payload = reactive<IRegisterPayload>({
   email: '',
   password: '',
-
   firstName: '',
   phone: '',
   dial: '',

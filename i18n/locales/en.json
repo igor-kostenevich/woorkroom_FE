@@ -36,6 +36,7 @@
     "priority": "Priority",
     "assignees": "Assignees",
     "Duration": "Duration",
+
     "Start Day": "Start Day",
     "End Day": "End Day",
     "requestType": "Request Type"
@@ -146,7 +147,6 @@
     "service": "Why will you use the service?",
     "best": "What describes you best?",
     "Company Name": "Company’s Name",
-    "it": "IT and programming",
     "Your Companys Name": "Your Company’s Name",
     "team": "How many people are in your team?",
     "direction": "Business Direction",
@@ -154,8 +154,32 @@
     "start": "Let's Start",
     "register": "register",
     "name": "Oscar",
-    "type name": "Type your name"
+    "type name": "Type your name",
+    "it": "IT and Programming",
+    "marketing": "Marketing and Advertising",
+    "design": "Design and Creative",
+    "education": "Education and Training",
+    "finance": "Finance and Accounting",
+    "onlyMe": "Only me",
 
+    "purposes": {
+      "work": "Work",
+      "personal": "Personal use",
+      "education": "Education",
+      "team": "Team collaboration",
+      "business": "Business growth",
+      "other": "Other"
+    },
+    "personas": {
+      "owner": "Business Owner",
+      "lead": "Team Lead",
+      "employee": "Employee",
+      "freelancer": "Freelancer",
+      "student": "Student",
+      "other": "Other"
+    },
+    "yes": "Yes",
+    "no": "No"
   },
 
   "pastDate": "Date must be in the past",
@@ -176,5 +200,7 @@
     "team": "Team",
     "myVacations": "My vacations"
   },
-  "Soon": "Soon"
+
+  "Soon": "Soon",
+  "Login": "Login"
 }

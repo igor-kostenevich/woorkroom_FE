@@ -11,26 +11,26 @@ const props = defineProps<{
 }>();
 
 const purposes = [
-  { label: 'Work', value: 'work' },
-  { label: 'Personal use', value: 'personal' },
-  { label: 'Education', value: 'education' },
-  { label: 'Team collaboration', value: 'team' },
-  { label: 'Business growth', value: 'business' },
-  { label: 'Other', value: 'other' },
+  { label: $t('register.purposes.work'), value: 'work' },
+  { label: $t('register.purposes.personal'), value: 'personal' },
+  { label: $t('register.purposes.education'), value: 'education' },
+  { label: $t('register.purposes.team'), value: 'team' },
+  { label: $t('register.purposes.business'), value: 'business' },
+  { label: $t('register.purposes.other'), value: 'other' },
 ];
 
 const personas = [
-  { label: 'Business Owner', value: 'owner' },
-  { label: 'Team Lead', value: 'lead' },
-  { label: 'Employee', value: 'employee' },
-  { label: 'Freelancer', value: 'freelancer' },
-  { label: 'Student', value: 'student' },
-  { label: 'Other', value: 'other' },
+  { label: $t('register.personas.owner'), value: 'owner' },
+  { label: $t('register.personas.lead'), value: 'lead' },
+  { label: $t('register.personas.employee'), value: 'employee' },
+  { label: $t('register.personas.freelancer'), value: 'freelancer' },
+  { label: $t('register.personas.student'), value: 'student' },
+  { label: $t('register.personas.other'), value: 'other' },
 ];
 
-const yesOrNo = [
-  { id: '1', value: 'Yes' },
-  { id: '2', value: 'No' },
+const confirmationOptions = [
+  { id: '1', label: $t('register.yes'), value: 'yes' },
+  { id: '2', label: $t('register.no'), value: 'no' },
 ];
 
 const { selected: selectedPurpose } = useDropdownSync(
@@ -49,10 +49,12 @@ const { selected: selectedPersona } = useDropdownSync(
   personas
 );
 
-const selectedYesNo = ref(payload.value.onboarding.extraYesNo ? 'Yes' : 'No');
+const selectedConfirmation = ref(
+  payload.value.onboarding.extraYesNo ? 'yes' : 'no'
+);
 
-watch(selectedYesNo, (val: string) => {
-  payload.value.onboarding.extraYesNo = val === 'Yes';
+watch(selectedConfirmation, (val: string) => {
+  payload.value.onboarding.extraYesNo = val === 'yes';
 });
 </script>
 
@@ -79,7 +81,7 @@ watch(selectedYesNo, (val: string) => {
         <Dropdown
           v-model="selectedPurpose"
           :options="purposes"
-          placeholder="Work"
+          :placeholder="$t('register.purposes.work')"
           :fullwidth="true"
         />
       </div>
@@ -93,7 +95,7 @@ watch(selectedYesNo, (val: string) => {
         <Dropdown
           v-model="selectedPersona"
           :options="personas"
-          placeholder="Business Owner"
+          :placeholder="$t('register.personas.owner')"
           :fullwidth="true"
         />
       </div>
@@ -101,19 +103,19 @@ watch(selectedYesNo, (val: string) => {
 
     <div class="flex items-center justify-between gap-2">
       <div class="text-sm font-bold text-gray">
-        {{ $t('register.best') }}
+        {{ $t('register.confirmation') }}
       </div>
       <div class="flex items-center gap-4 sm:gap-9">
         <Radio
-          v-for="i in yesOrNo"
-          :id="i.id"
-          :key="i.id"
-          v-model="selectedYesNo"
+          v-for="option in confirmationOptions"
+          :id="option.id"
+          :key="option.id"
+          v-model="selectedConfirmation"
           name="radio-choice"
-          :value="i.value"
+          :value="option.value"
           class="flex items-center gap-2"
         >
-          {{ i.value }}
+          {{ option.label }}
         </Radio>
       </div>
     </div>
