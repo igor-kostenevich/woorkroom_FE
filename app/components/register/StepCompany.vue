@@ -6,15 +6,18 @@ const { useDropdownSync } = useAuth();
 const payload = defineModel<any>();
 
 const businessDirections = [
-  { label: $t('register.it'), value: 'it' },
-  { label: $t('register.marketing'), value: 'marketing' },
-  { label: $t('register.design'), value: 'design' },
-  { label: $t('register.education'), value: 'education' },
-  { label: $t('register.finance'), value: 'finance' },
+  { label: $t('register.business.itAndProgramming'), value: 'it' },
+  {
+    label: $t('register.business.marketingAndAdvertising'),
+    value: 'marketing',
+  },
+  { label: $t('register.business.designAndCreative'), value: 'design' },
+  { label: $t('register.business.educationAndTraining'), value: 'education' },
+  { label: $t('register.business.financeAndAccounting'), value: 'finance' },
 ];
 
 const teamSizes = [
-  { label: $t('register.onlyMe'), value: '1' },
+  { label: $t('register.only'), value: '1' },
   { label: '2 - 5', value: '2-5' },
   { label: '6 - 10', value: '6-10' },
   { label: '11 - 20', value: '11-20' },

@@ -11,26 +11,26 @@ const props = defineProps<{
 }>();
 
 const purposes = [
-  { label: $t('register.purposes.work'), value: 'work' },
-  { label: $t('register.purposes.personal'), value: 'personal' },
-  { label: $t('register.purposes.education'), value: 'education' },
-  { label: $t('register.purposes.team'), value: 'team' },
-  { label: $t('register.purposes.business'), value: 'business' },
-  { label: $t('register.purposes.other'), value: 'other' },
+  { label: $t('register.purpose.work'), value: 'work' },
+  { label: $t('register.purpose.personal'), value: 'personal' },
+  { label: $t('register.purpose.education'), value: 'education' },
+  { label: $t('register.purpose.team'), value: 'team' },
+  { label: $t('register.purpose.business'), value: 'business' },
+  { label: $t('register.purpose.other'), value: 'other' },
 ];
 
 const personas = [
-  { label: $t('register.personas.owner'), value: 'owner' },
-  { label: $t('register.personas.lead'), value: 'lead' },
-  { label: $t('register.personas.employee'), value: 'employee' },
-  { label: $t('register.personas.freelancer'), value: 'freelancer' },
-  { label: $t('register.personas.student'), value: 'student' },
-  { label: $t('register.personas.other'), value: 'other' },
+  { label: $t('register.persona.owner'), value: 'owner' },
+  { label: $t('register.persona.lead'), value: 'lead' },
+  { label: $t('register.persona.employee'), value: 'employee' },
+  { label: $t('register.persona.freelancer'), value: 'freelancer' },
+  { label: $t('register.persona.student'), value: 'student' },
+  { label: $t('register.persona.other'), value: 'other' },
 ];
 
 const confirmationOptions = [
-  { id: '1', label: $t('register.yes'), value: 'yes' },
-  { id: '2', label: $t('register.no'), value: 'no' },
+  { id: '1', value: $t('register.yes') },
+  { id: '2', value: $t('register.no') },
 ];
 
 const { selected: selectedPurpose } = useDropdownSync(
@@ -50,11 +50,11 @@ const { selected: selectedPersona } = useDropdownSync(
 );
 
 const selectedConfirmation = ref(
-  payload.value.onboarding.extraYesNo ? 'yes' : 'no'
+  payload.value.onboarding.extraYesNo ? $t('register.yes') : $t('register.no')
 );
 
 watch(selectedConfirmation, (val: string) => {
-  payload.value.onboarding.extraYesNo = val === 'yes';
+  payload.value.onboarding.extraYesNo = val === $t('register.yes');
 });
 </script>
 
@@ -62,7 +62,7 @@ watch(selectedConfirmation, (val: string) => {
   <div>
     <div class="mb-6">
       <Input v-model="payload.firstName" :placeholder="$t('register.name')">
-        <template #topTextLeft>{{ $t('register.type name') }}</template>
+        <template #topTextLeft>{{ $t('register.typeName') }}</template>
 
         <template
           v-if="props.validationErrors?.firstName?.message"
@@ -81,7 +81,7 @@ watch(selectedConfirmation, (val: string) => {
         <Dropdown
           v-model="selectedPurpose"
           :options="purposes"
-          :placeholder="$t('register.purposes.work')"
+          :placeholder="$t('register.purpose.work')"
           :fullwidth="true"
         />
       </div>
@@ -95,7 +95,7 @@ watch(selectedConfirmation, (val: string) => {
         <Dropdown
           v-model="selectedPersona"
           :options="personas"
-          :placeholder="$t('register.personas.owner')"
+          :placeholder="$t('register.persona.owner')"
           :fullwidth="true"
         />
       </div>
@@ -103,19 +103,19 @@ watch(selectedConfirmation, (val: string) => {
 
     <div class="flex items-center justify-between gap-2">
       <div class="text-sm font-bold text-gray">
-        {{ $t('register.confirmation') }}
+        {{ $t('register.confirmQuestion') }}
       </div>
       <div class="flex items-center gap-4 sm:gap-9">
         <Radio
-          v-for="option in confirmationOptions"
-          :id="option.id"
-          :key="option.id"
+          v-for="i in confirmationOptions"
+          :id="i.id"
+          :key="i.id"
           v-model="selectedConfirmation"
           name="radio-choice"
-          :value="option.value"
+          :value="i.value"
           class="flex items-center gap-2"
         >
-          {{ option.label }}
+          {{ i.value }}
         </Radio>
       </div>
     </div>

@@ -9,6 +9,7 @@
   "Logout": "Logout",
   "Support": "Support",
   "Search": "Search",
+  "Login": "Login",
   "Get started": "Get started",
   "Assignees": "Assignees",
   "status": {
@@ -36,7 +37,6 @@
     "priority": "Priority",
     "assignees": "Assignees",
     "Duration": "Duration",
-
     "Start Day": "Start Day",
     "End Day": "End Day",
     "requestType": "Request Type"
@@ -147,22 +147,30 @@
     "service": "Why will you use the service?",
     "best": "What describes you best?",
     "Company Name": "Company’s Name",
+    "it": "IT and programming",
     "Your Companys Name": "Your Company’s Name",
     "team": "How many people are in your team?",
     "direction": "Business Direction",
     "done": "You are successfully registered!",
     "start": "Let's Start",
     "register": "register",
-    "name": "Oscar",
     "type name": "Type your name",
-    "it": "IT and Programming",
-    "marketing": "Marketing and Advertising",
-    "design": "Design and Creative",
-    "education": "Education and Training",
-    "finance": "Finance and Accounting",
-    "onlyMe": "Only me",
+    "only": "Only me",
+    "name": "Name",
+    "typeName": "Type your name",
+    "confirmQuestion": "What describes you best?",
+    "yes": "Yes",
+    "no": "No",
 
-    "purposes": {
+    "business": {
+      "itAndProgramming": "IT and Programming",
+      "marketingAndAdvertising": "Marketing and Advertising",
+      "designAndCreative": "Design and Creative",
+      "educationAndTraining": "Education and Training",
+      "financeAndAccounting": "Finance and Accounting"
+    },
+
+    "purpose": {
       "work": "Work",
       "personal": "Personal use",
       "education": "Education",
@@ -170,16 +178,15 @@
       "business": "Business growth",
       "other": "Other"
     },
-    "personas": {
+    "persona": {
       "owner": "Business Owner",
       "lead": "Team Lead",
       "employee": "Employee",
       "freelancer": "Freelancer",
       "student": "Student",
       "other": "Other"
-    },
-    "yes": "Yes",
-    "no": "No"
+    }
+
   },
 
   "pastDate": "Date must be in the past",
@@ -200,7 +207,5 @@
     "team": "Team",
     "myVacations": "My vacations"
   },
-
-  "Soon": "Soon",
-  "Login": "Login"
+  "Soon": "Soon"
 }

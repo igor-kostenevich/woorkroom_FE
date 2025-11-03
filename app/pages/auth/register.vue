@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useCloned } from '@vueuse/core';
 import type { IRegisterPayload } from '~/types/register/registerPayload';
 import { useUserStore } from '~/stores/user';
 
@@ -26,6 +27,21 @@ definePageMeta({ layout: 'auth' });
 
 const { setCookie, getCookie } = useAppCookie();
 const userStore = useUserStore();
+
+const registerPayload: IRegisterPayload = {
+  email: '',
+  password: '',
+  firstName: '',
+  phone: '',
+  dial: '',
+  smsCode: '',
+  phoneToken: '',
+  onboarding: { purpose: '', persona: '', extraYesNo: false },
+  company: { name: '', direction: '', teamSize: '' },
+  invites: [''],
+};
+
+const { cloned: payload } = useCloned(registerPayload);
 
 const steps = reactive([
   {
@@ -62,31 +78,14 @@ const currentStepComponent = computed(
 );
 const currentLabelComponent = computed(() => steps[currentIndex.value].label);
 
-const payload = reactive<IRegisterPayload>({
-  email: '',
-  password: '',
-  firstName: '',
-  phone: '',
-  dial: '',
-  smsCode: '',
-  phoneToken: '',
-  onboarding: { purpose: '', persona: '', extraYesNo: false },
-  company: { name: '', direction: '', teamSize: '' },
-  invites: [''],
-});
-
 onMounted(() => {
   const saved = getCookie('register_payload');
   if (!saved) return;
-
   const parsed = JSON.parse(saved);
-
   for (const key in parsed) {
-    if (typeof parsed[key] === 'object' && parsed[key] !== null) {
-      Object.assign(payload[key], parsed[key]);
-    } else {
-      payload[key] = parsed[key];
-    }
+    if (typeof parsed[key] === 'object' && parsed[key] !== null)
+      Object.assign(payload.value[key], parsed[key]);
+    else payload.value[key] = parsed[key];
   }
 });
 
@@ -139,52 +138,39 @@ const rulesByStep: Record<string, any> = {
 };
 
 const rules = computed(() => rulesByStep[currentKey.value] || {});
-
 const { validationErrors, validateForm, validateField } = useValidation(
-  payload,
+  payload.value,
   rules
 );
 
 const nextStep = async () => {
   const isValid = await validateForm();
   if (!isValid) return;
-
   if (currentIndex.value < steps.length - 1) currentIndex.value++;
 };
 
 const prevStep = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  }
+  if (currentIndex.value > 0) currentIndex.value--;
 };
 
 const submitRegistration = async () => {
   const isValid = await validateForm();
   if (!isValid) return;
 
-  await userStore.register(payload);
+  await userStore.register(payload.value);
 
-  Object.assign(payload, {
-    email: '',
-    password: '',
-    firstName: '',
-    phone: '',
-    dial: '',
-    smsCode: '',
-    phoneToken: '',
-    onboarding: { purpose: '', persona: '', extraYesNo: false },
-    company: { name: '', direction: '', teamSize: '' },
-    invites: [''],
-  });
+  Object.assign(payload.value, useCloned(registerPayload).cloned.value);
 
   setCookie('register_payload', '');
   steps[currentIndex.value].done = true;
   currentIndex.value++;
 };
 
-watch(payload, () => setCookie('register_payload', JSON.stringify(payload)), {
-  deep: true,
-});
+watch(
+  payload,
+  () => setCookie('register_payload', JSON.stringify(payload.value)),
+  { deep: true }
+);
 </script>
 
 <template>

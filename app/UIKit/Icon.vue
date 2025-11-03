@@ -49,7 +49,6 @@ interface IProps {
 const props = withDefaults(defineProps<IProps>(), {
   url: '',
   color: '',
-
   size: 24,
   immediate: true, // TODO set false
   lazy: false,

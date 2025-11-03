@@ -2,8 +2,9 @@ import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', () => {
   const { post } = useApi();
+
   const requestPhoneOtp = async (phone: string) => {
-    await post('/auth/phone/request', { phone });
+    return await post('/auth/phone/request', { phone });
   };
 
   const verifyPhoneOtp = async (phone: string, code: string) => {

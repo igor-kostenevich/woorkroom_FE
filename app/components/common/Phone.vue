@@ -14,15 +14,12 @@ const emit = defineEmits<{
   (e: 'update:modelValue' | 'update:dial', v: string): void;
 }>();
 
-const { countries } = useCountries();
+const { countries, selectedDialIndex } = useCountries();
 
-const selectedDialIndex = ref<number>(0);
 const phoneLocal = ref<string>(props.modelValue ?? '');
 
 watchEffect(() => {
   if (countries.value.length) {
-    const uaIndex = countries.value.findIndex((c) => c.value === '+380');
-    selectedDialIndex.value = uaIndex !== -1 ? uaIndex : 0;
     emit('update:dial', countries.value[selectedDialIndex.value]?.value || '');
   }
 });
