@@ -1,4 +1,4 @@
-import type { TEmployeeLvl } from '~/types/employees/employeeLvl';
+import type { TEmployeeLvl } from '~/types/employees/EmployeeLvl';
 import type { IUserAvatar } from '~/types/components/userAvatar';
 
 export interface TeamMemberCard {
