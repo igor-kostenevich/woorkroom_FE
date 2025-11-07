@@ -34,7 +34,7 @@ const rules = {
     ),
     minLength: helpers.withMessage(
       $t('validation.minLength'),
-      validators.minLength(8)
+      validators.minLength(6)
     ),
   },
 };
@@ -44,7 +44,7 @@ const { validationErrors, validateForm } = useValidation(form, rules);
 const loginValidation = async () => {
   const isValid = await validateForm();
   if (isValid) {
-    await signIn(form.value);
+    await signIn(form.value, rememberUser.value);
   }
 };
 </script>

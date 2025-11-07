@@ -1,6 +1,7 @@
 export default function defineRouteMiddleware(to: any) {
   const { getToken } = useAppCookie();
-  const token = getToken();
+  const token =
+    getToken() || (import.meta.client ? sessionStorage.getItem('token') : null);
 
   if (
     !token &&

@@ -4,7 +4,7 @@ const DEFAULT_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 const DIVIDER = '__';
 const isProd = process.env.NODE_ENV === 'production';
 
-function getJwtExp(token: string | null | undefined): number | null {
+export function getJwtExp(token: string | null | undefined): number | null {
   if (!token) return null;
   try {
     const payload = JSON.parse(atob(token.split('.')[1] || ''));

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Icon from '~/UIKit/Icon.vue';
+import useAuth from '~/composables/useAuth';
 
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
@@ -8,6 +9,7 @@ const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 definePageMeta({
   layout: 'auth',
 });
+const { passwordChange } = useAuth();
 
 const form = ref({
   email: '',
@@ -25,7 +27,8 @@ const rules = {
 const { validationErrors, validateForm } = useValidation(form, rules);
 
 const loginValidation = async () => {
-  await validateForm();
+  const isValid = await validateForm();
+  if (isValid) await passwordChange(form.value);
 };
 </script>
 
