@@ -63,7 +63,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      serverUrl: '',
+      serverUrl: 'https://woorkroom.family-love-haven.com/api',
       tgBotId: '',
     },
   },

@@ -3,3 +3,4 @@ export * from './modal';
 export * from './input';
 export * from './link';
 export * from './user-avatar';
+export * from './buttonTab';

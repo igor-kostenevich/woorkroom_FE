@@ -9,6 +9,8 @@
   "Logout": "Logout",
   "Support": "Support",
   "Search": "Search",
+  "Login": "Login",
+  "Get started": "Get started",
   "Assignees": "Assignees",
   "status": {
     "to-do": "To Do",
@@ -122,6 +124,88 @@
     "invalidEmail": "Invalid email",
     "invalidPhone": "Invalid phone",
     "invalidUsername": "Invalid username",
-    "pastDate": "Date must be in the past"
-  }
+    "pastDate": "Date must be in the past",
+    "minLength": "minLength",
+    "onlyDigits": "onlyDigits"
+  },
+  "register": {
+    "Step": "Step",
+    "Valid your phone": "Valid your phone",
+    "Email Address": "Email Address",
+    "Create Password": "Create Password",
+    "Mobile Number": "Mobile Number",
+    "code": "Send a code",
+    "Code from SMS": "Code from SMS",
+    "smsSent": "SMS was sent to your number {phone}. It will be valid for {time}",
+    "next": "Next Step",
+    "phoneVerified": "✅ Your phone was verified",
+    "previous": "Previous",
+    "Tell about yourself": "Tell about yourself",
+    "Tell about your company": "Tell about your company",
+    "Invite Team Members": "Invite Team Members",
+    "Registration completed": "Registration completed",
+    "service": "Why will you use the service?",
+    "best": "What describes you best?",
+    "Company Name": "Company’s Name",
+    "it": "IT and programming",
+    "Your Companys Name": "Your Company’s Name",
+    "team": "How many people are in your team?",
+    "direction": "Business Direction",
+    "done": "You are successfully registered!",
+    "start": "Let's Start",
+    "register": "register",
+    "type name": "Type your name",
+    "only": "Only me",
+    "name": "Name",
+    "typeName": "Type your name",
+    "confirmQuestion": "What describes you best?",
+    "yes": "Yes",
+    "no": "No",
+
+    "business": {
+      "itAndProgramming": "IT and Programming",
+      "marketingAndAdvertising": "Marketing and Advertising",
+      "designAndCreative": "Design and Creative",
+      "educationAndTraining": "Education and Training",
+      "financeAndAccounting": "Finance and Accounting"
+    },
+
+    "purpose": {
+      "work": "Work",
+      "personal": "Personal use",
+      "education": "Education",
+      "team": "Team collaboration",
+      "business": "Business growth",
+      "other": "Other"
+    },
+    "persona": {
+      "owner": "Business Owner",
+      "lead": "Team Lead",
+      "employee": "Employee",
+      "freelancer": "Freelancer",
+      "student": "Student",
+      "other": "Other"
+    }
+
+  },
+
+  "pastDate": "Date must be in the past",
+
+  "employeesCard": {
+    "backlogTasks": "Backlog Tasks",
+    "tasksInProgress": "Tasks In Progress",
+    "tasksInReview": "Tasks In Review"
+  },
+  "addEmployee": "Add Employee",
+  "membersEmail": "Member’s Email",
+  "approve": "Approve",
+  "addAnotherMember": "Add another Member",
+  "Employees count": "Employees ({count})",
+  "Email": "Email",
+  "tabs": {
+    "projects": "Projects",
+    "team": "Team",
+    "myVacations": "My vacations"
+  },
+  "Soon": "Soon"
 }
