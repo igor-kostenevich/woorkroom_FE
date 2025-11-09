@@ -57,6 +57,7 @@ export const useAppCookie = () => {
   const setToken = (token: string) => {
     const exp = getJwtExp(token);
     const nowSec = Math.floor(Date.now() / 1000);
+
     const dynamicMaxAge = exp ? Math.max(1, exp - nowSec - 5) : 60 * 15;
     setCookie(COOKIE_NAMES.TOKEN, token, dynamicMaxAge);
   };
