@@ -1,12 +1,8 @@
-import { getJwtExp } from '~/composables/useAppCookie';
-
 export default function useAuth() {
   const { post } = useApi();
   const { setToken, removeToken } = useAppCookie();
 
-  let refreshTimer: ReturnType<typeof setTimeout> | null = null;
-
-  const signIn = async (
+  const login = async (
     userData: { email: string; password: string },
     rememberUser: boolean
   ) => {
@@ -18,35 +14,13 @@ export default function useAuth() {
     if (accessToken) {
       if (rememberUser) {
         setToken(accessToken);
-        scheduleTokenRefresh(accessToken, rememberUser);
-        navigateTo('/');
       } else {
         if (import.meta.client) {
           sessionStorage.setItem('token', accessToken);
         }
-        scheduleTokenRefresh(accessToken, rememberUser);
-        navigateTo('/');
       }
+      navigateTo('/');
     }
-  };
-
-  const scheduleTokenRefresh = (token: string, rememberUser: boolean) => {
-    const exp = getJwtExp(token);
-    if (!exp) return;
-
-    const nowSec = Math.floor(Date.now() / 1000);
-    const timeLeftSec = exp - nowSec - 60;
-
-    if (timeLeftSec <= 0) {
-      void refreshAccessToken(rememberUser);
-      return;
-    }
-
-    if (refreshTimer) clearTimeout(refreshTimer);
-
-    refreshTimer = setTimeout(() => {
-      void refreshAccessToken(rememberUser);
-    }, timeLeftSec * 1000);
   };
 
   const refreshAccessToken = async (rememberUser: boolean) => {
@@ -57,20 +31,13 @@ export default function useAuth() {
       if (accessToken) {
         if (rememberUser) {
           setToken(accessToken);
-          scheduleTokenRefresh(accessToken, rememberUser);
         } else {
           if (import.meta.client) {
             sessionStorage.setItem('token', accessToken);
           }
-          scheduleTokenRefresh(accessToken, rememberUser);
         }
       }
     } catch {
-      if (refreshTimer) {
-        clearTimeout(refreshTimer);
-        refreshTimer = null;
-      }
-
       if (rememberUser) {
         removeToken();
       } else {
@@ -84,13 +51,7 @@ export default function useAuth() {
   };
 
   const logout = () => {
-    if (refreshTimer) {
-      clearTimeout(refreshTimer);
-      refreshTimer = null;
-    }
-    if (import.meta.client) {
-      sessionStorage.removeItem('token');
-    }
+    sessionStorage.removeItem('token');
     removeToken();
     navigateTo('/auth/login');
   };
@@ -100,7 +61,8 @@ export default function useAuth() {
   };
 
   return {
-    signIn,
+    login,
+    refreshAccessToken,
     logout,
     passwordChange,
   };

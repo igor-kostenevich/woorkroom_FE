@@ -23,6 +23,7 @@ export function useApi() {
     },
     onResponseError({ response }) {
       console.error('API Error:', response.status, response._data);
+      if (response.status! === 401) return;
     },
   });
 
