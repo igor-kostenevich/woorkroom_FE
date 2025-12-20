@@ -13,20 +13,51 @@ const codeForSms = reactive({
 function resetCode() {
   for (const key in codeForSms) codeForSms[key] = '';
 }
-defineExpose({
-  resetCode,
-});
+
+defineExpose({ resetCode });
 
 watch(codeForSms, (v) => {
   emit('update:modelValue', Object.values(v).join(''));
 });
 
 const inputEls = ref<(HTMLInputElement | null)[]>([]);
+const pasteBound = new WeakSet<HTMLInputElement>();
+
+function fillFrom(index: number, raw: string) {
+  const digits = raw.replace(/\D/g, '').slice(0, 4 - index);
+  if (!digits) return;
+
+  const keys = Object.keys(codeForSms);
+
+  digits.split('').forEach((d, i) => {
+    const targetKey = keys[index + i];
+    if (targetKey) codeForSms[targetKey] = d;
+  });
+
+  const nextIndex = Math.min(index + digits.length, inputEls.value.length - 1);
+  inputEls.value[nextIndex]?.focus();
+}
+
+function bindPaste(el: HTMLInputElement, index: number) {
+  if (pasteBound.has(el)) return;
+  pasteBound.add(el);
+
+  el.addEventListener('paste', (e: ClipboardEvent) => {
+    e.preventDefault();
+    const text = e.clipboardData?.getData('text') ?? '';
+    fillFrom(index, text);
+  });
+}
 
 function setInputRef(el: any, index: number) {
   const realInput =
     el?.$el?.querySelector?.('input') ?? el?.$el ?? (el as HTMLInputElement);
+
   inputEls.value[index] = realInput;
+
+  if (realInput instanceof HTMLInputElement) {
+    bindPaste(realInput, index);
+  }
 }
 
 function handleInput(index: number, key: string, e: InputEvent) {
