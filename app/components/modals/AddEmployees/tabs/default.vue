@@ -6,7 +6,7 @@
     <div class="tab-content">
       <img
         src="/images/employees/woman-at-laptop.png"
-        alt="Woman working on a laptop at a desk"
+        :alt="$t('Woman working on a laptop at a desk')"
         class="mb-7 hidden md:inline"
       />
       <div class="mb-6">

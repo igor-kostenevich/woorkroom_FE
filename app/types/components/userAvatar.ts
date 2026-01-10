@@ -1,4 +1,3 @@
-
 export interface IUserAvatar {
   progress?: number;
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';

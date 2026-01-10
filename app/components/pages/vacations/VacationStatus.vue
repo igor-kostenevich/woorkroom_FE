@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TVacationStatus } from '~/types/vacations/VacationIndicator';
+import type { TVacationStatus } from '~/types/vacations/vacationIndicator';
 
 defineProps<{
   status: TVacationStatus;

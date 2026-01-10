@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex min-h-[70px] w-full items-center justify-between gap-5 rounded-3xl bg-white p-4 md:min-h-12 md:rounded-none md:bg-transparent md:py-0 md:pl-10 md:pr-5"
+    class="flex min-h-[70px] w-full items-center justify-between gap-5 rounded-3xl bg-white p-4 md:min-h-[50px] md:rounded-none md:bg-transparent md:py-0 md:pl-10 md:pr-5"
   >
     <div class="w-full max-w-[412px]">
       <Autocomplete
@@ -20,11 +20,7 @@
         icon-before="burger-menu"
         class="!p-0 md:hidden"
       />
-      <Button
-        color="neutral"
-        icon-before="notifications"
-        class="!p-0 md:!p-3"
-      />
+      <Button color="neutral" icon-before="notifications" />
       <Popover class="hidden min-w-[182px] md:flex">
         <template #default>
           <div class="flex items-center">
@@ -68,6 +64,7 @@ type Item = { id: string | number; title: string }; // TESTING TYPE
 const selectedValues = ref<Item | null>(null);
 const fullName = ref('Evan Yates');
 
+// TODO: test search
 const search = async (q: string): Promise<Item[]> => {
   if (!q?.trim()) return [];
   return [{ id: 1, title: `Result for "${q}"` }];

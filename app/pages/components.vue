@@ -112,7 +112,7 @@ Line 4
 Line 5`);
 
 const taErrors = reactive<{ message: string }>({ message: '' });
-watch(taWithError, (v) => {
+watch(taWithError, (v: string) => {
   taErrors.message = v.trim().length < 10 ? 'Мінімум 10 символів' : '';
 });
 
@@ -351,21 +351,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: 'Gender',
         text: 'Male',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: 'Birthday',
         text: 'Apr 12, 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: 'Age',
         text: '25',
       },
     },
@@ -389,21 +389,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: 'Gender',
         text: 'Maqwdqw dqwdqwdle',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: 'Birthday',
         text: 'Apr 1 qwdqcqw qwdq2, 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: 'Age',
         text: ' qwqwdqwdqd 25',
       },
     },
@@ -427,21 +427,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: 'Gender',
         text: 'Ma qwdqd le',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: 'Birthday',
         text: 'Apr 12qwd dqwdqwd , 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: 'Age',
         text: '25 qwdqwd edq ',
       },
     },
@@ -465,21 +465,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: 'Gender',
         text: 'Male ',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: 'Birthday',
         text: 'Apr 1 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: 'Age',
         text: '25 q ',
       },
     },
