@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="sticky top-[var(--aside-top)] h-[calc(100dvh_-_var(--aside-top)_-_var(--aside-bottom))]"
+    class="sticky top-[var(--aside-top)] hidden h-[calc(100dvh_-_var(--aside-top)_-_var(--aside-bottom))] md:block"
     :style="{
       '--aside-top': `calc(var(--header-h, 0px) + 20px)`,
       '--aside-bottom': '24px',
