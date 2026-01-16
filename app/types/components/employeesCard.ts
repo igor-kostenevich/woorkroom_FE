@@ -1,4 +1,4 @@
-import type { EmployeeLevel } from '~/types/employees/employeeLvl';
+import type { EmployeeLevel } from '~/types/employees/e';
 
 export interface IEmployeesCardData {
   isBusy?: boolean;

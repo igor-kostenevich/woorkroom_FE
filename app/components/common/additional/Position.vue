@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EmployeeLevel } from '~/types/employees/employeeLvl';
+import type { EmployeeLevel } from '~/types/employees/e';
 
 const EmployeeLvl = defineAsyncComponent(
   () => import('~/components/pages/employees/EmployeeLvl.vue')
