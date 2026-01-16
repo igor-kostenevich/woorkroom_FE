@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IProjectCard } from '~/types/profile/projectCard';
+import type { IProjectCard } from '~/types/profile/ProjectCard';
 
 const PriorityBadge = defineAsyncComponent(
   () => import('~/components/common/additional/Priority.vue')
