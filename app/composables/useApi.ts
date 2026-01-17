@@ -8,22 +8,44 @@ interface FetchOptions {
 
 export function useApi() {
   const { serverUrl } = useRuntimeConfig().public;
-  const { getToken } = useAppCookie();
 
-  const api = $fetch.create({
+  const api: any = $fetch.create({
     baseURL: serverUrl,
-    async onRequest({ options }: { options: Record<string, any> }) {
-      const token = getToken();
+    credentials: 'include',
+    async onRequest({ options }) {
+      const { token } = useAppCookie();
 
-      if (token) {
-        const headers = new Headers(options.headers || {});
-        headers.set('Authorization', `Bearer ${token}`);
-        options.headers = headers;
-      }
+      if (!token.value) return;
+
+      const normalized = normalizeHeaders(options.headers);
+
+      options.headers = {
+        ...normalized,
+        authorization: `Bearer ${token.value}`,
+      };
     },
-    onResponseError({ response }) {
-      console.error('API Error:', response.status, response._data);
-      if (response.status! === 401) return;
+
+    async onResponseError({ request, response, options }) {
+      if (response.status !== 401) {
+        throw response;
+      }
+
+      const { logout, refreshAccessToken } = useAuth();
+
+      if ((options as any)._retry) {
+        await logout();
+        throw response;
+      }
+
+      try {
+        await refreshAccessToken();
+        (options as any)._retry = true;
+
+        return api(request, options);
+      } catch (err) {
+        await logout();
+        throw err;
+      }
     },
   });
 
@@ -41,6 +63,32 @@ export function useApi() {
       // })
     }
   };
+
+  function normalizeHeaders(headers?: HeadersInit): Record<string, string> {
+    const result: Record<string, string> = {};
+
+    if (!headers) return result;
+
+    if (headers instanceof Headers) {
+      headers.forEach((value, key) => {
+        result[key.toLowerCase()] = value;
+      });
+      return result;
+    }
+
+    if (Array.isArray(headers)) {
+      for (const [key, value] of headers) {
+        result[key.toLowerCase()] = value;
+      }
+      return result;
+    }
+
+    for (const key in headers) {
+      result[key.toLowerCase()] = headers[key];
+    }
+
+    return result;
+  }
 
   const get = async <T>(url: string, opts?: FetchOptions): Promise<T> => {
     try {

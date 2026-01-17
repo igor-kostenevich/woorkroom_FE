@@ -1,12 +1,30 @@
-export default function defineRouteMiddleware(to: any) {
-  const { getToken } = useAppCookie();
-  const token =
-    getToken() || (import.meta.client ? sessionStorage.getItem('token') : null);
+import { useRuntimeConfig } from '#imports';
 
-  if (
-    !token &&
-    !['/auth/login', '/auth/register', '/auth/forgot'].includes(to.path)
-  ) {
+export default defineNuxtRouteMiddleware(async (to) => {
+  if (to.meta.public) {
+    return;
+  }
+
+  const { token, setToken } = useAppCookie();
+  const { logout } = useAuth();
+
+  if (token.value) {
+    return;
+  }
+
+  try {
+    const { serverUrl } = useRuntimeConfig().public;
+    const { accessToken } = await $fetch<{ accessToken: string }>(
+      '/auth/refresh',
+      {
+        method: 'POST',
+        baseURL: serverUrl,
+        credentials: 'include',
+      }
+    );
+    setToken(accessToken);
+  } catch {
+    await logout();
     return navigateTo('/auth/login');
   }
-}
+});

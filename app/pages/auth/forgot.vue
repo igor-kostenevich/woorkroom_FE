@@ -9,6 +9,7 @@ const AuthLayout = defineAsyncComponent(
 );
 
 definePageMeta({
+  public: true,
   layout: 'auth',
 });
 const { passwordChange } = useAuth();

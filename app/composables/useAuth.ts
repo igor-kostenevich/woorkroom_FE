@@ -1,6 +1,6 @@
 export default function useAuth() {
-  const { post } = useApi();
-  const { setToken, removeToken } = useAppCookie();
+  const { post, get } = useApi();
+  const { setToken, removeToken, token } = useAppCookie();
 
   const login = async (
     userData: { email: string; password: string },
@@ -9,49 +9,24 @@ export default function useAuth() {
     const { accessToken } = await post<{ accessToken: string }>('/auth/login', {
       email: userData.email,
       password: userData.password,
+      rememberMe: rememberUser,
     });
 
-    if (accessToken) {
-      if (rememberUser) {
-        setToken(accessToken);
-      } else {
-        if (import.meta.client) {
-          sessionStorage.setItem('token', accessToken);
-        }
-      }
-      navigateTo('/');
-    }
+    setToken(accessToken);
+    navigateTo('/');
   };
 
-  const refreshAccessToken = async (rememberUser: boolean) => {
-    try {
-      const { accessToken } = await post<{ accessToken: string }>(
-        '/auth/refresh'
-      );
-      if (accessToken) {
-        if (rememberUser) {
-          setToken(accessToken);
-        } else {
-          if (import.meta.client) {
-            sessionStorage.setItem('token', accessToken);
-          }
-        }
-      }
-    } catch {
-      if (rememberUser) {
-        removeToken();
-      } else {
-        if (import.meta.client) {
-          sessionStorage.removeItem('token');
-        }
-      }
-
-      navigateTo('/auth/login');
-    }
+  const refreshAccessToken = async () => {
+    const { accessToken } = await post<{ accessToken: string }>(
+      '/auth/refresh'
+    );
+    token.value = accessToken;
+    return accessToken;
   };
 
-  const logout = () => {
-    sessionStorage.removeItem('token');
+  const logout = async () => {
+    await post('/auth/logout');
+
     removeToken();
     navigateTo('/auth/login');
   };
@@ -59,11 +34,19 @@ export default function useAuth() {
   const passwordChange = async (userEmail: { email: string }) => {
     await post('/auth/forgot', { email: userEmail.email });
   };
+  const test = async () => {
+    try {
+      await get('/auth/profile');
+    } catch {
+      return;
+    }
+  };
 
   return {
     login,
-    refreshAccessToken,
     logout,
+    refreshAccessToken,
     passwordChange,
+    test,
   };
 }
