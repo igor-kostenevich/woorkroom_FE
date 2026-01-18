@@ -6,7 +6,6 @@ const EntityCardTable = defineAsyncComponent(
 const EmployeesCard = defineAsyncComponent(
   () => import('~/components/projects/EmployeeCard.vue')
 );
-
 const Text = defineAsyncComponent(
   () => import('~/components/common/additional/Text.vue')
 );
@@ -16,8 +15,9 @@ const Position = defineAsyncComponent(
 const UserInfo = defineAsyncComponent(
   () => import('~/components/common/additional/UserInfo.vue')
 );
-
 const Tabs = defineAsyncComponent(() => import('@/UIKit/Tabs.vue'));
+
+const { t } = useI18n();
 
 const testCardData = [
   [
@@ -32,21 +32,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: t('additional.gender'),
         text: 'Male',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: t('additional.birthday'),
         text: 'Apr 12, 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: t('additional.age'),
         text: '25',
       },
     },
@@ -70,21 +70,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: t('additional.gender'),
         text: 'Maqwdqw dqwdqwdle',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: t('additional.birthday'),
         text: 'Apr 1 qwdqcqw qwdq2, 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: t('additional.age'),
         text: ' qwqwdqwdqd 25',
       },
     },
@@ -108,21 +108,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: t('additional.gender'),
         text: 'Ma qwdqd le',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: t('additional.birthday'),
         text: 'Apr 12qwd dqwdqwd , 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: t('additional.age'),
         text: '25 qwdqwd edq ',
       },
     },
@@ -146,21 +146,21 @@ const testCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.gender',
+        label: t('additional.gender'),
         text: 'Male ',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.birthday',
+        label: t('additional.birthday'),
         text: 'Apr 1 1995',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.age',
+        label: t('additional.age'),
         text: '25 q ',
       },
     },

@@ -11,7 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import type { EmployeeLevel } from '@/types/employees/EmployeeLvl';
+import {
+  EmployeeLevel,
+  type TEmployeeLvl,
+} from '~/types/employees/employeeLvl';
 
 const EmployeeLvl = defineAsyncComponent(
   () => import('~/components/pages/employees/EmployeeLvl.vue')
@@ -19,11 +22,11 @@ const EmployeeLvl = defineAsyncComponent(
 
 interface IPositionData {
   positionName?: string;
-  positionLevel?: EmployeeLevel;
+  positionLevel?: TEmployeeLvl;
 }
 
 withDefaults(defineProps<IPositionData>(), {
   positionName: '',
-  positionLevel: 1,
+  positionLevel: EmployeeLevel.JUNIOR,
 });
 </script>

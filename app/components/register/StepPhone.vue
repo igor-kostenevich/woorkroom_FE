@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user';
-
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 const Phone = defineAsyncComponent(
@@ -9,6 +7,8 @@ const Phone = defineAsyncComponent(
 const SmsCode = defineAsyncComponent(
   () => import('~/components/common/SmsCode.vue')
 );
+
+// TODO: ПО ідеї не треба це прокидувати, або роби еміт, або роби це в самому компоненті. Бо в інших компонентах ти такі пропси не приймаєш і ніяк не обробляєш
 const props = defineProps<{
   validationErrors?: Record<string, { message?: string }>;
   validateField?: (key: string) => Promise<boolean>;
@@ -18,20 +18,28 @@ const auth = useUserStore();
 const smsRef = useTemplateRef('smsRef');
 const payload = defineModel<any>();
 
-const { showSmsInfo, isCounting, time, sendOtp } = useAuth();
-
+const isVerified = ref(true);
+const { showSmsInfo, isCounting, sendOtp, remaining } = useAuth();
 const { getCookie } = useAppCookie();
 
+// TODO: подивись чи точно треба цей метод, чи можна якось інакше шоб не робити це. Можливо з бека якось інакше буду тобі слати/приймати або форматуй це значення в самому методі sendOtp
 const phoneForApi = computed(
   () => `${payload.value.dial}${payload.value.phone}`
 );
 
+const time = computed(() => {
+  const m = Math.floor(remaining.value / 60)
+    .toString()
+    .padStart(2, '0');
+  const s = (remaining.value % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+});
+
 const verifyPhone = async () => {
-  if (isCounting.value) return;
   await sendOtp(phoneForApi.value, props.validateField);
 };
-const isVerified = ref(true);
 
+// TODO: Може вийде зробити це проще, я погано розумію шо тут відбувається взагалі, бажано логіку тримати в composable, якщо вона відноситься для реєстрації/авторизації. Якщо проше не виийде, залиш, але бажано зробити
 watch(
   () => payload.value.smsCode,
   async (code: string) => {

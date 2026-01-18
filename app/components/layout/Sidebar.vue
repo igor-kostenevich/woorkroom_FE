@@ -45,6 +45,7 @@
         icon-before="logout"
         color="secondary"
         class="inline-flex gap-4"
+        @click="logout()"
       >
         {{ $t('Logout') }}
       </LinkButton>
@@ -56,6 +57,8 @@
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
+
+const { logout } = useAuth();
 
 const route = useRoute();
 

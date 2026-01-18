@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="label" class="mb-1 text-sm text-gray-light">
-      {{ $t(label) }}
+      {{ label }}
     </div>
     <div class="text-dark">{{ text }}</div>
   </div>

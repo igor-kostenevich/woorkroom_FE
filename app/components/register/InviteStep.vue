@@ -18,7 +18,7 @@ const { membersEmail, add, validationErrors } = useEmailList(rules);
 watch(
   membersEmail,
   () => {
-    payload.value.invites = membersEmail.map((m) => m.email);
+    payload.value.invites = membersEmail.map((m: { email: string }) => m.email);
   },
   { deep: true }
 );
@@ -39,7 +39,7 @@ onMounted(() => {
         v-model="member.email"
         :placeholder="$t('Email')"
         :error="validationErrors.email"
-        :disabled="membersEmail.length - 1 > index"
+        :disabled="membersEmail.length - 1 > Number(index)"
       >
         <template v-if="index === 0" #topTextLeft>
           {{ $t('membersEmail') }}

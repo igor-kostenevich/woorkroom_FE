@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const DaysAvailableCard = defineAsyncComponent(
   () => import('~/components/common/DaysAvailableCard.vue')
 );
@@ -51,21 +52,21 @@ const vacationsCardData = [
     {
       componentName: Text,
       data: {
-        label: 'additional.Duration',
+        label: t('additional.Duration'),
         text: '3 days',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.Start Day',
+        label: t('additional.Start Day'),
         text: 'Sep 13, 2020',
       },
     },
     {
       componentName: Text,
       data: {
-        label: 'additional.End Day',
+        label: t('additional.End Day'),
         text: 'Sep 16, 2020',
       },
     },

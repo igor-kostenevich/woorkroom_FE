@@ -118,15 +118,13 @@
     "daysLeft": "You have {count} days of Vacation left"
   },
   "validation": {
-
     "required": "Required",
     "min2chars": "≥ 2 chars",
     "invalidEmail": "Invalid email",
     "invalidPhone": "Invalid phone",
     "invalidUsername": "Invalid username",
     "pastDate": "Date must be in the past",
-    "minLength": "minLength",
-    "onlyDigits": "onlyDigits"
+    "minLength": "Minimum 8 characters"
   },
   "register": {
     "Step": "Step",
@@ -207,5 +205,18 @@
     "team": "Team",
     "myVacations": "My vacations"
   },
-  "Soon": "Soon"
+  "Soon": "Soon",
+  "auth": {
+    "slogan": "Your place to work Plan. Create. Control.",
+    "signInWoorkroom": "Sign In to Woorkroom",
+    "signIn": "Sign In",
+    "dontHaveAccount": "Don’t have an account?"
+  },
+  "email": "Email Address",
+  "password": "Password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password?",
+  "restorePassword": "Restore password",
+  "haveAccount": "You have an account?"
+
 }

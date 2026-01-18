@@ -1,3 +1,3 @@
 <template>
-  <h1 class="text-dark text-4xl font-bold">Dashboard</h1>
+  <h1 class="text-4xl font-bold text-dark">{{ String('Dashboard') }}</h1>
 </template>
