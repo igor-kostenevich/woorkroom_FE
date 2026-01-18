@@ -217,7 +217,7 @@ watch(
               </span>
 
               <span
-                v-if="i < steps.length - 1"
+                v-if="Number(i) < steps.length - 1"
                 :class="[
                   'absolute left-1/2 top-7 h-[26px] w-[2px] -translate-x-1/2',
                   i === currentIndex ? 'bg-white' : 'bg-white/50',
