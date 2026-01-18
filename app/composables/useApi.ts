@@ -9,7 +9,7 @@ interface FetchOptions {
 export function useApi() {
   const { serverUrl } = useRuntimeConfig().public;
 
-  const api: any = $fetch.create({
+  const api = $fetch.create({
     baseURL: serverUrl,
     credentials: 'include',
     async onRequest({ options }) {
@@ -17,12 +17,9 @@ export function useApi() {
 
       if (!token.value) return;
 
-      const normalized = normalizeHeaders(options.headers);
-
-      options.headers = {
-        ...normalized,
-        authorization: `Bearer ${token.value}`,
-      };
+      const headers = new Headers(options.headers);
+      headers.set('authorization', `Bearer ${token.value}`);
+      options.headers = headers;
     },
 
     async onResponseError({ request, response, options }) {
@@ -41,13 +38,13 @@ export function useApi() {
         await refreshAccessToken();
         (options as any)._retry = true;
 
-        return api(request, options);
+        return api(request, options as any);
       } catch (err) {
         await logout();
         throw err;
       }
     },
-  });
+  }) as typeof $fetch;
 
   const handleError = (e: any, opts?: FetchOptions) => {
     if (opts?.showErrorAlert) {
@@ -63,32 +60,6 @@ export function useApi() {
       // })
     }
   };
-
-  function normalizeHeaders(headers?: HeadersInit): Record<string, string> {
-    const result: Record<string, string> = {};
-
-    if (!headers) return result;
-
-    if (headers instanceof Headers) {
-      headers.forEach((value, key) => {
-        result[key.toLowerCase()] = value;
-      });
-      return result;
-    }
-
-    if (Array.isArray(headers)) {
-      for (const [key, value] of headers) {
-        result[key.toLowerCase()] = value;
-      }
-      return result;
-    }
-
-    for (const key in headers) {
-      result[key.toLowerCase()] = headers[key];
-    }
-
-    return result;
-  }
 
   const get = async <T>(url: string, opts?: FetchOptions): Promise<T> => {
     try {

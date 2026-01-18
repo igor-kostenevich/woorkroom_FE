@@ -3,10 +3,9 @@ const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
 const Radio = defineAsyncComponent(() => import('~/UIKit/Radio.vue'));
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 
-const { useDropdownSync } = useAuth();
 const payload = defineModel<any>();
 
-const props = defineProps<{
+defineProps<{
   validationErrors?: Record<string, { message?: string }>;
 }>();
 
@@ -64,11 +63,8 @@ watch(selectedConfirmation, (val: string) => {
       <Input v-model="payload.firstName" :placeholder="$t('register.name')">
         <template #topTextLeft>{{ $t('register.typeName') }}</template>
 
-        <template
-          v-if="props.validationErrors?.firstName?.message"
-          #errorMessage
-        >
-          {{ props.validationErrors.firstName.message }}
+        <template v-if="validationErrors?.firstName?.message" #errorMessage>
+          {{ validationErrors.firstName.message }}
         </template>
       </Input>
     </div>

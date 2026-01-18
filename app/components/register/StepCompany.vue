@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 const Dropdown = defineAsyncComponent(() => import('~/UIKit/Dropdown.vue'));
-const { useDropdownSync } = useAuth();
-
 const payload = defineModel<any>();
 
 const businessDirections = [

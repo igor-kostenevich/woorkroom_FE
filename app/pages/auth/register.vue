@@ -3,6 +3,11 @@ import { useCloned } from '@vueuse/core';
 import type { IRegisterPayload } from '~/types/register/registerPayload';
 import { useUserStore } from '~/stores/user';
 
+definePageMeta({
+  layout: 'auth',
+  public: true,
+});
+
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const LinkButton = defineAsyncComponent(() => import('~/UIKit/LinkButton.vue'));
@@ -22,8 +27,6 @@ const Invite = defineAsyncComponent(
 const StepSuccess = defineAsyncComponent(
   () => import('~/components/register/StepSuccess.vue')
 );
-
-definePageMeta({ layout: 'auth' });
 
 const { setCookie, getCookie } = useAppCookie();
 const userStore = useUserStore();
