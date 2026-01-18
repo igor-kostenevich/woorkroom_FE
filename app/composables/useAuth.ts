@@ -2,7 +2,7 @@ import { useUserStore } from '@/stores/user';
 import { useCountdown } from '@vueuse/core';
 
 export default function useAuth() {
-  const { post, get } = useApi();
+  const { post } = useApi();
   const { setToken, removeToken, token } = useAppCookie();
   const auth = useUserStore();
   const showSmsInfo = ref(false);
@@ -39,13 +39,6 @@ export default function useAuth() {
 
   const passwordChange = async (userEmail: { email: string }) => {
     await post('/auth/forgot', { email: userEmail.email });
-  };
-  const test = async () => {
-    try {
-      await get('/auth/profile');
-    } catch {
-      return;
-    }
   };
 
   const time = computed(() => {
@@ -115,7 +108,6 @@ export default function useAuth() {
     logout,
     refreshAccessToken,
     passwordChange,
-    test,
     showSmsInfo,
     remaining,
     isCounting,
