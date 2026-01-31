@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { formatSecondsToMMSS } from '~/utils/timeFormatter';
+
 const Button = defineAsyncComponent(() => import('~/UIKit/Button.vue'));
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 const Phone = defineAsyncComponent(
@@ -8,72 +10,74 @@ const SmsCode = defineAsyncComponent(
   () => import('~/components/common/SmsCode.vue')
 );
 
-// TODO: ПО ідеї не треба це прокидувати, або роби еміт, або роби це в самому компоненті. Бо в інших компонентах ти такі пропси не приймаєш і ніяк не обробляєш
 const props = defineProps<{
   validationErrors?: Record<string, { message?: string }>;
   validateField?: (key: string) => Promise<boolean>;
 }>();
 
-const auth = useUserStore();
+const MAX_CODE_VALUE = 4;
+
 const smsRef = useTemplateRef('smsRef');
 const payload = defineModel<any>();
 
-const isVerified = ref(true);
-const { showSmsInfo, isCounting, sendOtp, remaining } = useAuth();
+const { showSmsInfo, isCounting, sendOtp, remaining, verifyPhoneOtp } =
+  useAuth();
 const { getCookie } = useAppCookie();
 
-// TODO: подивись чи точно треба цей метод, чи можна якось інакше шоб не робити це. Можливо з бека якось інакше буду тобі слати/приймати або форматуй це значення в самому методі sendOtp
-const phoneForApi = computed(
-  () => `${payload.value.dial}${payload.value.phone}`
-);
+const fullPhone = computed(() => `${payload.value.dial}${payload.value.phone}`);
 
-const time = computed(() => {
-  const m = Math.floor(remaining.value / 60)
-    .toString()
-    .padStart(2, '0');
-  const s = (remaining.value % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-});
+const time = computed(() => formatSecondsToMMSS(remaining.value));
 
 const verifyPhone = async () => {
-  await sendOtp(phoneForApi.value, props.validateField);
+  await sendOtp(fullPhone.value, props.validateField);
 };
 
-// TODO: Може вийде зробити це проще, я погано розумію шо тут відбувається взагалі, бажано логіку тримати в composable, якщо вона відноситься для реєстрації/авторизації. Якщо проше не виийде, залиш, але бажано зробити
 watch(
   () => payload.value.smsCode,
   async (code: string) => {
-    if (isVerified.value === false) return;
-    if (code.length === 4) {
-      const res = await auth.verifyPhoneOtp(phoneForApi.value, code);
-      if (res.ok) {
-        payload.value.phoneToken = res.phoneToken;
-        alert($t('register.phoneVerified'));
-        smsRef.value.resetCode();
-        isVerified.value = false;
-      }
-    }
+    if (payload.value.phoneToken || code?.length !== MAX_CODE_VALUE) return;
+
+    const res = await verifyPhoneOtp<{ ok: boolean; phoneToken?: string }>(
+      fullPhone.value,
+      code
+    );
+
+    if (!res.ok) return;
+
+    payload.value.phoneToken = res.phoneToken;
+    payload.value.smsCode = '';
+
+    showSmsInfo.value = false;
+    smsRef.value?.resetCode();
+
+    alert($t('register.phoneVerified'));
   }
 );
 
 onMounted(() => {
-  const cookie = getCookie('register_payload');
-  if (cookie) {
-    const parsed = JSON.parse(cookie);
-    if (parsed.phoneToken) {
-      isVerified.value = false;
+  const saved = getCookie('register_payload');
+  if (!saved) return;
+
+  try {
+    const parsed = JSON.parse(saved);
+    if (parsed?.phoneToken) {
+      payload.value.phoneToken = parsed.phoneToken;
     }
+  } catch {
+    return;
   }
 });
 </script>
-
 <template>
   <div>
-    <div v-if="isVerified" class="mb-8 border-b border-gray-muted sm:mb-12">
+    <div
+      v-if="!payload.phoneToken"
+      class="mb-8 border-b border-gray-muted sm:mb-12"
+    >
       <Phone
         v-model="payload.phone"
         v-model:dial="payload.dial"
-        :error="props.validationErrors.phone.message"
+        :error="props.validationErrors?.phone?.message"
       />
 
       <SmsCode v-if="showSmsInfo" ref="smsRef" v-model="payload.smsCode" />
@@ -89,6 +93,7 @@ onMounted(() => {
         {{ $t('register.code') }}
       </Button>
     </div>
+
     <div class="flex w-full flex-col gap-7">
       <Input v-model="payload.email" placeholder="youremail@gmail.com">
         <template #topTextLeft>{{ $t('register.Email Address') }}</template>
@@ -98,7 +103,9 @@ onMounted(() => {
       </Input>
 
       <Input v-model="payload.password" type="password" placeholder="••••••••">
-        <template #topTextLeft>{{ $t('register.Create Password') }}</template>
+        <template #topTextLeft>
+          {{ $t('register.Create Password') }}
+        </template>
         <template
           v-if="props.validationErrors?.password?.message"
           #errorMessage

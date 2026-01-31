@@ -84,14 +84,27 @@ const currentLabelComponent = computed(() => steps[currentIndex.value].label);
 onMounted(() => {
   const saved = getCookie('register_payload');
   if (!saved) return;
-  const parsed = JSON.parse(saved);
-  for (const key in parsed) {
-    if (typeof parsed[key] === 'object' && parsed[key] !== null)
-      Object.assign(payload.value[key], parsed[key]);
-    else payload.value[key] = parsed[key];
+
+  if (typeof saved === 'object') {
+    Object.assign(payload.value, saved);
+    return;
+  }
+
+  try {
+    const parsed = JSON.parse(saved);
+    Object.assign(payload.value, parsed);
+  } catch {
+    setCookie('register_payload', '');
   }
 });
 
+watch(
+  payload,
+  () => {
+    setCookie('register_payload', JSON.stringify(payload.value));
+  },
+  { deep: true }
+);
 const rulesByStep: Record<string, any> = {
   phone: {
     email: {
@@ -168,12 +181,6 @@ const submitRegistration = async () => {
   steps[currentIndex.value].done = true;
   currentIndex.value++;
 };
-
-watch(
-  payload,
-  () => setCookie('register_payload', JSON.stringify(payload.value)),
-  { deep: true }
-);
 </script>
 
 <template>

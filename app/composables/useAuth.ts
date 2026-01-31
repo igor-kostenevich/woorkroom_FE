@@ -1,10 +1,9 @@
-import { useUserStore } from '@/stores/user';
 import { useCountdown } from '@vueuse/core';
 
 export default function useAuth() {
   const { post } = useApi();
   const { setToken, removeToken } = useAppCookie();
-  const auth = useUserStore();
+
   const showSmsInfo = ref(false);
   const { remaining, start, isActive } = useCountdown(0);
 
@@ -26,8 +25,8 @@ export default function useAuth() {
     const { accessToken } = await post<{ accessToken: string }>(
       '/auth/refresh'
     );
-    setToken(accessToken);
 
+    setToken(accessToken);
     return accessToken;
   };
 
@@ -41,7 +40,16 @@ export default function useAuth() {
     await post('/auth/forgot', { email });
   };
 
-  const isCounting = computed(() => isActive.value && remaining.value > 0);
+  const requestPhoneOtp = async (phone: string) => {
+    return await post<{ ttl: number }>('/auth/phone/request', { phone });
+  };
+
+  const verifyPhoneOtp = async <T = any>(
+    phone: string,
+    code: string
+  ): Promise<T> => {
+    return await post<T>('/auth/phone/verify', { phone, code });
+  };
 
   const sendOtp = async (
     phone: string,
@@ -49,31 +57,38 @@ export default function useAuth() {
   ) => {
     if (isCounting.value) return false;
 
-    // TODO: Do this after you call sendOtp method
     if (validateField) {
       const ok = await validateField('phone');
       if (!ok) return false;
     }
 
     try {
-      // TODO: Нема цього методу requestPhoneOtp, може Єгор затьор
-      const { ttl } = await auth.requestPhoneOtp(phone);
+      const { ttl } = await requestPhoneOtp(phone);
       showSmsInfo.value = true;
       start(ttl);
-      // TODO: точно треба вертати true? і чи взагалі метод має шось вертати?
       return true;
     } catch {
       showSmsInfo.value = false;
-      // TODO: точно треба вертати false? і чи взагалі метод має шось вертати?
       return false;
     }
   };
+
+  const register = async (payload: any) => {
+    return await post('/auth/register', payload);
+  };
+
+  const isCounting = computed(() => isActive.value && remaining.value > 0);
 
   return {
     login,
     logout,
     refreshAccessToken,
     passwordChange,
+
+    requestPhoneOtp,
+    verifyPhoneOtp,
+    register,
+
     showSmsInfo,
     remaining,
     isCounting,
