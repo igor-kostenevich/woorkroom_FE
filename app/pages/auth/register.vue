@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCloned } from '@vueuse/core';
 import type { IRegisterPayload } from '~/types/register/registerPayload';
-import { useUserStore } from '~/stores/user';
+import useAuth from '~/composables/useAuth';
 
 definePageMeta({
   layout: 'auth',
@@ -29,7 +29,8 @@ const StepSuccess = defineAsyncComponent(
 );
 
 const { setCookie, getCookie } = useAppCookie();
-const userStore = useUserStore();
+
+const { register } = useAuth();
 
 const registerPayload: IRegisterPayload = {
   email: '',
@@ -173,7 +174,7 @@ const submitRegistration = async () => {
   const isValid = await validateForm();
   if (!isValid) return;
 
-  await userStore.register(payload.value);
+  await register(payload.value);
 
   Object.assign(payload.value, useCloned(registerPayload).cloned.value);
 
@@ -300,6 +301,39 @@ const submitRegistration = async () => {
         >
           {{ $t('register.next') }}
         </Button>
+      </div>
+
+      <div
+        v-if="currentIndex < steps.length - 1"
+        class="fixed bottom-0 left-0 z-50 w-full border-t border-gray-muted bg-white px-5 py-4 sm:hidden"
+      >
+        <div class="flex items-center gap-4">
+          <LinkButton
+            v-if="currentIndex > 0"
+            color="text-primary"
+            class="inline-flex gap-2"
+            icon-before="arrow-left"
+            @click="prevStep"
+          >
+            {{ $t('register.previous') }}
+          </LinkButton>
+
+          <Button
+            class="ml-auto flex-1"
+            icon-after="arrow-right"
+            @click="
+              currentIndex === steps.length - 2
+                ? submitRegistration()
+                : nextStep()
+            "
+          >
+            {{
+              currentIndex === steps.length - 2
+                ? $t('register.register')
+                : $t('register.next')
+            }}
+          </Button>
+        </div>
       </div>
     </div>
   </div>
