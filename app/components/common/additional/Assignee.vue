@@ -36,13 +36,9 @@ const props = withDefaults(defineProps<IAssigneeData>(), {
   max: 3,
 });
 
-// TODO: Improve types
-const visibleUsers = computed<any[]>(() =>
-  props.userAvatarData.slice(0, props.max)
-);
+const visibleUsers = computed(() => props.userAvatarData.slice(0, props.max));
 
-// TODO: Improve types
-const restUsers = computed<number>(() =>
+const restUsers = computed(() =>
   Math.max(0, props.userAvatarData.length - props.max)
 );
 </script>
