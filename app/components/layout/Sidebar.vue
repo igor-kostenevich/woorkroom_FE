@@ -9,7 +9,7 @@
     <div
       class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl bg-white px-4 py-10 shadow-base"
     >
-      <Icon name="logo" class="ml-2" :size="50" />
+      <Icon name="logo" class="ml-2 text-primary" :size="50" />
 
       <nav class="mt-10 min-h-0 flex-1 overflow-y-auto">
         <ul class="space-y-4">
@@ -45,6 +45,7 @@
         icon-before="logout"
         color="secondary"
         class="inline-flex gap-4"
+        @click="logout()"
       >
         {{ $t('Logout') }}
       </LinkButton>
@@ -56,6 +57,8 @@
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
+
+const { logout } = useAuth();
 
 const route = useRoute();
 
