@@ -1,74 +1,46 @@
 import { COOKIE_NAMES } from '@/types/composables/cookies';
+import type { CookieOptions } from '#app';
 
-const DEFAULT_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
-const DIVIDER = '__';
-const isProd = process.env.NODE_ENV === 'production';
+const baseOptions: CookieOptions<string | null> & { readonly: false } = {
+  path: '/',
+  sameSite: 'none',
+  secure: true,
+  readonly: false,
+};
 
-function getJwtExp(token: string | null | undefined): number | null {
-  if (!token) return null;
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1] || ''));
-    return typeof payload?.exp === 'number' ? payload.exp : null;
-  } catch {
-    return null;
-  }
+function cookie(name: string): Ref<string | null> {
+  return useCookie<string | null>(name, baseOptions) as Ref<string | null>;
 }
 
 export const useAppCookie = () => {
-  function setCookie(cookieName: string, value: string, maxAge?: number) {
-    const cookie = useCookie<string | null>(cookieName, {
-      maxAge: maxAge ?? DEFAULT_COOKIE_MAX_AGE,
-      path: '/',
-      sameSite: isProd ? 'none' : 'lax',
-      secure: isProd,
-    }) as Ref<string | null>;
+  const token = cookie(COOKIE_NAMES.TOKEN);
 
-    cookie.value = `${value}${DIVIDER}${new Date().getTime()}`;
-  }
-
-  function getCookie(cookieName: string, isObject?: boolean) {
-    const cookie = useCookie<string | null>(cookieName) as Ref<string | null>;
-    const [value, date] = cookie.value ? cookie.value.split(DIVIDER) : [];
-    if (isObject) {
-      const dataObj: { value: string | undefined; date?: number } = { value };
-      if (date) dataObj.date = +date;
-      return dataObj;
-    }
-
-    return value;
-  }
-
-  function removeCookie(cookieName: string) {
-    const cookie = useCookie(cookieName) as Ref<string | null>;
-    cookie.value = null;
-  }
-
-  const getToken = () => {
-    const token = getCookie(COOKIE_NAMES.TOKEN) as string | undefined;
-    if (!token) return token;
-    const exp = getJwtExp(token);
-    if (exp && exp <= Math.floor(Date.now() / 1000)) {
-      removeToken();
-      return undefined;
-    }
-    return token;
+  const setToken = (value: string) => {
+    token.value = value;
   };
 
-  const setToken = (token: string) => {
-    const exp = getJwtExp(token);
-    const nowSec = Math.floor(Date.now() / 1000);
-    const dynamicMaxAge = exp ? Math.max(1, exp - nowSec - 5) : 60 * 15;
-    setCookie(COOKIE_NAMES.TOKEN, token, dynamicMaxAge);
+  const removeToken = () => {
+    token.value = null;
   };
 
-  const removeToken = () => removeCookie(COOKIE_NAMES.TOKEN);
+  const getCookie = (name: string) => {
+    return cookie(name).value;
+  };
+
+  const setCookie = (name: string, value: string | null) => {
+    cookie(name).value = value;
+  };
+
+  const removeCookie = (name: string) => {
+    cookie(name).value = null;
+  };
 
   return {
-    setCookie,
-    getCookie,
-    removeCookie,
+    token,
     setToken,
-    getToken,
     removeToken,
+    getCookie,
+    setCookie,
+    removeCookie,
   };
 };

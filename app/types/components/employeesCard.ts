@@ -1,4 +1,4 @@
-import type { EmployeeLevel } from '~/types/employees/e';
+import type { TEmployeeLvl } from '~/types/employees/employeeLvl';
 
 export interface IEmployeesCardData {
   isBusy?: boolean;
@@ -6,7 +6,7 @@ export interface IEmployeesCardData {
   userImage?: string;
   fullName?: string;
   positionName?: string;
-  positionLevel?: EmployeeLevel;
+  positionLevel?: TEmployeeLvl;
   backlogTasksCount?: number;
   tasksInProgressCount?: number;
   tasksInReviewCount?: number;

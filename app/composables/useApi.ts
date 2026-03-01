@@ -8,23 +8,43 @@ interface FetchOptions {
 
 export function useApi() {
   const { serverUrl } = useRuntimeConfig().public;
-  const { getToken } = useAppCookie();
 
   const api = $fetch.create({
     baseURL: serverUrl,
-    async onRequest({ options }: { options: Record<string, any> }) {
-      const token = getToken();
+    credentials: 'include',
+    async onRequest({ options }) {
+      const { token } = useAppCookie();
 
-      if (token) {
-        const headers = new Headers(options.headers || {});
-        headers.set('Authorization', `Bearer ${token}`);
-        options.headers = headers;
+      if (!token.value) return;
+
+      const headers = new Headers(options.headers);
+      headers.set('authorization', `Bearer ${token.value}`);
+      options.headers = headers;
+    },
+
+    async onResponseError({ request, response, options }) {
+      if (response.status !== 401) {
+        throw response;
+      }
+
+      const { logout, refreshAccessToken } = useAuth();
+
+      if ((options as any)._retry) {
+        await logout();
+        throw response;
+      }
+
+      try {
+        await refreshAccessToken();
+        (options as any)._retry = true;
+
+        return api(request, options as any);
+      } catch (err) {
+        await logout();
+        throw err;
       }
     },
-    onResponseError({ response }) {
-      console.error('API Error:', response.status, response._data);
-    },
-  });
+  }) as typeof $fetch;
 
   const handleError = (e: any, opts?: FetchOptions) => {
     if (opts?.showErrorAlert) {

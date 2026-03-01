@@ -13,6 +13,27 @@
       }"
       :class="isSidebarOpen ? 'translate-x' : 'max-md:-translate-x-[110%]'"
     >
+      <Icon name="logo" class="ml-2 text-primary" :size="50" />
+
+      <nav class="mt-10 min-h-0 flex-1 overflow-y-auto">
+        <ul class="space-y-4">
+          <li v-for="page in pages" :key="page.name">
+            <NuxtLink
+              :to="page.path"
+              :class="[
+                'flex items-center gap-4 rounded-xl px-2 py-2.5 font-semibold transition-colors',
+                route.path === page.path
+                  ? 'bg-primary-opacity text-primary'
+                  : 'text-gray',
+              ]"
+            >
+              <Icon :name="page.icon" :size="24" />
+              {{ $t(page.name) }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
+
       <div
         class="flex h-full min-h-0 min-w-[216px] flex-col overflow-hidden rounded-3xl bg-white px-4 py-4 shadow-base md:py-10"
       >
@@ -61,6 +82,7 @@
           icon-before="logout"
           color="secondary"
           class="inline-flex gap-4 !self-start"
+          @click="logout()"
         >
           {{ $t('Logout') }}
         </LinkButton>
@@ -75,6 +97,8 @@ import { useWindowSize } from '@vueuse/core';
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
+
+const { logout } = useAuth();
 
 const route = useRoute();
 const { isSidebarOpen, closeSidebar } = useApp();
