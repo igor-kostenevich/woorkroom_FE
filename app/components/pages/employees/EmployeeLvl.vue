@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { EmployeeLevel } from '~/types/employees/e';
+import { EmployeeLevel } from '~/types/employees/empoyeeLvltest';
 
 const props = defineProps<{
   lvl: number;
