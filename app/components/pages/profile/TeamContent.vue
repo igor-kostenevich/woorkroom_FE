@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const team = defineAsyncComponent(
-  () => import('~/components/common/userCard.vue')
+  () => import('~/components/common/UserCard.vue')
 );
 </script>
 

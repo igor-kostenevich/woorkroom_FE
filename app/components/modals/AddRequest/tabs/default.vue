@@ -33,7 +33,7 @@ import Tab from '~/components/layout/Modal/Tab.vue';
 import useModal from '~/composables/useModal';
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 const CalendarRequest = defineAsyncComponent(
-  () => import('~/components/common/calendar.vue')
+  () => import('~/components/common/Calendar.vue')
 );
 
 interface IModalProps {
