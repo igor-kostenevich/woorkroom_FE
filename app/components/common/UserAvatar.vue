@@ -4,7 +4,7 @@
       v-if="image"
       :class="['rounded-full object-cover', { ...sizes }]"
       :src="image"
-      alt="user avatar"
+      :alt="fullName ? `avatar of user ${fullName}` : 'user avatar'"
     />
     <div
       v-else
@@ -21,10 +21,22 @@
 
 <script setup lang="ts">
 import type { IUserAvatar } from '~/types/components';
-const Progress = defineAsyncComponent(() => import('~/UIKit/Progress.vue'));
+import Progress from '~/UIKit/Progress.vue';
 
 const props = defineProps<IUserAvatar>();
 
+const AVATAR_COLOR_CLASS_MAP: Record<
+  NonNullable<IUserAvatar['color']>,
+  string
+> = {
+  primary: 'bg-primary',
+  yellow: 'bg-yellow',
+  blue: 'bg-blue',
+  red: 'bg-red',
+  violet: 'bg-violet',
+};
+
+// Visible first letters of the full name
 const fullNameInitials = computed(() =>
   (props.fullName ?? '').replace(/(\p{L})\p{L}*/gu, '$1').replace(/\s+/g, '')
 );
@@ -40,9 +52,7 @@ const sizes = computed(() => {
 });
 
 const selectedBackgroundColor = computed(() => {
-  if (props.color) {
-    return `bg-${props.color}`;
-  }
-  return 'bg-primary';
+  const color = props.color as IUserAvatar['color'];
+  return color ? AVATAR_COLOR_CLASS_MAP[color] : 'bg-primary';
 });
 </script>

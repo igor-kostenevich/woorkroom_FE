@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div class="mb-1 text-sm text-gray-light">
       {{ $t('additional.position') }}
     </div>
@@ -11,19 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-  EmployeeLevel,
-  type TEmployeeLvl,
-} from '~/types/employees/employeeLvl';
+import { EmployeeLevel, type IPositionData } from '~/types/employees';
 
-const EmployeeLvl = defineAsyncComponent(
-  () => import('~/components/pages/employees/EmployeeLvl.vue')
-);
-
-interface IPositionData {
-  positionName?: string;
-  positionLevel?: TEmployeeLvl;
-}
+import EmployeeLvl from '~/components/pages/employees/EmployeeLvl.vue';
 
 withDefaults(defineProps<IPositionData>(), {
   positionName: '',

@@ -12,3 +12,9 @@ const _VacationStatus = {
 export type TVacationStatus =
   (typeof _VacationStatus)[keyof typeof _VacationStatus];
 export type TLeaveType = (typeof _LeaveTypes)[keyof typeof _LeaveTypes];
+
+export const REQUEST_TYPE_COLORS: Record<TLeaveType, string> = {
+  sick: 'bg-red',
+  remote: 'bg-violet',
+  vacation: 'bg-blue',
+} as const;

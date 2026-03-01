@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TTaskStatus } from '~/types/projects/taskStatus';
+import type { TTaskStatus } from '~/types/shared/taskStatus';
 
 defineProps<{
   status: TTaskStatus;

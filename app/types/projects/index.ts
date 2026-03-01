@@ -1,4 +1,4 @@
-import type { IAssigneeData } from '~/types/components/assignee';
+import type { IAssigneeUser } from '~/types/shared/assignee';
 
 export interface IProjectCard {
   id: string;
@@ -8,5 +8,5 @@ export interface IProjectCard {
   allTasks: number;
   activeTasks: number;
   imageUrl: string;
-  assignees?: IAssigneeData[];
+  assignees?: IAssigneeUser[];
 }

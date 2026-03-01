@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useEmailList } from '~/composables/useEmailList';
-import type { IRegisterPayload } from '~/types/register/registerPayload';
+import type { IRegisterPayload } from '~/types/auth';
 
 const LinkButton = defineAsyncComponent(() => import('@/UIKit/LinkButton.vue'));
 const Input = defineAsyncComponent(() => import('@/UIKit/Input.vue'));

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { EmployeeLevel } from '~/types';
+import type { EmployeeLevel } from '~/types/employees';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')

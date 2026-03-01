@@ -1,13 +1,11 @@
 <template>
   <div class="flex items-center gap-5">
-    <div>
-      <UserAvatar
-        :progress="progress"
-        size="lg"
-        :full-name="fullName"
-        :image="userImage"
-      />
-    </div>
+    <UserAvatar
+      :progress="progress"
+      size="lg"
+      :full-name="fullName"
+      :image="userImage"
+    />
     <div>
       <div v-if="fullName" class="mb-1 font-bold text-dark">
         {{ fullName }}

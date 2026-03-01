@@ -1144,7 +1144,7 @@ const testCardData = [
         :progress="32"
       />
       <Priority priority="high" />
-      <Assignee :user-avatar-data="userAvatarData" :max="4" />
+      <Assignee :assignees="userAvatarData" :max="4" />
       <RequestType show-label request-type="remote" />
     </div>
   </div>

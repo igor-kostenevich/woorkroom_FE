@@ -1,4 +1,4 @@
-import type { IUserAvatar } from '~/types/components/userAvatar';
+import type { IUserAvatar } from '~/types/profile';
 
 export interface ProgressProps {
   size?: IUserAvatar['size'];

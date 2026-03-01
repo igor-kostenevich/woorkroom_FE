@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IEmployeesCardData } from '~/types/components/employeesCard';
+import type { IEmployee } from '~/types/employees';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
@@ -9,24 +9,7 @@ const EmployeeLvl = defineAsyncComponent(
 );
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
 
-const props = withDefaults(
-  defineProps<{
-    data?: IEmployeesCardData;
-  }>(),
-  {
-    data: () => ({
-      isBusy: false,
-      progress: 0,
-      userImage: '',
-      fullName: '',
-      positionName: '',
-      positionLevel: 1,
-      backlogTasksCount: 0,
-      tasksInProgressCount: 0,
-      tasksInReviewCount: 0,
-    }),
-  }
-);
+const props = defineProps<IEmployee>();
 
 const selectedCardColor = computed(() =>
   props.data.isBusy ? 'yellow' : undefined

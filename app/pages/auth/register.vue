@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCloned } from '@vueuse/core';
-import type { IRegisterPayload } from '~/types/register/registerPayload';
+import type { IRegisterPayload } from '~/types/auth';
 import useAuth from '~/composables/useAuth';
 
 definePageMeta({

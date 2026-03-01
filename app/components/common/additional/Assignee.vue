@@ -5,11 +5,11 @@
     </div>
     <div class="flex items-center -space-x-1">
       <UserAvatar
-        v-for="userAvatar in visibleUsers"
-        :key="userAvatar.id"
+        v-for="user in visibleUsers"
+        :key="user.id"
         size="sm"
-        :full-name="userAvatar.fullName"
-        :image="userAvatar.userImage"
+        :full-name="user.fullName"
+        :image="user.userImage"
         class="rounded-full border-2 border-white"
       />
       <div
@@ -24,21 +24,18 @@
 </template>
 
 <script setup lang="ts">
-import type { IAssigneeData } from '~/types/components/assignee';
-
-const UserAvatar = defineAsyncComponent(
-  () => import('~/components/common/UserAvatar.vue')
-);
+import UserAvatar from '~/components/common/UserAvatar.vue';
+import type { IAssigneeData } from '~/types/shared/assignee';
 
 const props = withDefaults(defineProps<IAssigneeData>(), {
   showLabel: true,
-  userAvatarData: () => [],
+  assignees: () => [],
   max: 3,
 });
 
-const visibleUsers = computed(() => props.userAvatarData.slice(0, props.max));
+const visibleUsers = computed(() => props.assignees.slice(0, props.max));
 
 const restUsers = computed(() =>
-  Math.max(0, props.userAvatarData.length - props.max)
+  Math.max(0, props.assignees.length - props.max)
 );
 </script>

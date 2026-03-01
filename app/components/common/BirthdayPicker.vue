@@ -1,48 +1,62 @@
-<script setup>
+<script setup lang="ts">
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
+import Icon from '@/UIKit/Icon.vue';
 import { useFormatters } from '@/composables/useFormatters';
 
-const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
+const MIN_BIRTH_YEAR = 1920;
+const MIN_DATE = new Date(MIN_BIRTH_YEAR, 0, 1);
 
-const MAX_DATE = new Date();
-const MIN_DATE = new Date(1920, 0, 1);
+const props = withDefaults(
+  defineProps<{
+    modelValue?: Date | null;
+    placeholder?: string;
+    placeholderDate?: string;
+    disabled?: boolean;
+  }>(),
+  { disabled: false }
+);
 
-const props = defineProps({
-  modelValue: Date,
-  placeholder: String,
-  disabled: Boolean,
-});
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: Date | null): void;
+}>();
 
-const emit = defineEmits(['update:modelValue']);
+const { locale } = useI18n();
+const formatDate = (d: Date) =>
+  useFormatters(locale.value as Intl.LocalesArgument).formatDate(d);
+
+const maxDate = computed(() => new Date());
+const yearRange = computed<[number, number]>(() => [
+  MIN_BIRTH_YEAR,
+  new Date().getFullYear(),
+]);
 
 const date = computed({
-  get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val),
+  get: () => props.modelValue ?? null,
+  set: (val: Date | null) => emit('update:modelValue', val),
 });
-
-const { formatDate } = useFormatters('en-US');
 </script>
+
 <template>
   <div class="flex flex-col gap-2">
     <span
-      v-if="$slots.birth"
+      v-if="$slots.label"
       :class="{ 'pointer-events-none opacity-40': disabled }"
       class="text-sm font-bold leading-6 text-gray"
     >
-      <slot name="birth" />
+      <slot name="label" />
     </span>
     <VueDatePicker
       v-model="date"
       :enable-time-picker="false"
-      :max-date="MAX_DATE"
+      :max-date="maxDate"
       :min-date="MIN_DATE"
-      :year-range="[1920, new Date().getFullYear()]"
+      :year-range="yearRange"
       :prevent-min-max-navigation="true"
       :light="true"
       :format="formatDate"
-      :placeholder="placeholder"
+      :placeholder="placeholder ?? placeholderDate"
       :class="[
         disabled
           ? 'pointer-events-none border-gray-secondary opacity-40'

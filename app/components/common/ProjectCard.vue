@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IProjectCard } from '~/types/profile/projectCard';
+import type { IProjectCard } from '~/types/projects';
 
 const PriorityBadge = defineAsyncComponent(
   () => import('~/components/common/additional/Priority.vue')
@@ -61,11 +61,7 @@ const props = defineProps<IProjectCard>();
 
         <div class="flex flex-col gap-1.5">
           <span class="text-sm text-gray-light">{{ $t('Assignees') }}</span>
-          <Assignee
-            :show-label="false"
-            :user-avatar-data="props.assignees ?? []"
-            :max="3"
-          />
+          <Assignee :show-label="false" :assignees="props.assignees" :max="3" />
         </div>
       </div>
     </div>

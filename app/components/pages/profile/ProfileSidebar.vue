@@ -167,7 +167,7 @@ const toggleEdit = async () => {
           :placeholder-date="$t('profile.placeholders.birthday')"
           :disabled="!isEditing"
         >
-          <template #birth> {{ $t('profile.Birthday Date') }}</template>
+          <template #label> {{ $t('profile.Birthday Date') }}</template>
         </BirthdayPicker>
 
         <div class="pt-6">

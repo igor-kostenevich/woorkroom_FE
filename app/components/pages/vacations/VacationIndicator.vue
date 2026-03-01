@@ -2,7 +2,7 @@
 import type {
   TLeaveType,
   TVacationStatus,
-} from '~/types/vacations/vacationIndicator';
+} from '~/types/shared/vacationIndicator';
 
 const props = defineProps<{
   status: TVacationStatus;

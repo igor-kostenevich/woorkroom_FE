@@ -4,7 +4,7 @@
       {{ $t('additional.requestType') }}
     </div>
     <div class="flex items-center gap-3">
-      <div :class="['h-[10px] w-[10px] rounded-full', colorType]" />
+      <div :class="['h-[10px] w-[10px] rounded-full', colorClass]" />
       <div class="font-bold leading-[150%] text-dark">
         {{ $t(`indicator.${requestType}`) }}
       </div>
@@ -13,7 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import type { TLeaveType } from '~/types/vacations/vacationIndicator';
+import {
+  REQUEST_TYPE_COLORS,
+  type TLeaveType,
+} from '~/types/shared/vacationIndicator';
 
 const props = withDefaults(
   defineProps<{
@@ -25,11 +28,8 @@ const props = withDefaults(
   }
 );
 
-const colorType = computed(() => {
-  return {
-    'bg-red': props.requestType === 'sick',
-    'bg-violet': props.requestType === 'remote',
-    'bg-blue': props.requestType === 'vacation',
-  };
+const colorClass = computed(() => {
+  const type: TLeaveType = props.requestType;
+  return REQUEST_TYPE_COLORS[type] ?? '';
 });
 </script>

@@ -1,9 +1,14 @@
 <script setup lang="ts">
 const Input = defineAsyncComponent(() => import('~/UIKit/Input.vue'));
 
+const CODE_KEYS = ['code1', 'code2', 'code3', 'code4'] as const;
+type CodeKey = (typeof CODE_KEYS)[number];
+
+type InputRefEl = { $el?: HTMLElement } | HTMLInputElement | null;
+
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 
-const codeForSms = reactive({
+const codeForSms = reactive<Record<CodeKey, string>>({
   code1: '',
   code2: '',
   code3: '',
@@ -11,27 +16,35 @@ const codeForSms = reactive({
 });
 
 function resetCode() {
-  for (const key in codeForSms) codeForSms[key] = '';
+  CODE_KEYS.forEach((key) => (codeForSms[key] = ''));
 }
 defineExpose({
   resetCode,
 });
 
-watch(codeForSms, (v) => {
-  emit('update:modelValue', Object.values(v).join(''));
+watch(codeForSms, (v: Record<CodeKey, string>) => {
+  emit('update:modelValue', CODE_KEYS.map((key) => v[key]).join(''));
 });
 
 const inputEls = ref<(HTMLInputElement | null)[]>([]);
 
-function setInputRef(el: any, index: number) {
+function setInputRef(el: InputRefEl, index: number) {
+  if (!el) {
+    inputEls.value[index] = null;
+    return;
+  }
   const realInput =
-    el?.$el?.querySelector?.('input') ?? el?.$el ?? (el as HTMLInputElement);
-  inputEls.value[index] = realInput;
+    '$el' in el ? (el.$el?.querySelector?.('input') ?? el.$el ?? null) : el;
+  inputEls.value[index] = realInput as HTMLInputElement | null;
 }
 
-function handleInput(index: number, key: string, e: InputEvent) {
+function getInputRefSetter(index: number) {
+  return (el: InputRefEl) => setInputRef(el, index);
+}
+
+function handleInput(index: number, key: CodeKey, e: InputEvent) {
   const value = codeForSms[key];
-  const inputType = (e as any).inputType;
+  const inputType = e.inputType;
 
   if (
     value.length === 1 &&
@@ -59,9 +72,9 @@ function handleKeypress(e: KeyboardEvent) {
 
     <div class="flex max-w-[277px] gap-4">
       <Input
-        v-for="(value, key, index) in codeForSms"
+        v-for="(key, index) in CODE_KEYS"
         :key="key"
-        :ref="(el) => setInputRef(el, index)"
+        :ref="getInputRefSetter(index)"
         v-model="codeForSms[key]"
         :hide-clear-btn="true"
         maxlength="1"
@@ -70,7 +83,7 @@ function handleKeypress(e: KeyboardEvent) {
         pattern="[0-9]*"
         class="text-center"
         @keypress="handleKeypress"
-        @input="(e) => handleInput(index, key, e)"
+        @input="handleInput(index, key, $event)"
       />
     </div>
   </div>

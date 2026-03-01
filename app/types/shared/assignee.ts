@@ -6,6 +6,6 @@ export interface IAssigneeUser {
 
 export interface IAssigneeData {
   showLabel: boolean;
-  userAvatarData: IAssigneeUser[];
+  assignees: IAssigneeUser[];
   max: number;
 }

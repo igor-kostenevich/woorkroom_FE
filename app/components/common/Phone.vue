@@ -29,6 +29,14 @@ watch(
   (v: string) => emit('update:modelValue', (v || '').replace(/\D/g, '')),
   { immediate: true }
 );
+
+watch(
+  () => props.modelValue,
+  (v: string) => {
+    phoneLocal.value = v ?? '';
+  },
+  { immediate: false }
+);
 </script>
 
 <template>

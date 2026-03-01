@@ -1,10 +1,10 @@
-interface OnboardingData {
+interface IOnboardingData {
   purpose: string;
   persona: string;
   extraYesNo: boolean;
 }
 
-interface CompanyData {
+interface ICompanyData {
   name: string;
   direction: string;
   teamSize: string;
@@ -18,7 +18,7 @@ export interface IRegisterPayload {
   dial: string;
   smsCode: string;
   phoneToken: string;
-  onboarding: OnboardingData;
-  company: CompanyData;
+  onboarding: IOnboardingData;
+  company: ICompanyData;
   invites: string[];
 }
