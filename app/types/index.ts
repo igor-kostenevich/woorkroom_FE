@@ -1,3 +1,3 @@
 export * from './projects/taskStatus';
 export * from './vacations/vacationIndicator';
-export * from './employees/empoyeeLvl';
+export * from './employees/employeeLvl';
