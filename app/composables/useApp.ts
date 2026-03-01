@@ -24,6 +24,9 @@ interface IDeviceInfo {
 }
 const device = ref<IDeviceInfo>();
 
+const isSidebarOpen = ref(false);
+const isMobileSearchOpen = ref(false);
+
 export default function useApp() {
   function initApp() {
     if (!appInitialized.value) {
@@ -113,6 +116,19 @@ export default function useApp() {
     return windowWidth.value < MOBILE_MENU_BREAKPOINT;
   });
 
+  const toggleMobileSearch = () => {
+    isMobileSearchOpen.value = !isMobileSearchOpen.value;
+  };
+
+  const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value;
+    if (isSidebarOpen.value) isMobileSearchOpen.value = false;
+  };
+
+  const closeSidebar = () => {
+    isSidebarOpen.value = false;
+  };
+
   return {
     initApp,
 
@@ -134,5 +150,12 @@ export default function useApp() {
     parseUserAgent,
     device,
     isTouchDevice,
+
+    // Sidebar
+    isSidebarOpen,
+    isMobileSearchOpen,
+    toggleMobileSearch,
+    toggleSidebar,
+    closeSidebar,
   };
 }

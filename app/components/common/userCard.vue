@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TeamMemberCard } from '~/types/profile/teamMemberCard';
+import type { EmployeeLevel } from '~/types';
 
 const UserAvatar = defineAsyncComponent(
   () => import('~/components/common/UserAvatar.vue')
@@ -8,7 +8,11 @@ const EmployeeLvl = defineAsyncComponent(
   () => import('~/components/pages/employees/EmployeeLvl.vue')
 );
 
-const props = defineProps<TeamMemberCard>();
+const props = defineProps<{
+  name: string;
+  position: string;
+  level: EmployeeLevel;
+}>();
 </script>
 
 <template>
