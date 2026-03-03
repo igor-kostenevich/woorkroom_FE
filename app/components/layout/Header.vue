@@ -3,14 +3,17 @@
     <header
       class="flex min-h-[70px] w-full items-center justify-between gap-5 rounded-3xl bg-white p-4 md:min-h-[50px] md:rounded-none md:bg-transparent md:py-0 md:pl-10 md:pr-5"
     >
-      <Icon name="logo" :size="40" class="block md:hidden" />
+      <Icon name="logo" :size="40" class="block text-primary md:hidden" />
 
-      <div class="hidden w-full max-w-[412px] md:block">
+      <div class="w-full max-w-[412px]">
+        <!-- TODO: EGOR - make this component mobile friendly -->
+        <!-- Компонент не має зміщувати контент сторінки при відкритті -->
+        <!-- Можеш зробит окремий компонент для хедера, в папці components/layout який буде юзати цей автокомпліт -->
         <Autocomplete
           v-model="selectedValues"
           :search="search"
-          :get-label="(u: any) => u.title"
-          :get-value="(u: any) => u.id"
+          :get-label="getItemLabel"
+          :get-value="getItemValue"
           :min-chars="2"
           :debounce="250"
           icon="search"
@@ -18,24 +21,24 @@
         />
       </div>
 
-      <div class="flex items-center gap-6">
-        <button
+      <div class="flex items-center gap-4 md:gap-6">
+        <!-- TODO: EGOR - remove after refactoring -->
+        <!-- <button
           type="button"
           class="block md:hidden"
           @click="toggleMobileSearch"
         >
           <Icon name="search" :size="24" />
-        </button>
-
-        <Icon name="notifications" :size="24" class="block md:hidden" />
+        </button> -->
 
         <Button
           color="neutral"
+          :size="isMobile ? 'sm' : 'md'"
           icon-before="notifications"
-          class="hidden md:block"
         />
 
-        <Popover class="hidden md:flex md:min-w-[182px]">
+        <!-- TODO: EGOR - make this component mobile friendly (as in design) -->
+        <Popover class="md:min-w-[182px]">
           <template #default>
             <div class="flex items-center">
               <UserAvatar :full-name="fullName" size="sm" />
@@ -45,7 +48,7 @@
 
           <template #content>
             <ul>
-              <li class="flex items-center">
+              <li class="flex flex-col gap-4">
                 <LinkButton
                   class="w-full text-left"
                   to="/profile"
@@ -54,36 +57,30 @@
                 >
                   {{ $t('Profile') }}
                 </LinkButton>
+
+                <LinkButton
+                  class="w-full text-left"
+                  icon-before="logout"
+                  color="red"
+                  no-underline
+                  @click="logout()"
+                >
+                  {{ $t('Logout') }}
+                </LinkButton>
               </li>
             </ul>
           </template>
         </Popover>
 
-        <UserAvatar :full-name="fullName" size="sm" class="md:hidden" />
-
         <Button
           color="neutral"
+          size="sm"
           icon-before="burger-menu"
-          class="!p-0 md:hidden"
+          class="md:hidden"
           @click="toggleSidebar"
         />
       </div>
     </header>
-
-    <div v-if="isMobileSearchOpen" class="mt-3 pb-3 md:hidden">
-      <Autocomplete
-        :key="mobileSearchKey"
-        v-model="selectedValues"
-        :search="search"
-        :get-label="(u: any) => u.title"
-        :get-value="(u: any) => u.id"
-        :min-chars="2"
-        :debounce="250"
-        icon="search"
-        :placeholder="$t('Search')"
-        @update:model-value="onSelect"
-      />
-    </div>
   </div>
 </template>
 
@@ -99,35 +96,47 @@ const UserAvatar = defineAsyncComponent(
   () => import('@/components/common/UserAvatar.vue')
 );
 const Icon = defineAsyncComponent(() => import('@/UIKit/Icon.vue'));
-const { isMobileSearchOpen, isSidebarOpen, toggleSidebar, toggleMobileSearch } =
-  useApp();
+const { isSidebarOpen, toggleSidebar, isMobile } = useApp();
 
-type Item = { id: string | number; title: string };
-
-const selectedValues = ref<Item | null>(null);
-const fullName = ref('Evan Yates');
-
-const mobileSearchKey = ref(0);
-
-const onSelect = <T,>(val: T | null) => {
-  if (!val) return;
-  isMobileSearchOpen.value = false;
-  mobileSearchKey.value += 1;
+type AutocompleteItem = {
+  id: string | number;
+  title: string;
 };
 
-const isScrollLocked = ref();
+type ScrollLockRef = ReturnType<typeof useScrollLock>;
+
+const { logout } = useAuth();
+
+const selectedValues = ref<AutocompleteItem | null>(null);
+const fullName = ref('Evan Yates');
+
+const getItemLabel = (item: AutocompleteItem): string => item.title;
+const getItemValue = (item: AutocompleteItem): AutocompleteItem['id'] =>
+  item.id;
+
+const scrollLock = shallowRef<ScrollLockRef>();
+
 onMounted(() => {
-  isScrollLocked.value = useScrollLock(document.body);
+  scrollLock.value = useScrollLock(document.body);
 });
 
-watchEffect(() => {
-  if (!isScrollLocked.value) return;
-  isScrollLocked.value.value = isSidebarOpen.value;
-});
+watch(
+  isSidebarOpen,
+  (isOpen: boolean) => {
+    if (!scrollLock.value) return;
+    scrollLock.value.value = isOpen;
+  },
+  { immediate: true }
+);
 
 // TODO: test search
-const search = async (q: string): Promise<Item[]> => {
-  if (!q?.trim()) return [];
-  return [{ id: 1, title: `Result for "${q}"` }];
+const search = async (query: string): Promise<AutocompleteItem[]> => {
+  const trimmedQuery = query.trim();
+
+  if (!trimmedQuery) {
+    return [];
+  }
+
+  return [{ id: 1, title: `Result for "${trimmedQuery}"` }];
 };
 </script>

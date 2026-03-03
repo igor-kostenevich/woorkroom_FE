@@ -55,6 +55,13 @@ const colorMap = {
     hoverBorder: 'hover:border-gray',
     activeBorder: 'active:border-gray-pressed',
   },
+  red: {
+    text: 'text-red',
+    hoverText: 'hover:text-red',
+    activeText: 'active:text-red-pressed',
+    hoverBorder: 'hover:border-red',
+    activeBorder: 'active:border-red-pressed',
+  },
 };
 
 const colorClasses = computed(() => {

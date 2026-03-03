@@ -13,7 +13,7 @@
         v-for="(modal, index) in openedModals"
         :key="modal.name"
         class="fixed inset-0 flex items-center justify-center bg-primary-overlay"
-        :style="{ zIndex: index * 2 }"
+        :style="{ zIndex: (index as number) * 2 }"
         @click.self="close(index)"
       >
         <span class="animate-pulse text-neutral-500 opacity-0"
@@ -28,7 +28,7 @@
           :is="modals[modal.name as ModalName]"
           :data="modal.data"
           :options="modal.options"
-          :style="{ zIndex: index * 2 + 1 }"
+          :style="{ zIndex: (index as number) * 2 + 1 }"
         />
       </template>
     </TransitionGroup>

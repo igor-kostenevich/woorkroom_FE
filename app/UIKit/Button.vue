@@ -88,6 +88,7 @@ const buttonAttrs = computed<IButtonAttrs>(() => {
       'inline-flex items-center justify-center font-bold transition-colors duration-200 disabled:cursor-not-allowed rounded-[14px] border border-transparent gap-2',
 
       // size
+      props.size === 'sm' && slots.default && 'text-sm p-2',
       props.size === 'md' && slots.default && 'text-base px-5 py-3',
       props.size === 'lg' && slots.default && 'text-lg px-12 py-4',
 
@@ -105,7 +106,14 @@ const buttonAttrs = computed<IButtonAttrs>(() => {
         props.color !== 'neutral' &&
         'px-4 py-2.5',
       !slots.default && props.size === 'lg' && 'px-5 py-2.5',
-      !slots.default && props.color === 'neutral' && 'p-3',
+      !slots.default &&
+        props.color === 'neutral' &&
+        props.size !== 'sm' &&
+        'p-3',
+      !slots.default &&
+        props.color === 'neutral' &&
+        props.size === 'sm' &&
+        'p-0',
 
       // fullwidth
       props.fullwidth && 'w-full',
