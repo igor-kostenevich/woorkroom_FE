@@ -4,8 +4,8 @@ const DaysAvailableCard = defineAsyncComponent(
   () => import('~/components/common/DaysAvailableCard.vue')
 );
 
-const EntityCardTable = defineAsyncComponent(
-  () => import('~/components/projects/EntityCardTable.vue')
+const Table = defineAsyncComponent(
+  () => import('~/components/pages/projects/Table.vue')
 );
 const Text = defineAsyncComponent(
   () => import('~/components/common/additional/Text.vue')
@@ -41,42 +41,22 @@ const cardsOfDaysAvailable = [
   },
 ];
 
-const vacationsCardData = [
-  [
-    {
-      componentName: RequestType,
-      data: {
-        requestType: 'sick',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.Duration'),
-        text: '3 days',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.Start Day'),
-        text: 'Sep 13, 2020',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.End Day'),
-        text: 'Sep 16, 2020',
-      },
-    },
-    {
-      componentName: VacationStatus,
-      data: {
-        status: 'pending',
-      },
-    },
-  ],
+const vacationTableColumns = [
+  { key: 'requestType', component: RequestType },
+  { key: 'duration', component: Text },
+  { key: 'startDay', component: Text },
+  { key: 'endDay', component: Text },
+  { key: 'status', component: VacationStatus },
+];
+
+const vacationTableRows = [
+  {
+    requestType: { requestType: 'sick' },
+    duration: { label: t('additional.Duration'), text: '3 days' },
+    startDay: { label: t('additional.Start Day'), text: 'Sep 13, 2020' },
+    endDay: { label: t('additional.End Day'), text: 'Sep 16, 2020' },
+    status: { status: 'pending' },
+  },
 ];
 </script>
 
@@ -91,9 +71,10 @@ const vacationsCardData = [
 
   <h2 class="text-xl font-bold">{{ $t('My Requests') }}</h2>
 
-  <EntityCardTable
+  <Table
+    :columns="vacationTableColumns"
+    :rows="vacationTableRows"
     :first-column-width="250"
-    :cards-data="vacationsCardData"
     :show-action-button="false"
   />
 </template>

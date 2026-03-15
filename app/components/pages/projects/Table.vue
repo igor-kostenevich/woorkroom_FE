@@ -7,13 +7,13 @@
         class="flex flex-col gap-5 md:table-row-group md:flex-row md:gap-0"
       >
         <tr
-          v-for="(card, index) in cardsData"
-          :key="index"
+          v-for="(row, rowIndex) in rows"
+          :key="rowIndex"
           class="relative flex flex-wrap gap-6 rounded-3xl bg-white p-5 shadow-sm md:table-row"
         >
           <td
-            v-for="(element, ind) in card"
-            :key="ind"
+            v-for="(column, colIndex) in columns"
+            :key="column.key"
             class="bg-white first:w-full first:rounded-l-3xl last:rounded-r-3xl md:table-cell md:px-7 md:py-5 md:first:w-auto"
             :style="{ '--firstElementWidth': firstColumnWidth + 'px' }"
           >
@@ -21,12 +21,15 @@
               :class="[
                 {
                   'w-full border-b border-b-gray-accent pb-6 md:w-auto md:min-w-[var(--firstElementWidth)] md:border-0 md:pb-0':
-                    ind === 0,
-                  'pr-16 md:pr-0': showActionButton && ind === 0,
+                    colIndex === 0,
+                  'pr-16 md:pr-0': showActionButton && colIndex === 0,
                 },
               ]"
             >
-              <component :is="element.componentName" v-bind="element.data" />
+              <component
+                :is="column.component"
+                v-bind="(row[column.key] as Record<string, unknown>) ?? {}"
+              />
             </div>
           </td>
           <td v-if="showActionButton" class="rounded-r-3xl md:px-7 md:py-5">
@@ -46,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import type { IEntityCardTable } from '~/types/shared/entityCardTable';
+import type { ITableProps } from '~/types/shared/table';
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
 
-withDefaults(defineProps<IEntityCardTable>(), {
+withDefaults(defineProps<ITableProps>(), {
   firstColumnWidth: 100,
   showActionButton: false,
 });

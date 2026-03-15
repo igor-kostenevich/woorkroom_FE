@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const Button = defineAsyncComponent(() => import('@/UIKit/Button.vue'));
-const EntityCardTable = defineAsyncComponent(
-  () => import('~/components/projects/EntityCardTable.vue')
+const Table = defineAsyncComponent(
+  () => import('~/components/pages/projects/Table.vue')
 );
 const EmployeesCard = defineAsyncComponent(
-  () => import('~/components/projects/EmployeeCard.vue')
+  () => import('~/components/pages/projects/EmployeeCard.vue')
 );
 const Text = defineAsyncComponent(
   () => import('~/components/common/additional/Text.vue')
@@ -19,159 +19,68 @@ const Tabs = defineAsyncComponent(() => import('@/UIKit/Tabs.vue'));
 
 const { t } = useI18n();
 
-const testCardData = [
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: 'Oscar Holloway',
-        userEmail: 'evanyates@gmail.com',
-      },
+const employeeTableColumns = [
+  { key: 'user', component: UserInfo },
+  { key: 'gender', component: Text },
+  { key: 'birthday', component: Text },
+  { key: 'age', component: Text },
+  { key: 'position', component: Position },
+];
+
+const employeeTableRows = [
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: 'Oscar Holloway',
+      userEmail: 'evanyates@gmail.com',
     },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.gender'),
-        text: 'Male',
-      },
+    gender: { label: t('additional.gender'), text: 'Male' },
+    birthday: { label: t('additional.birthday'), text: 'Apr 12, 1995' },
+    age: { label: t('additional.age'), text: '25' },
+    position: { positionName: 'UI/UX Designer', positionLevel: 2 },
+  },
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: 'Oscar Holl owayqwdqw dqwdqwdqwd qwdqwdqwdq',
+      userEmail: 'evanyates@gm.com',
     },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.birthday'),
-        text: 'Apr 12, 1995',
-      },
+    gender: { label: t('additional.gender'), text: 'Maqwdqw dqwdqwdle' },
+    birthday: {
+      label: t('additional.birthday'),
+      text: 'Apr 1 qwdqcqw qwdq2, 1995',
     },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.age'),
-        text: '25',
-      },
+    age: { label: t('additional.age'), text: ' qwqwdqwdqd 25' },
+    position: {
+      positionName: 'UI/UX Desiqee mqefqef  qefq qef fqefqefqe fqgner',
+      positionLevel: 1,
     },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UI/UX Designer',
-        positionLevel: 2,
-      },
+  },
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: 'Oscar Ho wefwef lloway',
+      userEmail: 'evany ates@ wefwefw gmail.com',
     },
-  ],
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: 'Oscar Holl owayqwdqw dqwdqwdqwd qwdqwdqwdq',
-        userEmail: 'evanyates@gm.com',
-      },
+    gender: { label: t('additional.gender'), text: 'Ma qwdqd le' },
+    birthday: {
+      label: t('additional.birthday'),
+      text: 'Apr 12qwd dqwdqwd , 1995',
     },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.gender'),
-        text: 'Maqwdqw dqwdqwdle',
-      },
+    age: { label: t('additional.age'), text: '25 qwdqwd edq ' },
+    position: { positionName: 'UI/UXq qwd  Designer', positionLevel: 2 },
+  },
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: ' wefwef lloway',
+      userEmail: 'evanyaail.com',
     },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.birthday'),
-        text: 'Apr 1 qwdqcqw qwdq2, 1995',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.age'),
-        text: ' qwqwdqwdqd 25',
-      },
-    },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UI/UX Desiqee mqefqef  qefq qef fqefqefqe fqgner',
-        positionLevel: 1,
-      },
-    },
-  ],
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: 'Oscar Ho wefwef lloway',
-        userEmail: 'evany ates@ wefwefw gmail.com',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.gender'),
-        text: 'Ma qwdqd le',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.birthday'),
-        text: 'Apr 12qwd dqwdqwd , 1995',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.age'),
-        text: '25 qwdqwd edq ',
-      },
-    },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UI/UXq qwd  Designer',
-        positionLevel: 2,
-      },
-    },
-  ],
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: ' wefwef lloway',
-        userEmail: 'evanyaail.com',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.gender'),
-        text: 'Male ',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.birthday'),
-        text: 'Apr 1 1995',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: t('additional.age'),
-        text: '25 q ',
-      },
-    },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UDesigner',
-        positionLevel: 3,
-      },
-    },
-  ],
+    gender: { label: t('additional.gender'), text: 'Male ' },
+    birthday: { label: t('additional.birthday'), text: 'Apr 1 1995' },
+    age: { label: t('additional.age'), text: '25 q ' },
+    position: { positionName: 'UDesigner', positionLevel: 3 },
+  },
 ];
 const employeesCardData = [
   {
@@ -264,7 +173,7 @@ const employeesCardData = [
   },
 ];
 
-const employeesCount = computed(() => testCardData.length);
+const employeesCount = computed(() => employeeTableRows.length);
 
 const activeTab = ref(0);
 const tabOptions = ref([{ title: 'List' }, { title: 'Activity' }]);
@@ -308,10 +217,11 @@ const { showModal } = useModal();
     </div>
   </div>
   <div>
-    <EntityCardTable
+    <Table
       v-if="activeTab === 0"
+      :columns="employeeTableColumns"
+      :rows="employeeTableRows"
       :first-column-width="360"
-      :cards-data="testCardData"
       :show-action-button="true"
     />
     <div

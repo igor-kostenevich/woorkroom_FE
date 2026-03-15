@@ -13,19 +13,19 @@ const Icon = defineAsyncComponent(() => import('~/UIKit/Icon.vue'));
 const LinkButton = defineAsyncComponent(() => import('~/UIKit/LinkButton.vue'));
 
 const StepPhone = defineAsyncComponent(
-  () => import('~/components/register/StepPhone.vue')
+  () => import('~/components/pages/auth/StepPhone.vue')
 );
 const StepYourself = defineAsyncComponent(
-  () => import('~/components/register/StepYourself.vue')
+  () => import('~/components/pages/auth/StepYourself.vue')
 );
 const StepCompany = defineAsyncComponent(
-  () => import('~/components/register/StepCompany.vue')
+  () => import('~/components/pages/auth/StepCompany.vue')
 );
 const Invite = defineAsyncComponent(
-  () => import('~/components/register/InviteStep.vue')
+  () => import('~/components/pages/auth/InviteStep.vue')
 );
 const StepSuccess = defineAsyncComponent(
-  () => import('~/components/register/StepSuccess.vue')
+  () => import('~/components/pages/auth/StepSuccess.vue')
 );
 
 const { setCookie, getCookie } = useAppCookie();

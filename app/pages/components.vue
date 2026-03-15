@@ -22,8 +22,8 @@ const Priority = defineAsyncComponent(
 const Assignee = defineAsyncComponent(
   () => import('~/components/common/additional/Assignee.vue')
 );
-const EntityCardTable = defineAsyncComponent(
-  () => import('~/components/projects/EntityCardTable.vue')
+const Table = defineAsyncComponent(
+  () => import('~/components/pages/projects/Table.vue')
 );
 const DaysAvailableCard = defineAsyncComponent(
   () => import('~/components/common/DaysAvailableCard.vue')
@@ -338,159 +338,62 @@ const userAvatarData = [
     fullName: 'Oscar Holloway',
   },
 ];
-const testCardData = [
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: 'Oscar Holloway',
-        userEmail: 'evanyates@gmail.com',
-      },
+const cardsTableColumns = [
+  { key: 'user', component: UserInfo },
+  { key: 'gender', component: Text },
+  { key: 'birthday', component: Text },
+  { key: 'age', component: Text },
+  { key: 'position', component: Position },
+];
+
+const cardsTableRows = [
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: 'Oscar Holloway',
+      userEmail: 'evanyates@gmail.com',
     },
-    {
-      componentName: Text,
-      data: {
-        label: 'Gender',
-        text: 'Male',
-      },
+    gender: { label: 'Gender', text: 'Male' },
+    birthday: { label: 'Birthday', text: 'Apr 12, 1995' },
+    age: { label: 'Age', text: '25' },
+    position: { positionName: 'UI/UX Designer', positionLevel: 2 },
+  },
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: 'Oscar Holl owayqwdqw dqwdqwdqwd qwdqwdqwdq',
+      userEmail: 'evanyates@gm.com',
     },
-    {
-      componentName: Text,
-      data: {
-        label: 'Birthday',
-        text: 'Apr 12, 1995',
-      },
+    gender: { label: 'Gender', text: 'Maqwdqw dqwdqwdle' },
+    birthday: { label: 'Birthday', text: 'Apr 1 qwdqcqw qwdq2, 1995' },
+    age: { label: 'Age', text: ' qwqwdqwdqd 25' },
+    position: {
+      positionName: 'UI/UX Desiqee mqefqef  qefq qef fqefqefqe fqgner',
+      positionLevel: 1,
     },
-    {
-      componentName: Text,
-      data: {
-        label: 'Age',
-        text: '25',
-      },
+  },
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: 'Oscar Ho wefwef lloway',
+      userEmail: 'evany ates@ wefwefw gmail.com',
     },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UI/UX Designer',
-        positionLevel: 2,
-      },
+    gender: { label: 'Gender', text: 'Ma qwdqd le' },
+    birthday: { label: 'Birthday', text: 'Apr 12qwd dqwdqwd , 1995' },
+    age: { label: 'Age', text: '25 qwdqwd edq ' },
+    position: { positionName: 'UI/UXq qwd  Designer', positionLevel: 2 },
+  },
+  {
+    user: {
+      userImage: '/images/common/woman.png',
+      fullName: ' wefwef lloway',
+      userEmail: 'evanyaail.com',
     },
-  ],
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: 'Oscar Holl owayqwdqw dqwdqwdqwd qwdqwdqwdq',
-        userEmail: 'evanyates@gm.com',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Gender',
-        text: 'Maqwdqw dqwdqwdle',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Birthday',
-        text: 'Apr 1 qwdqcqw qwdq2, 1995',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Age',
-        text: ' qwqwdqwdqd 25',
-      },
-    },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UI/UX Desiqee mqefqef  qefq qef fqefqefqe fqgner',
-        positionLevel: 1,
-      },
-    },
-  ],
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: 'Oscar Ho wefwef lloway',
-        userEmail: 'evany ates@ wefwefw gmail.com',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Gender',
-        text: 'Ma qwdqd le',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Birthday',
-        text: 'Apr 12qwd dqwdqwd , 1995',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Age',
-        text: '25 qwdqwd edq ',
-      },
-    },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UI/UXq qwd  Designer',
-        positionLevel: 2,
-      },
-    },
-  ],
-  [
-    {
-      componentName: UserInfo,
-      data: {
-        userImage: '/images/common/woman.png',
-        fullName: ' wefwef lloway',
-        userEmail: 'evanyaail.com',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Gender',
-        text: 'Male ',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Birthday',
-        text: 'Apr 1 1995',
-      },
-    },
-    {
-      componentName: Text,
-      data: {
-        label: 'Age',
-        text: '25 q ',
-      },
-    },
-    {
-      componentName: Position,
-      data: {
-        positionName: 'UDesigner',
-        positionLevel: 3,
-      },
-    },
-  ],
+    gender: { label: 'Gender', text: 'Male ' },
+    birthday: { label: 'Birthday', text: 'Apr 1 1995' },
+    age: { label: 'Age', text: '25 q ' },
+    position: { positionName: 'UDesigner', positionLevel: 3 },
+  },
 ];
 </script>
 
@@ -1153,9 +1056,10 @@ const testCardData = [
     <h3 class="mb-10 text-4xl font-bold text-dark">
       {{ String('Cards') }}
     </h3>
-    <EntityCardTable
+    <Table
+      :columns="cardsTableColumns"
+      :rows="cardsTableRows"
       :first-column-width="360"
-      :cards-data="testCardData"
       :show-action-button="true"
     />
   </div>

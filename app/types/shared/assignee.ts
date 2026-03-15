@@ -5,7 +5,7 @@ export interface IAssigneeUser {
 }
 
 export interface IAssigneeData {
-  showLabel: boolean;
+  showLabel?: boolean;
   assignees: IAssigneeUser[];
-  max: number;
+  max?: number;
 }
